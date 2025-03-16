@@ -1,0 +1,46 @@
+### Crear cliente 1
+POST http://localhost:8080/api/customers
+Content-Type: application/json
+
+{
+  "id": 1,
+  "firstName": "Juan",
+  "lastName": "Perez",
+  "email": "juan.perez@example.com",
+  "gender": "M",
+  "phoneNumber": "1123456789",
+  "address": {
+    "addressLine": "Av. 9 de Julio 1234",
+    "city": "Buenos Aires",
+    "region": "CABA",
+    "postalCode": "C1001",
+    "country": "Argentina"
+  }
+}
+
+### Crear el cliente 2
+POST http://localhost:8080/api/customers
+Content-Type: application/json
+
+{
+  "id": 2,
+  "firstName": "Maria",
+  "lastName": "Gomez",
+  "gender": "F",
+  "email": "maria.gomez@example.com",
+  "phoneNumber": "1134567890",
+  "address": {
+    "addressLine": "Calle Falsa 5678",
+    "city": "Rosario",
+    "region": "Santa Fe",
+    "postalCode": "2000",
+    "country": "Argentina"
+  }
+}
+
+### Obtener todos los clientes
+GET http://localhost:8080/api/customers
+
+### Eliminar el primer cliente
+DELETE http://localhost:8080/api/customers/1
+
