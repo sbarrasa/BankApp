@@ -3,6 +3,7 @@ package com.sbarrasa.bank.model;
 import com.sbarrasa.bank.customer.Address;
 import com.sbarrasa.bank.customer.Customer;
 import com.sbarrasa.bank.customer.Gender;
+import com.sbarrasa.bank.product.base.Product;
 import jakarta.persistence.*;
 import lombok.Data;
 import jakarta.validation.constraints.Email;
@@ -25,19 +26,24 @@ public class CustomerEntity implements Customer {
   @Id
   private Integer id;
 
+  @Column(length = 30)
   private String firstName;
 
+  @Column(length = 30)
   private String lastName;
 
+  @Column(length = 1)
   private Gender gender;
 
   @Embedded
   private Address address;
 
   @Email
+  @Column(length = 20)
   private String email;
 
   @Pattern(regexp = "^[0-9]{10}$", message = "Invalid phone number")
+  @Column(length = 15)
   private String phoneNumber;
 
   @CreatedDate
@@ -48,11 +54,8 @@ public class CustomerEntity implements Customer {
   @Column(nullable = false)
   private LocalDateTime lastUpdate;
 
-  @ManyToMany
-  @JoinTable(
-    name = "customer_product",
-    joinColumns = @JoinColumn(name = "customer_id"),
-    inverseJoinColumns = @JoinColumn(name = "product_id"))
+  @OneToMany
+  @JoinColumn(name = "customer_id")
   private Set<Product> products;
 
   public CustomerEntity(){
