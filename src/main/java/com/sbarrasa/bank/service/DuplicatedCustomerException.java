@@ -8,6 +8,6 @@ public class DuplicatedCustomerException extends CustomerException {
 
   @Override
   protected String getErrorMessage() {
-    return "Cliente duplicado %d";
+    return "Cliente %d duplicado";
   }
 }
