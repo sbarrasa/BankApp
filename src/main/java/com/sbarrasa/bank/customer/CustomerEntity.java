@@ -16,6 +16,7 @@ import java.util.Set;
 
 
 @Entity
+@Table(name = "CUSTOMER")
 @Data
 @Accessors(chain = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -32,6 +33,7 @@ public class CustomerEntity implements Customer {
   private String lastName;
 
   @Column(length = 1)
+  @Enumerated(EnumType.STRING)
   private Gender gender;
 
   @Embedded

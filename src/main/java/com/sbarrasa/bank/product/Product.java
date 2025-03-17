@@ -20,9 +20,11 @@ public class Product {
   private String cbu;
 
   @Column(length = 3)
+  @Enumerated(EnumType.STRING)
   private Currency currency;
 
   @Column(length = 4)
+  @Enumerated(EnumType.STRING)
   private Branch branch;
 
   @Column(length = 10)
@@ -31,6 +33,7 @@ public class Product {
   private Double creditLimit;
 
   @Column(length = 2)
+  @Enumerated(EnumType.STRING)
   private ProductType productType;
 
   @Transient

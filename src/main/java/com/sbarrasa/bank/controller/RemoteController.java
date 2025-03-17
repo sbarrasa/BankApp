@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Arrays;
 import java.util.Set;
 
-
+//Simulación de un controller que usando restTemplate llama a otros microservicios para armar un response
 @Controller
 @RequestMapping("/remote/customers")
 public class RemoteController {
