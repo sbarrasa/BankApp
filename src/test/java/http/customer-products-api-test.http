@@ -1,0 +1,108 @@
+### Crear el cliente
+POST http://localhost:8080/api/customers
+Content-Type: application/json
+
+{
+  "id": 1,
+  "firstName": "Juan",
+  "lastName": "Perez",
+  "email": "juan.perez@example.com",
+  "gender": "M",
+  "phoneNumber": "1123456789",
+  "address": {
+    "addressLine": "Av. 9 de Julio 1234",
+    "city": "Buenos Aires",
+    "region": "CABA",
+    "postalCode": "C1001",
+    "country": "Argentina"
+  }
+}
+
+
+### Agregar tarjeta de credito
+POST http://localhost:8080/api/customers/1/products
+Content-Type: application/json
+
+{
+  "productType": "TC",
+  "creditLimit": 6000000.00,
+  "branch": "VISA",
+  "tier": "SIGNATURE"
+}
+
+### Agregar tarjeta de debito
+POST http://localhost:8080/api/customers/1/products
+Content-Type: application/json
+
+{
+  "productType": "TD",
+  "branch": "VISA"
+}
+
+### Agregar caja de ahorro en pesos
+POST http://localhost:8080/api/customers/1/products
+Content-Type: application/json
+
+{
+  "productType": "CA",
+  "currency": "ARS",
+  "cbu": "1234567890123456789012"
+}
+
+### Agregar caja de ahorro en dolares
+POST http://localhost:8080/api/customers/1/products
+Content-Type: application/json
+
+{
+  "productType": "CA",
+  "currency": "USD",
+  "cbu": "1234567890123456789022"
+}
+
+### Agregar cuenta corriente
+POST http://localhost:8080/api/customers/1/products
+Content-Type: application/json
+
+{
+  "productType": "CC",
+  "currency": "ARS",
+  "creditLimit": 1000000.00,
+  "cbu": "1234567890123456789033"
+
+}
+
+### Mostrar tarjetas VISA
+GET http://localhost:8080/api/customers/1/products
+Content-Type: application/json
+
+{
+  "branch": "VISA"
+}
+
+### Mostrar cuentas en ARS
+
+GET http://localhost:8080/api/customers/1/products
+Content-Type: application/json
+
+{
+  "currency": "ARS"
+}
+
+### Mostrar productos crediticios
+
+GET http://localhost:8080/api/customers/1/products
+Content-Type: application/json
+
+{
+  "isCredit": true
+}
+
+### Mostrar tarjeta de debito VISA
+GET http://localhost:8080/api/customers/1/products
+Content-Type: application/json
+
+{
+  "branch": "VISA",
+  "productType": "TD"
+}
+

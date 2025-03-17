@@ -1,4 +1,4 @@
-package com.sbarrasa.bank.product.base;
+package com.sbarrasa.bank.product;
 
 import lombok.Getter;
 
@@ -6,8 +6,7 @@ import lombok.Getter;
 public enum Branch {
   VISA("Visa"),
   MC("MasterCard"),
-  Amex("Américan Express"),
-  Cabal("Cabal");
+  AMEX("Américan Express");
 
   private final String name;
 

@@ -7,6 +7,7 @@ import com.sbarrasa.bank.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,32 +28,30 @@ public class CustomerService {
   }
 
   public Customer get(Integer id) {
-    var customerEntity = customerRepository.findById(id)
+    return customerRepository.findById(id)
       .orElseThrow(() -> new CustomerNotFoundException(id));
-
-    return new CustomerDTO(customerEntity);
   }
 
-  public Customer create(Customer customer) {
+  public Customer create(CustomerEntity customer) {
     if(customerRepository.existsById(customer.getId()))
       throw new ExistingCustomerException(customer.getId());
 
-    var customerEntity = new CustomerEntity(customer);
-    return new CustomerDTO(customerRepository.save(customerEntity));
+    return customerRepository.save(customer);
 
   }
 
-  public Customer update(Customer customer) {
+  public Customer update(CustomerEntity customer) {
     get(customer.getId());
-    return customerRepository.save(new CustomerEntity(customer));
-
+    return customerRepository.save(customer);
   }
 
   public Customer delete(Integer id) {
     var customer= this.get(id);
+    var customerDeleted = new CustomerEntity(customer);
+    customerDeleted.setLastUpdate(LocalDateTime.now());
 
     customerRepository.deleteById(id);
-    return customer;
+    return customerDeleted;
   }
 
 

@@ -1,4 +1,4 @@
-package com.sbarrasa.bank.product.base;
+package com.sbarrasa.bank.product;
 
 import lombok.Getter;
 

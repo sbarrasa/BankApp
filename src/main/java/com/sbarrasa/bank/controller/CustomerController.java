@@ -1,10 +1,8 @@
 package com.sbarrasa.bank.controller;
 
 import com.sbarrasa.bank.customer.Customer;
-import com.sbarrasa.bank.customer.CustomerDTO;
-import com.sbarrasa.bank.service.CustomerNotFoundException;
+import com.sbarrasa.bank.model.CustomerEntity;
 import com.sbarrasa.bank.service.CustomerService;
-import com.sbarrasa.bank.service.ExistingCustomerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,13 +38,13 @@ public class CustomerController {
 
 
   @PostMapping
-  public ResponseEntity<Customer> create(@RequestBody CustomerDTO customer) {
+  public ResponseEntity<Customer> create(@RequestBody CustomerEntity customer) {
     var createdCustomer = customerService.create(customer);
     return new ResponseEntity<>(createdCustomer, HttpStatus.CREATED);
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<Customer> update(@RequestBody Customer customer) {
+  public ResponseEntity<Customer> update(@RequestBody CustomerEntity customer) {
     var updatedCustomer = customerService.update(customer);
     return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
   }
@@ -57,19 +55,5 @@ public class CustomerController {
     return new ResponseEntity<>(customer, HttpStatus.OK);
   }
 
-  @ExceptionHandler(ExistingCustomerException.class)
-  public ResponseEntity<String> handleExistingCustomer(ExistingCustomerException ex) {
-    return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
-  }
 
-  @ExceptionHandler(CustomerNotFoundException.class)
-  public ResponseEntity<String> handleCustomerNotFound(CustomerNotFoundException ex) {
-    return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
-  }
-
-  @ExceptionHandler(Exception.class)
-  public ResponseEntity<String> handleException(Exception ex) {
-    ex.printStackTrace();
-    return new ResponseEntity<>("Error: %s".formatted(ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
-  }
 }

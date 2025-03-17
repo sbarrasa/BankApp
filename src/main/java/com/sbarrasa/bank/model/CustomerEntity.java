@@ -1,9 +1,10 @@
 package com.sbarrasa.bank.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.sbarrasa.bank.customer.Address;
 import com.sbarrasa.bank.customer.Customer;
 import com.sbarrasa.bank.customer.Gender;
-import com.sbarrasa.bank.product.base.Product;
+import com.sbarrasa.bank.product.Product;
 import jakarta.persistence.*;
 import lombok.Data;
 import jakarta.validation.constraints.Email;
@@ -20,6 +21,7 @@ import java.util.Set;
 @Entity
 @Data
 @Accessors(chain = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @EntityListeners(AuditingEntityListener.class)
 public class CustomerEntity implements Customer {
 
@@ -39,11 +41,11 @@ public class CustomerEntity implements Customer {
   private Address address;
 
   @Email
-  @Column(length = 20)
+  @Column(length = 40)
   private String email;
 
   @Pattern(regexp = "^[0-9]{10}$", message = "Invalid phone number")
-  @Column(length = 15)
+  @Column(length = 20)
   private String phoneNumber;
 
   @CreatedDate
@@ -54,9 +56,10 @@ public class CustomerEntity implements Customer {
   @Column(nullable = false)
   private LocalDateTime lastUpdate;
 
-  @OneToMany
+  @OneToMany(cascade = CascadeType.ALL)
   @JoinColumn(name = "customer_id")
   private Set<Product> products;
+
 
   public CustomerEntity(){
 
