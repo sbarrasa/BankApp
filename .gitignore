@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+/data/bank.mv.db
+/data/bank.trace.db
+/BankCustomers.project.zip
