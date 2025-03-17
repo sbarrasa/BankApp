@@ -15,8 +15,10 @@ import java.util.Collection;
 public class CustomerProductsController {
 
 
+  private final CustomerService customerService;
+
   @Autowired
-  private CustomerService customerService;
+  public CustomerProductsController(CustomerService customerService) {this.customerService = customerService;}
 
   @Transactional
   @PostMapping("/{customerId}/products")
@@ -72,6 +74,7 @@ public class CustomerProductsController {
 
     return productMatcher.filter(productSample);
   }
+
 
 
 }

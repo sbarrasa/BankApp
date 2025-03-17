@@ -1,0 +1,2 @@
+### arma un Customer con products usando los otros dos servicios via RestTemplate
+GET http://localhost:8080/remote/customers/1
