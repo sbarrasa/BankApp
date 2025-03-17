@@ -8,6 +8,6 @@ public class CustomerNotFoundException extends CustomerException {
 
   @Override
   protected String getErrorMessage() {
-    return "Customer %d not found";
+    return "Cliente %d no encontrado";
   }
 }

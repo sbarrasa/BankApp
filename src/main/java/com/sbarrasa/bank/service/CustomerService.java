@@ -28,25 +28,25 @@ public class CustomerService {
   }
 
 
-  public Customer get(Integer id) {
+  public CustomerEntity get(Integer id) {
     return customerRepository.findById(id)
       .orElseThrow(() -> new CustomerNotFoundException(id));
   }
 
-  public Customer create(CustomerEntity customer) {
+  public CustomerEntity create(CustomerEntity customer) {
     if(customerRepository.existsById(customer.getId()))
-      throw new ExistingCustomerException(customer.getId());
+      throw new DuplicatedCustomerException(customer.getId());
 
     return customerRepository.save(customer);
 
   }
 
-  public Customer update(CustomerEntity customer) {
+  public CustomerEntity update(CustomerEntity customer) {
     get(customer.getId());
     return customerRepository.save(customer);
   }
 
-  public Customer delete(Integer id) {
+  public CustomerEntity delete(Integer id) {
     var customer= this.get(id);
     var customerDeleted = new CustomerEntity(customer);
     customerDeleted.setLastUpdate(LocalDateTime.now());
