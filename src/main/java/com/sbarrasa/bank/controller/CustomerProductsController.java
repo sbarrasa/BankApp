@@ -40,17 +40,30 @@ public class CustomerProductsController {
                                            @RequestBody Product productSample) {
     var customer = productService.getCustomer(customerId);
 
+    var noDeletedProducts = productService.except(customer.getProducts(), productSample);
+
+    customer.setProducts(noDeletedProducts);
+
     customerService.update(customer);
     return customer.getProducts();
   }
 
+
   @GetMapping("/{customerId}/products")
-  public Collection<Product> showProducts(@PathVariable Integer customerId,
+  public Collection<Product> getProducts(@PathVariable Integer customerId) {
+
+    return productService.getProducts(customerId);
+
+  }
+
+  @GetMapping("/{customerId}/products/filter")
+  public Collection<Product> getProductsByExample(@PathVariable Integer customerId,
                                           @RequestBody Product productSample) {
 
     var products = productService.getProducts(customerId);
 
-    return productService.filterByExample(products, productSample);
+
+    return productService.filter(products, productSample);
 
   }
 

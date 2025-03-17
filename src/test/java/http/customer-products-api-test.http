@@ -72,7 +72,7 @@ Content-Type: application/json
 }
 
 ### Mostrar tarjetas VISA
-GET http://localhost:8080/api/customers/1/products
+GET http://localhost:8080/api/customers/1/products/filter
 Content-Type: application/json
 
 {
@@ -80,8 +80,7 @@ Content-Type: application/json
 }
 
 ### Mostrar cuentas en ARS
-
-GET http://localhost:8080/api/customers/1/products
+GET http://localhost:8080/api/customers/1/products/filter
 Content-Type: application/json
 
 {
@@ -89,16 +88,15 @@ Content-Type: application/json
 }
 
 ### Mostrar productos crediticios
-
-GET http://localhost:8080/api/customers/1/products
+GET http://localhost:8080/api/customers/1/products/filter
 Content-Type: application/json
 
 {
   "isCredit": true
 }
 
-### Mostrar tarjeta de debito VISA
-GET http://localhost:8080/api/customers/1/products
+### Borrar tarjeta de debito VISA
+DELETE http://localhost:8080/api/customers/1/products
 Content-Type: application/json
 
 {
@@ -106,3 +104,6 @@ Content-Type: application/json
   "productType": "TD"
 }
 
+### Obtener todos los productos
+GET http://localhost:8080/api/customers/1/products
+Content-Type: application/json

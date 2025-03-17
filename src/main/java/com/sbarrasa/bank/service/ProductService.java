@@ -14,9 +14,17 @@ public class ProductService {
   @Autowired
   private CustomerRepository customerRepository;
 
-  public Set<Product> filterByExample(Set<Product> products, Product productSample){
+  public Set<Product> except(Set<Product> products, Product productSample){
+    return filter(products, productSample, false);
+  }
+
+  public Set<Product> filter(Set<Product> products, Product productSample){
+    return filter(products, productSample, true);
+  }
+
+  public Set<Product> filter(Set<Product> products, Product productSample, boolean matchStatus){
     return products.stream()
-      .filter(product -> product.match(productSample))
+      .filter(product -> product.match(productSample) == matchStatus)
       .collect(Collectors.toSet());
   }
 
