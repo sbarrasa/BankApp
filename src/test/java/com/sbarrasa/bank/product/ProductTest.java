@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProductTest {
 
   @Test
-  void matchARS() {
+  void matchAttributeARS() {
     var sample = new Product()
       .setCurrency(Currency.ARS);
 

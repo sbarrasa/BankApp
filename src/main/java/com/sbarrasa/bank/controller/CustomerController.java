@@ -31,9 +31,8 @@ public class CustomerController {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<Customer> get(@PathVariable Integer id) {
-    var customer = new CustomerDTO(customerService.get(id));
-    return new ResponseEntity<>(customer, HttpStatus.OK);
+  public Customer get(@PathVariable Integer id) {
+    return new CustomerDTO(customerService.get(id));
   }
 
   @PostMapping
@@ -43,15 +42,13 @@ public class CustomerController {
   }
 
   @PutMapping("/{id}")
-  public ResponseEntity<Customer> update(@RequestBody CustomerEntity customer) {
-    var updatedCustomer = customerService.update(customer);
-    return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
+  public Customer update(@RequestBody CustomerEntity customer) {
+    return customerService.update(customer);
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<Customer> delete(@PathVariable Integer id) {
-    var customer = customerService.delete(id);
-    return new ResponseEntity<>(customer, HttpStatus.OK);
+  public Customer delete(@PathVariable Integer id) {
+    return customerService.delete(id);
   }
 
 

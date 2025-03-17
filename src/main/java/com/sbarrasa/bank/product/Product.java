@@ -39,7 +39,8 @@ public class Product implements Descriptible {
   private ProductType productType;
 
   @Transient
-  private Boolean isCredit;
+  //debe ser package private para que funcione el ProductMatcher
+  Boolean isCredit;
 
 
   public Boolean getIsCredit(){
@@ -53,34 +54,8 @@ public class Product implements Descriptible {
   }
 
   public boolean match(Product sample){
-    if(sample == null) return false;
-
-    if(match(this.productType, sample.productType))
-      return false;
-
-    if(match(this.branch, sample.branch))
-      return false;
-
-    if(match(this.tier, sample.tier))
-      return false;
-
-    if(match(this.cbu, sample.cbu))
-      return false;
-
-    if(match(this.currency, sample.currency))
-      return false;
-
-    if(match(this.getIsCredit(), sample.isCredit))
-      return false;
-
-    return true;
+    return ProductsMatcher.match(this, sample);
   }
-
-  private boolean match(Object attribute, Object attributeSample){
-    return attributeSample != null
-      && !attributeSample.equals(attribute);
-  }
-
 
   @Override
   public String getDescription() {
