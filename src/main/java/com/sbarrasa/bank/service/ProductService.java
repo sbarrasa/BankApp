@@ -1,6 +1,6 @@
 package com.sbarrasa.bank.service;
 
-import com.sbarrasa.bank.model.CustomerEntity;
+import com.sbarrasa.bank.customer.CustomerEntity;
 import com.sbarrasa.bank.product.Product;
 import com.sbarrasa.bank.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;

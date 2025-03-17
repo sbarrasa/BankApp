@@ -38,6 +38,9 @@ Content-Type: application/json
   }
 }
 
+### Obtener el cliente 1
+GET http://localhost:8080/api/customers/1
+
 ### Obtener todos los clientes
 GET http://localhost:8080/api/customers
 

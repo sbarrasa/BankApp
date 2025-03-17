@@ -2,7 +2,7 @@ package com.sbarrasa.bank.service;
 
 import com.sbarrasa.bank.customer.Customer;
 import com.sbarrasa.bank.customer.CustomerDTO;
-import com.sbarrasa.bank.model.CustomerEntity;
+import com.sbarrasa.bank.customer.CustomerEntity;
 import com.sbarrasa.bank.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +26,7 @@ public class CustomerService {
         .map(CustomerDTO::new)
         .collect(Collectors.toList());
   }
+
 
   public Customer get(Integer id) {
     return customerRepository.findById(id)

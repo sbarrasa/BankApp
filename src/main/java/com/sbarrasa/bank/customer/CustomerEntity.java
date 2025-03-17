@@ -1,9 +1,6 @@
-package com.sbarrasa.bank.model;
+package com.sbarrasa.bank.customer;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.sbarrasa.bank.customer.Address;
-import com.sbarrasa.bank.customer.Customer;
-import com.sbarrasa.bank.customer.Gender;
 import com.sbarrasa.bank.product.Product;
 import jakarta.persistence.*;
 import lombok.Data;
