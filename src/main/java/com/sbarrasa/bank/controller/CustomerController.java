@@ -13,7 +13,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/customers")
-
 public class CustomerController {
 
   private final CustomerService customerService;
@@ -36,8 +35,6 @@ public class CustomerController {
     var customer = new CustomerDTO(customerService.get(id));
     return new ResponseEntity<>(customer, HttpStatus.OK);
   }
-
-
 
   @PostMapping
   public ResponseEntity<Customer> create(@RequestBody CustomerEntity customer) {
