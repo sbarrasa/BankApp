@@ -53,8 +53,8 @@ class ProductTest {
 
   @Test
   void getName(){
-    assertEquals(ProductType.TD.getName(), SampleProducts.productTD.getName());
-    assertEquals(ProductType.TC.getName(), SampleProducts.productTC.getName());
+    assertEquals(ProductType.TD.getDescription(), SampleProducts.productTD.getName());
+    assertEquals(ProductType.TC.getDescription(), SampleProducts.productTC.getName());
 
   }
 }

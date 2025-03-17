@@ -1,6 +1,11 @@
 package com.sbarrasa.bank.customer;
 
-public enum Gender {
+import com.sbarrasa.bank.descriptible.Descriptible;
+import lombok.Getter;
+
+
+@Getter
+public enum Gender implements Descriptible {
   F("Femenino"),
   M("Masculino"),
   X("No definido");
@@ -9,9 +14,5 @@ public enum Gender {
 
   Gender(String description) {
     this.description = description;
-  }
-
-  public String description() {
-    return description;
   }
 }

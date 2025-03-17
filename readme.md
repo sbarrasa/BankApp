@@ -1,4 +1,6 @@
-# BankCustomers demo
+# BankCustomers DEMO
+
+>Funciona con JAVA 17+
 
 ### Pruebas desde el código fuente 
 1) Descagar del repositorio de https://github.com/sbarrasa/BankApp
@@ -17,11 +19,14 @@
 
 
 ### SERVICIOS
-La app tiene 3 controllers separados 
+La app tiene 4 controllers separados que podrían ponerse en microservicios independientes.
 
 ### CustomerController 
-http://localhost:8080/api/customers
-Operaciones:
+> Api: http://localhost:8080/api/customers
+
+> Api tests: src/test/java/http/customer-api-test.http
+
+* Operaciones:
 1) Alta (POST)
 recibe como path param el id del customer (ej: DNI)
 recibe un JSON con los datos del customer
@@ -40,11 +45,12 @@ en caso de no existir sale con NOT_FOUND
 1.5) Listado de customers (GET)
 igual que la consulta individual per no recibe ningún parámetro 
 devuelve los datos de todos los customers sin productos
->Endpoints de prueba
-src/test/java/http/customer-api-test.http
-> 
+
 ### 2) CustomerProductsController 
-http://localhost:8080/api/customers/{customerId}/products
+> Api: http://localhost:8080/api/customers/{customerId}/products
+
+> ApiTest: src/test/java/http/customer-products-api-test.http
+
 1) Alta de producto (POST)
 recibe el id del customer como path param
 y el JSON del producto en el body
@@ -62,16 +68,29 @@ con el mismo criterio del borrado,
 devuelve todos los productos que cumplan con el criterio especificado en el sample
 4) Consulta de todos los productos de un customer (GET)
 devuelve el listado de todos los productos de un customer
-> Endpoints de prueba:
-src/test/java/http/customer-products-api-test.http
+
+### Codes
+> Api: http://localhost:8080/codes/{enumtype}
+
+> Api tests: src/test/java/http/codes-api-test.http
+
+Este controller permite consultar todos los códigos con sus descripciones
+usados tanto para manipulación como consultas de products y customers
+
+* GENDER
+* PRODUCT_TYPE
+* CURRENCY
+* BRANCH
 
 ### RemoteControl
-http://localhost:8080/remote/customers/{customerId}
+> Api: http://localhost:8080/remote/customers/{customerId}
+
+> Api tests: src/test/java/http/remote-api-test.http
+
 A modo de demostración, este controller expone una única operación (GET)
 que llama a los otros dos controllers para armar un customer con todos sus productos
 
-> Endpoints de prueba:
-src/test/java/http/remote-api-test.http
+
 
 ### JUnit test
 Se incluyen tests unitarios para el ProductMatcher

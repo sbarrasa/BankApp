@@ -2,6 +2,8 @@ package com.sbarrasa.bank.product;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import static com.fasterxml.jackson.annotation.JsonInclude.*;
+
+import com.sbarrasa.bank.descriptible.Descriptible;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -47,7 +49,7 @@ public class Product {
   }
 
   public String getName() {
-    return productType.getName();
+    return productType.getDescription();
   }
 
   public boolean match(Product sample){

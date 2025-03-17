@@ -1,9 +1,10 @@
 package com.sbarrasa.bank.product;
 
+import com.sbarrasa.bank.descriptible.Descriptible;
 import lombok.Getter;
 
 @Getter
-public enum Currency {
+public enum Currency implements Descriptible {
   USD("dólares"),
   ARS("pesos"),
   EUR("euros");

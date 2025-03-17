@@ -1,0 +1,16 @@
+### Obtener todos los tipos de productos
+GET http://localhost:8080/api/codes/product_type
+
+### Obtener todos las marcas de productos
+GET http://localhost:8080/api/codes/branch
+
+### Obtener todos los tipos de moneda
+GET http://localhost:8080/api/codes/currency
+
+### Obtener todos los géneros
+GET http://localhost:8080/api/codes/gender
+
+
+
+
+

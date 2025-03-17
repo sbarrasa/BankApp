@@ -107,3 +107,4 @@ Content-Type: application/json
 ### Obtener todos los productos
 GET http://localhost:8080/api/customers/1/products
 Content-Type: application/json
+
