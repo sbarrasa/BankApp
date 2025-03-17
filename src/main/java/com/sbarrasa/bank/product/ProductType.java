@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 public enum ProductType implements Descriptible {
-  TC("Tarjeta de credito") ,
+  TC("Tarjeta de crédito") ,
   TD("Tarjeta de débito"),
   CC("Cuenta corriente"),
   CA("Caja de ahorro");

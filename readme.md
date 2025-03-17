@@ -68,6 +68,10 @@ con el mismo criterio del borrado,
 devuelve todos los productos que cumplan con el criterio especificado en el sample
 4) Consulta de todos los productos de un customer (GET)
 devuelve el listado de todos los productos de un customer
+> La clase ProductMatcher encapsula las operaciones de filtro inteligente en colecciones de productos 
+
+> La descripción de los productos se arma de manera dinámica según el ProductType 
+usando el ProductDescriptionBuilder 
 
 ### Codes
 > Api: http://localhost:8080/codes/{enumtype}

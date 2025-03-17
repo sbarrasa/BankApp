@@ -12,7 +12,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @Entity
 @JsonInclude(Include.NON_NULL)
-public class Product {
+public class Product implements Descriptible {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -82,4 +82,8 @@ public class Product {
   }
 
 
+  @Override
+  public String getDescription() {
+    return new ProductDescriptionBuilder(this).build();
+  }
 }

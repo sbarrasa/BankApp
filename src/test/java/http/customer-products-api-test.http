@@ -19,7 +19,7 @@ Content-Type: application/json
 }
 
 
-### Agregar tarjeta de credito
+### Agregar tarjeta de credito VISA
 POST http://localhost:8080/api/customers/1/products
 Content-Type: application/json
 
@@ -28,6 +28,17 @@ Content-Type: application/json
   "creditLimit": 6000000.00,
   "branch": "VISA",
   "tier": "SIGNATURE"
+}
+
+### Agregar tarjeta de credito AMEX
+POST http://localhost:8080/api/customers/1/products
+Content-Type: application/json
+
+{
+  "productType": "TC",
+  "creditLimit": 2000000.00,
+  "branch": "AMEX",
+  "tier": ""
 }
 
 ### Agregar tarjeta de debito

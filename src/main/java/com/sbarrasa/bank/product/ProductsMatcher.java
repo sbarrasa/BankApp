@@ -27,4 +27,5 @@ public class ProductsMatcher {
   public boolean exists(Product product) {
     return !filter(product).isEmpty();
   }
+
 }
