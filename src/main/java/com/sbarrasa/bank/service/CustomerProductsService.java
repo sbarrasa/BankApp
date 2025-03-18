@@ -1,5 +1,6 @@
 package com.sbarrasa.bank.service;
 
+import com.sbarrasa.bank.customer.CustomerEntity;
 import com.sbarrasa.bank.product.Product;
 import com.sbarrasa.bank.util.matcher.MatchType;
 import org.springframework.stereotype.Service;
@@ -24,5 +25,15 @@ public class CustomerProductsService {
     products
       .removeIf(product -> product.match(productSample, MatchType.ALL));
 
+  }
+
+  public void add(CustomerEntity customer, Product newProduct) {
+
+    var products = customer.getProducts();
+
+    if(exist(products, newProduct))
+      throw new DuplicatedProductException(customer.getId(), newProduct);
+
+    products.add(newProduct);
   }
 }

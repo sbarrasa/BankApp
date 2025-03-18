@@ -116,7 +116,7 @@ Content-Type: application/json
   "branch": "VISA"
 }
 
-### Obtener todos los productos
+### Obtener todos los productos del cliente 1
 GET http://localhost:8080/api/customers/1/products
 Content-Type: application/json
 

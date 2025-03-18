@@ -1,7 +1,6 @@
 package com.sbarrasa.bank.controller;
 
 import com.sbarrasa.bank.service.CustomerProductsService;
-import com.sbarrasa.bank.service.DuplicatedProductException;
 import com.sbarrasa.bank.product.Product;
 import com.sbarrasa.bank.service.CustomerService;
 import jakarta.transaction.Transactional;
@@ -31,15 +30,10 @@ public class CustomerProductsController {
 
     var customer = customerService.get(customerId);
 
-    var products = customer.getProducts();
-
-    if(customerProductsService.exist(products, newProduct))
-      throw new DuplicatedProductException(customerId, newProduct);
-
-    products.add(newProduct);
+    customerProductsService.add(customer, newProduct);
 
     customerService.update(customer);
-    return products;
+    return customer.getProducts();
 
   }
 
@@ -70,10 +64,8 @@ public class CustomerProductsController {
 
     var customer = customerService.get(customerId);
 
-    var filtered = customerProductsService.filter(customer.getProducts(),
-                                                                productSample);
-
-    return filtered;
+    return customerProductsService.filter(customer.getProducts(),
+                                         productSample);
   }
 
 

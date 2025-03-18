@@ -43,7 +43,7 @@ public class CustomerController {
 
   @PutMapping("/{id}")
   public Customer update(@RequestBody CustomerEntity customer) {
-    return customerService.update(customer);
+     return customerService.update(customer);
   }
 
   @DeleteMapping("/{id}")
