@@ -1,7 +1,7 @@
 package com.sbarrasa.bank.controller;
 
+import com.sbarrasa.bank.service.CustomerProductsService;
 import com.sbarrasa.bank.service.DuplicatedProductException;
-import com.sbarrasa.bank.util.matcher.MatchType;
 import com.sbarrasa.bank.product.Product;
 import com.sbarrasa.bank.service.CustomerService;
 import jakarta.transaction.Transactional;
@@ -15,9 +15,14 @@ import java.util.Collection;
 public class CustomerProductsController {
 
   private final CustomerService customerService;
+  private final CustomerProductsService customerProductsService;
 
   @Autowired
-  public CustomerProductsController(CustomerService customerService) {this.customerService = customerService;}
+  public CustomerProductsController(CustomerService customerService,
+                                    CustomerProductsService customerProductsService) {
+    this.customerService = customerService;
+    this.customerProductsService = customerProductsService;
+  }
 
   @Transactional
   @PostMapping("/{customerId}/products")
@@ -28,10 +33,7 @@ public class CustomerProductsController {
 
     var products = customer.getProducts();
 
-    var matchProducts = products.stream()
-      .filter(product -> product.match(newProduct, MatchType.ALL));
-
-    if(!matchProducts.toList().isEmpty())
+    if(customerProductsService.exist(products, newProduct))
       throw new DuplicatedProductException(customerId, newProduct);
 
     products.add(newProduct);
@@ -47,8 +49,7 @@ public class CustomerProductsController {
                                            @RequestBody Product productSample) {
     var customer = customerService.get(customerId);
 
-    customer.getProducts()
-      .removeIf(product -> product.match(productSample, MatchType.ALL));
+    customerProductsService.delete(customer.getProducts(), productSample);
 
     customerService.update(customer);
     return customer.getProducts();
@@ -69,9 +70,8 @@ public class CustomerProductsController {
 
     var customer = customerService.get(customerId);
 
-    var filtered = customer.getProducts().stream()
-      .filter(product -> product.match(productSample, MatchType.ALL))
-      .toList();
+    var filtered = customerProductsService.filter(customer.getProducts(),
+                                                                productSample);
 
     return filtered;
   }
