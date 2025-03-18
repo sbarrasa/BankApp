@@ -45,7 +45,8 @@ public class Product implements Descriptible {
 
   public Boolean getIsCredit(){
     if(isCredit == null)
-      isCredit = creditLimit != null;
+      isCredit = creditLimit != null
+                && creditLimit >0;
 
     return isCredit;
   }
