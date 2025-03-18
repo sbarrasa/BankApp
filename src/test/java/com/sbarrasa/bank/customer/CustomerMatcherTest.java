@@ -62,5 +62,14 @@ class CustomerMatcherTest {
 
   }
 
+  @Test
+  void customerMatch() {
+    var customerSample = new CustomerDTO()
+      .setFirstName("Sebastian")
+      .setGender(Gender.M);
 
+    assertTrue(customer1.match(customerSample, MatchType.ALL));
+    assertFalse(customer2.match(customerSample, MatchType.ALL));
+
+  }
 }
