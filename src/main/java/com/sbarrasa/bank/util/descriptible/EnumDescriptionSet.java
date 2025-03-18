@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class EnumDescriptionSet<E extends Enum<E> & Descriptible>{
+public class EnumDescriptionSet<E extends Enum<E> & Describable>{
   private final Class<E> enumType;
 
   public EnumDescriptionSet(Class<E> enumType) {

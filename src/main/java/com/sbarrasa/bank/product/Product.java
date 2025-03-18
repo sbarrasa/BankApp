@@ -3,7 +3,7 @@ package com.sbarrasa.bank.product;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import static com.fasterxml.jackson.annotation.JsonInclude.*;
 
-import com.sbarrasa.bank.util.descriptible.Descriptible;
+import com.sbarrasa.bank.util.descriptible.Describable;
 import com.sbarrasa.bank.util.matcher.MatchType;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -14,7 +14,7 @@ import java.util.function.Consumer;
 @Accessors(chain = true)
 @Entity
 @JsonInclude(Include.NON_NULL)
-public class Product implements Descriptible {
+public class Product implements Describable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

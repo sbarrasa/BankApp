@@ -1,10 +1,10 @@
 package com.sbarrasa.bank.product;
 
-import com.sbarrasa.bank.util.descriptible.Descriptible;
+import com.sbarrasa.bank.util.descriptible.Describable;
 import lombok.Getter;
 
 @Getter
-public enum ProductType implements Descriptible {
+public enum ProductType implements Describable {
   TC("Tarjeta de crédito") ,
   TD("Tarjeta de débito"),
   CC("Cuenta corriente"),

@@ -1,10 +1,10 @@
 package com.sbarrasa.bank.product;
 
-import com.sbarrasa.bank.util.descriptible.Descriptible;
+import com.sbarrasa.bank.util.descriptible.Describable;
 import lombok.Getter;
 
 @Getter
-public enum Branch implements Descriptible {
+public enum Branch implements Describable {
   VISA("Visa"),
   MC("MasterCard"),
   AMEX("Américan Express");

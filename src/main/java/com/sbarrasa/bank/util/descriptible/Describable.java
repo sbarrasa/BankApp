@@ -1,6 +1,6 @@
 package com.sbarrasa.bank.util.descriptible;
 
-public interface Descriptible {
+public interface Describable {
     String getDescription();
 
 }
