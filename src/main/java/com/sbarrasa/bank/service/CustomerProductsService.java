@@ -5,6 +5,7 @@ import com.sbarrasa.bank.product.Product;
 import com.sbarrasa.bank.util.matcher.MatchType;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -21,10 +22,13 @@ public class CustomerProductsService {
     return !filter(customer, newProduct).isEmpty();
   }
 
-  public void delete(CustomerEntity customer, Product productSample) {
+  public Set<Product> delete(CustomerEntity customer, Product productSample) {
+    var productsFound = new HashSet<>(filter(customer, productSample));
+
     customer.getProducts()
       .removeIf(product -> product.match(productSample, MatchType.ALL));
 
+    return productsFound;
   }
 
   public void add(CustomerEntity customer, Product newProduct) {

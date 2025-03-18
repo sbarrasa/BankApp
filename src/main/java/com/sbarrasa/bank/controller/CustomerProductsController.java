@@ -58,18 +58,16 @@ public class CustomerProductsController {
 
   }
 
-
-
   @Transactional
   @DeleteMapping("/{customerId}/products")
   public Collection<Product> deleteProducts(@PathVariable Integer customerId,
                                            @RequestBody Product searchProduct) {
     var customer = customerService.get(customerId);
 
-    customerProductsService.delete(customer, searchProduct);
+    var deletedProducts = customerProductsService.delete(customer, searchProduct);
 
     customerService.update(customer);
-    return customer.getProducts();
+    return deletedProducts;
   }
 
 
