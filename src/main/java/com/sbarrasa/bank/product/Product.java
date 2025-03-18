@@ -75,7 +75,7 @@ public class Product implements Descriptible {
     return this;
   }
 
-  private <T> void assignCreditLimit(Double value) {
+  private void assignCreditLimit(Double value) {
     if(value != null)
       creditLimit = (value <= 0.0)
         ? null
