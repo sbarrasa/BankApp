@@ -50,8 +50,11 @@ public class CustomerProductsController {
     var customer = customerService.get(customerId);
 
 
-    var foundProduct = customerProductsService.find(customer, productUpdatePair.searchProduct());
-    foundProduct.assign(productUpdatePair.updateProduct());
+    /*actualiza todos los productos que cumplan con el criterio especificado.
+    Ver Product.assign para comprender la lógica de actualización de cada producto
+     */
+    customerProductsService.filter(customer, productUpdatePair.searchProduct())
+        .forEach(product -> product.assign(productUpdatePair.updateProduct()));
 
     customerService.update(customer);
 

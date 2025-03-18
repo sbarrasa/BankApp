@@ -93,12 +93,9 @@ Content-Type: application/json
     "branch": "VISA"
   },
   "updateProduct": {
-    "creditLimit": "1000000"
+    "creditLimit": 800000
   }
 }
-
-
-
 
 ### Mostrar tarjetas VISA
 GET http://localhost:8080/api/customers/1/products/filter
