@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import static com.fasterxml.jackson.annotation.JsonInclude.*;
 
 import com.sbarrasa.bank.descriptible.Descriptible;
+import com.sbarrasa.bank.matcher.Match;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -34,31 +35,33 @@ public class Product implements Descriptible {
 
   private Double creditLimit;
 
+
   @Column(length = 2)
   @Enumerated(EnumType.STRING)
   private ProductType productType;
 
   @Transient
-  //debe ser package private para que funcione el ProductMatcher
   Boolean isCredit;
 
-
   public Boolean getIsCredit(){
-    return isCredit !=null
-      ? isCredit
-      : creditLimit != null;
+    if(isCredit == null)
+      isCredit = creditLimit != null;
+
+    return isCredit;
   }
 
   public String getName() {
     return productType.getDescription();
   }
 
-  public boolean match(Product sample){
-    return ProductsMatcher.match(this, sample);
-  }
-
   @Override
   public String getDescription() {
     return new ProductDescriptionBuilder(this).build();
   }
+
+  public boolean match(Product sample, Match matchType) {
+    return new ProductsMatcher().match(this, sample, matchType);
+  }
+
+
 }

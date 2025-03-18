@@ -3,11 +3,16 @@ package com.sbarrasa.bank.product;
 import java.util.Set;
 
 class SampleProducts {
-  static final Product productTC = new Product()
+  static final Product productTC_VISA = new Product()
     .setProductType(ProductType.TC)
     .setBranch(Branch.VISA)
     .setTier("GOLD")
     .setCreditLimit(6000000.00);
+
+  static final Product productTC_AMEX = new Product()
+    .setProductType(ProductType.TC)
+    .setBranch(Branch.AMEX)
+    .setCreditLimit(5000000.00);
 
   static final Product productTD = new Product()
     .setProductType(ProductType.TD)
@@ -27,7 +32,7 @@ class SampleProducts {
     .setCurrency(Currency.USD);
 
   static final Set<Product> products = Set.of(
-    productTC, productTD, productCC, productCA_ARS, productCA_USD
+    productTC_VISA, productTC_AMEX, productTD, productCC, productCA_ARS, productCA_USD
   );
 
 }

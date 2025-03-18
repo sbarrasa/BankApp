@@ -1,9 +1,8 @@
 package com.sbarrasa.bank.controller;
 
+import com.sbarrasa.bank.matcher.Match;
 import com.sbarrasa.bank.product.Product;
 import com.sbarrasa.bank.service.CustomerService;
-import com.sbarrasa.bank.service.DuplicatedProductException;
-import com.sbarrasa.bank.product.ProductsMatcher;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,11 +27,6 @@ public class CustomerProductsController {
 
     var products = customer.getProducts();
 
-    var productMatcher = new ProductsMatcher(products);
-
-    if(productMatcher.exists(product))
-      throw new DuplicatedProductException(customerId, product);
-
     products.add(product);
 
     customerService.update(customer);
@@ -46,11 +40,8 @@ public class CustomerProductsController {
                                            @RequestBody Product productSample) {
     var customer = customerService.get(customerId);
 
-    var productMatcher = new ProductsMatcher(customer.getProducts());
-
-    var noDeletedProducts = productMatcher.except(productSample);
-
-    customer.setProducts(noDeletedProducts);
+    customer.getProducts()
+      .removeIf(product -> product.match(productSample, Match.ALL));
 
     customerService.update(customer);
     return customer.getProducts();
@@ -70,9 +61,10 @@ public class CustomerProductsController {
                                           @RequestBody Product productSample) {
 
     var customer = customerService.get(customerId);
-    var productMatcher = new ProductsMatcher(customer.getProducts());
 
-    return productMatcher.filter(productSample);
+    return customer.getProducts().stream()
+      .filter(product -> product.match(productSample, Match.ALL))
+      .toList();
   }
 
 

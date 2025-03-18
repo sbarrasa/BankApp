@@ -1,18 +1,32 @@
 package com.sbarrasa.bank.product;
 
+import com.sbarrasa.bank.matcher.Match;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProductTest {
 
   @Test
-  void matchAttributeARS() {
+  void anyMatch() {
     var sample = new Product()
-      .setCurrency(Currency.ARS);
+      .setBranch(Branch.VISA)
+      .setProductType(ProductType.TC);
 
-    assertTrue(SampleProducts.productCA_ARS.match(sample));
-    assertFalse(SampleProducts.productTC.match(sample));
-    assertFalse(SampleProducts.productCA_USD.match(sample));
+    assertTrue(SampleProducts.productTC_VISA.match(sample, Match.ANY));
+    assertTrue(SampleProducts.productTD.match(sample, Match.ANY));
+    assertTrue(SampleProducts.productTC_AMEX.match(sample, Match.ANY));
+    assertFalse(SampleProducts.productCC.match(sample, Match.ANY));
+
+  }
+
+  @Test
+  void matchBranch() {
+    var sample = new Product()
+      .setBranch(Branch.VISA);
+
+    assertTrue(SampleProducts.productTC_VISA.match(sample, Match.ALL));
+    assertTrue(SampleProducts.productTD.match(sample, Match.ALL));
+    assertFalse(SampleProducts.productTC_AMEX.match(sample, Match.ALL));
 
   }
 
@@ -21,40 +35,17 @@ class ProductTest {
     var sample = new Product()
       .setIsCredit(true);
 
-    assertTrue(SampleProducts.productCC.match(sample));
-    assertTrue(SampleProducts.productTC.match(sample));
-    assertFalse(SampleProducts.productCA_USD.match(sample));
+    assertTrue(SampleProducts.productCC.match(sample, Match.ALL));
+    assertTrue(SampleProducts.productTC_VISA.match(sample, Match.ALL));
+    assertFalse(SampleProducts.productCA_USD.match(sample, Match.ALL));
 
   }
 
-  @Test
-  void matchAny() {
-    var sample = new Product()
-      .setBranch(Branch.VISA)
-      .setProductType(ProductType.TC);
-
-    assertTrue(SampleProducts.productTC.match(sample));
-    assertFalse(SampleProducts.productTD.match(sample));
-    assertFalse(SampleProducts.productCC.match(sample));
-
-  }
-  @Test
-  void filter(){
-    var sample = new Product()
-      .setBranch(Branch.VISA);
-
-    var filtered = SampleProducts.products.stream()
-      .filter(product -> product.match(sample))
-      .toList();
-
-    assertEquals(2, filtered.size());
-
-  }
 
   @Test
   void getName(){
     assertEquals(ProductType.TD.getDescription(), SampleProducts.productTD.getName());
-    assertEquals(ProductType.TC.getDescription(), SampleProducts.productTC.getName());
+    assertEquals(ProductType.TC.getDescription(), SampleProducts.productTC_VISA.getName());
 
   }
 }

@@ -1,5 +1,6 @@
 package com.sbarrasa.bank.product;
 
+import com.sbarrasa.bank.matcher.Match;
 import org.junit.jupiter.api.Test;
 
 import java.util.Set;
@@ -10,22 +11,22 @@ class ProductsMatcherTest {
 
   @Test
   void except() {
-    var matcher = new ProductsMatcher(SampleProducts.products);
+    var matcher = new ProductsMatcher();
     var sampleProduct = new Product()
       .setBranch(Branch.VISA);
 
-    var excepted = matcher.except(sampleProduct);
+    var excepted = matcher.filter(SampleProducts.products, sampleProduct, Match.EXCEPT);
 
-    assertEquals(3, excepted.size());
+    assertEquals(4, excepted.size());
   }
 
   @Test
-  void filter() {
-    var matcher = new ProductsMatcher(SampleProducts.products);
+  void all() {
+    var matcher = new ProductsMatcher();
     var sampleProduct = new Product()
       .setBranch(Branch.VISA);
 
-    var filtered = matcher.filter(sampleProduct);
+    var filtered = matcher.filter(SampleProducts.products, sampleProduct, Match.ALL);
 
     assertEquals(2, filtered.size());
   }
@@ -33,20 +34,22 @@ class ProductsMatcherTest {
   
   @Test
   void exists() {
-    var matcher = new ProductsMatcher(SampleProducts.products);
+    var matcher = new ProductsMatcher();
     var sample = new Product()
       .setProductType(ProductType.TC);
 
-    assertTrue(matcher.exists(sample));
+    assertFalse(matcher.filter(SampleProducts.products, sample, Match.ALL).isEmpty());
 
   }
 
   @Test
-  void netExists() {
-    var matcher = new ProductsMatcher(Set.of(SampleProducts.productTC, SampleProducts.productTD));
+  void notExists() {
+    var matcher = new ProductsMatcher();
+    var products  = Set.of(SampleProducts.productTC_VISA, SampleProducts.productTD);
     
-    assertFalse(matcher.exists(SampleProducts.productCA_USD));
+    assertFalse(matcher.filter(products, SampleProducts.productCA_USD, Match.EXCEPT).isEmpty());
     
   }
 
-  }
+
+}
