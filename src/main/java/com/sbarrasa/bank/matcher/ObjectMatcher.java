@@ -22,13 +22,12 @@ public class ObjectMatcher<T> {
         var objectValue = getter.apply(object);
         attributeMatch = sampleValue.equals(objectValue);
 
-        if (attributeMatch && matchType == Match.EXCEPT) return false;
         if (attributeMatch && matchType == Match.ANY) return true;
         if (!attributeMatch && matchType == Match.ALL) return false;
       }
     }
 
-    return matchType == Match.EXCEPT || matchType == Match.ALL;
+    return matchType == Match.ALL;
   }
 
 }

@@ -63,16 +63,5 @@ class ObjectMatcherTest {
 
   }
 
-  @Test
-  void exceptMatch() {
-    var matcher = new ObjectMatcher<>(Demo::key, Demo::color);
-
-    var sample = new Demo(1, "ROJO", null);
-
-    assertFalse(matcher.match(object1, sample, Match.EXCEPT));
-    assertTrue(matcher.match(object2, sample, Match.EXCEPT));
-    assertFalse(matcher.match(object3, sample, Match.EXCEPT));
-  }
-
 
 }
