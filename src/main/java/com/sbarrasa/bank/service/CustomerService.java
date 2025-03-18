@@ -5,6 +5,7 @@ import com.sbarrasa.bank.customer.CustomerDTO;
 import com.sbarrasa.bank.customer.CustomerEntity;
 import com.sbarrasa.bank.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -60,5 +61,11 @@ public class CustomerService {
     return customerDeleted;
   }
 
+  public List<Customer> filter(CustomerEntity customerExample) {
+    Example<CustomerEntity> example = Example.of(customerExample);
 
+    return customerRepository.findAll(example).stream()
+      .map(customer -> (Customer)new CustomerDTO(customer))
+      .toList();
+  }
 }

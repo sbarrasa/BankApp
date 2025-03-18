@@ -35,6 +35,12 @@ public class CustomerController {
     return new CustomerDTO(customerService.get(id));
   }
 
+  @GetMapping("/filter")
+  public List<Customer> get(@RequestBody CustomerEntity customerSample) {
+    return customerService.filter(customerSample);
+  }
+
+
   @PostMapping
   public ResponseEntity<Customer> create(@RequestBody CustomerEntity customer) {
     var createdCustomer = customerService.create(customer);

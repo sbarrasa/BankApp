@@ -38,11 +38,40 @@ Content-Type: application/json
   }
 }
 
+### Crear cliente 5
+POST http://localhost:8080/api/customers
+Content-Type: application/json
+
+{
+  "id": 5,
+  "firstName": "Carlos",
+  "lastName": "Mendez",
+  "gender": "M",
+  "email": "carlos.mendez@example.com",
+  "phoneNumber": "1167890123",
+  "address": {
+    "addressLine": "Avenida Libertador 1234",
+    "city": "Buenos Aires",
+    "region": "CABA",
+    "postalCode": "1426",
+    "country": "Argentina"
+  }
+}
+
 ### Obtener el cliente 1
 GET http://localhost:8080/api/customers/1
 
 ### Obtener todos los clientes
 GET http://localhost:8080/api/customers
+
+### Obtener clientes masculinos
+GET http://localhost:8080/api/customers/filter
+Content-Type: application/json
+
+{
+  "gender": "M"
+}
+
 
 ### Eliminar el primer cliente
 DELETE http://localhost:8080/api/customers/1
