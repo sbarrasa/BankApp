@@ -25,7 +25,7 @@ public class CustomerProductsController {
 
   @Transactional
   @PostMapping("/{customerId}/products")
-  public Collection<Product> addProduct(@PathVariable Integer customerId,
+  public Product addProduct(@PathVariable Integer customerId,
                                            @RequestBody Product newProduct){
 
     var customer = customerService.get(customerId);
@@ -34,17 +34,13 @@ public class CustomerProductsController {
 
     customerService.update(customer);
 
-    /*devuelve el listado de todos los productos del cliente,
-     incluyendo el que se acaba de agregar
-     dado que podría haberse agregado otro producto desde otro servicio
-     */
-    return customer.getProducts();
+    return customerProductsService.find(customer, newProduct);
 
   }
 
   @Transactional
   @PutMapping("/{customerId}/products")
-  public Collection<Product> updateProduct(@PathVariable Integer customerId,
+  public Collection<Product> updateProducts(@PathVariable Integer customerId,
                                            @RequestBody ProductUpdatePair productUpdatePair){
 
     var customer = customerService.get(customerId);
@@ -58,7 +54,7 @@ public class CustomerProductsController {
 
     customerService.update(customer);
 
-    return customer.getProducts();
+    return customerProductsService.filter(customer, productUpdatePair.searchProduct());
 
   }
 
@@ -66,7 +62,7 @@ public class CustomerProductsController {
 
   @Transactional
   @DeleteMapping("/{customerId}/products")
-  public Collection<Product> deleteProduct(@PathVariable Integer customerId,
+  public Collection<Product> deleteProducts(@PathVariable Integer customerId,
                                            @RequestBody Product searchProduct) {
     var customer = customerService.get(customerId);
 

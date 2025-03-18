@@ -38,4 +38,9 @@ public class CustomerProductsService {
   }
 
 
+  public Product find(CustomerEntity customer, Product searchProduct) {
+    return filter(customer, searchProduct).stream()
+      .findFirst()
+      .orElseThrow(() -> new ProductNotFondException(customer.getId(), searchProduct));
+  }
 }
