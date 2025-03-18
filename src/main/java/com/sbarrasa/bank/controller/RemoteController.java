@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
+import java.util.HashSet;
 
 //Simulación de un controller que usando restTemplate llama a otros microservicios para armar un response
 @Controller
@@ -35,7 +36,7 @@ public class RemoteController {
     var products = restTemplate.getForObject(productsUrl, Product[].class);
 
     var customerEntity = new CustomerEntity(customer);
-    customerEntity.setProducts(Arrays.asList(products));
+    customerEntity.setProducts(new HashSet<>(Arrays.asList(products)));
     return new ResponseEntity<>(customerEntity, HttpStatus.OK);
   }
 

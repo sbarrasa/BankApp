@@ -2,6 +2,7 @@ package com.sbarrasa.bank.product;
 
 import com.sbarrasa.bank.util.matcher.MatchType;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProductTest {
@@ -69,6 +70,18 @@ class ProductTest {
   void getName(){
     assertEquals(ProductType.TD.getDescription(), productTD.getName());
     assertEquals(ProductType.TC.getDescription(), productTC_VISA.getName());
+
+  }
+
+  @Test
+  void assign() {
+    assertEquals("GOLD", productTC_VISA.getTier());
+    assertNotNull(productTC_VISA.getCreditLimit());
+
+    productTC_VISA.assign(new Product().setTier("SIGNATURE"));
+    assertEquals("SIGNATURE", productTC_VISA.getTier());
+    assertNotNull(productTC_VISA.getCreditLimit());
+
 
   }
 }

@@ -1,5 +1,6 @@
 package com.sbarrasa.bank.controller;
 
+import com.sbarrasa.bank.service.DuplicatedProductException;
 import com.sbarrasa.bank.util.matcher.MatchType;
 import com.sbarrasa.bank.product.Product;
 import com.sbarrasa.bank.service.CustomerService;
@@ -13,7 +14,6 @@ import java.util.Collection;
 @RequestMapping("/api/customers")
 public class CustomerProductsController {
 
-
   private final CustomerService customerService;
 
   @Autowired
@@ -22,12 +22,19 @@ public class CustomerProductsController {
   @Transactional
   @PostMapping("/{customerId}/products")
   public Collection<Product> addProduct(@PathVariable Integer customerId,
-                                        @RequestBody Product product){
+                                           @RequestBody Product newProduct){
+
     var customer = customerService.get(customerId);
 
     var products = customer.getProducts();
 
-    products.add(product);
+    var matchProducts = products.stream()
+      .filter(product -> product.match(newProduct, MatchType.ALL));
+
+    if(!matchProducts.toList().isEmpty())
+      throw new DuplicatedProductException(customerId, newProduct);
+
+    products.add(newProduct);
 
     customerService.update(customer);
     return products;
@@ -62,9 +69,11 @@ public class CustomerProductsController {
 
     var customer = customerService.get(customerId);
 
-    return customer.getProducts().stream()
+    var filtered = customer.getProducts().stream()
       .filter(product -> product.match(productSample, MatchType.ALL))
       .toList();
+
+    return filtered;
   }
 
 

@@ -12,7 +12,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -57,7 +57,7 @@ public class CustomerEntity implements Customer {
 
   @OneToMany(cascade = CascadeType.ALL)
   @JoinColumn(name = "customer_id")
-  private List<Product> products;
+  private Set<Product> products;
 
 
   public CustomerEntity(){

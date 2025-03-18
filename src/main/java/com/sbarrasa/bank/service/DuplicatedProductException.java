@@ -2,22 +2,15 @@ package com.sbarrasa.bank.service;
 
 import com.sbarrasa.bank.product.Product;
 
-public class DuplicatedProductException extends CustomerException {
-
-  private final Product product;
+public class DuplicatedProductException extends CustomerProductException {
 
   public DuplicatedProductException(Integer id, Product product) {
-    super(id);
-    this.product = product;
+    super(id, product);
   }
 
   @Override
   protected String getErrorMessage() {
-    return "Producto %s duplicado en el cliente %d";
+    return "Producto %s duplicado en cliente %d";
   }
 
-  @Override
-  public String getMessage(){
-    return getErrorMessage().formatted(product, getId());
-  }
 }

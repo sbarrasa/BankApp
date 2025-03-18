@@ -8,6 +8,7 @@ import com.sbarrasa.bank.util.matcher.MatchType;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import java.util.function.Consumer;
 
 @Data
 @Accessors(chain = true)
@@ -18,6 +19,10 @@ public class Product implements Descriptible {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
+
+  @Column(length = 2)
+  @Enumerated(EnumType.STRING)
+  private ProductType productType;
 
   @Column(length = 22)
   private String cbu;
@@ -34,11 +39,6 @@ public class Product implements Descriptible {
   private String tier;
 
   private Double creditLimit;
-
-
-  @Column(length = 2)
-  @Enumerated(EnumType.STRING)
-  private ProductType productType;
 
   @Transient
   Boolean isCredit;
@@ -63,5 +63,21 @@ public class Product implements Descriptible {
     return new ProductsMatcher().match(this, sample, matchType);
   }
 
+  public Product assign(Product other) {
+    assignIfNotNull(this::setProductType, other.getProductType());
+    assignIfNotNull(this::setBranch, other.getBranch());
+    assignIfNotNull(this::setTier, other.getTier());
+    assignIfNotNull(this::setCurrency, other.getCurrency());
+    assignIfNotNull(this::setCreditLimit, other.getCreditLimit());
+    assignIfNotNull(this::setCbu, other.getCbu());
 
+    return this;
+  }
+
+  private <T> void assignIfNotNull(Consumer<T> setter, T value) {
+    if (value != null) {
+      setter.accept(value);
+    }
+
+  }
 }

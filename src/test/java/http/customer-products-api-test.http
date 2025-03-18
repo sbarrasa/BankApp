@@ -30,6 +30,7 @@ Content-Type: application/json
   "tier": "SIGNATURE"
 }
 
+
 ### Agregar tarjeta de credito AMEX
 POST http://localhost:8080/api/customers/1/products
 Content-Type: application/json
