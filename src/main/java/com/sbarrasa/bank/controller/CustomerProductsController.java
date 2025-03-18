@@ -24,7 +24,7 @@ public class CustomerProductsController {
   }
 
   @Transactional
-  @PostMapping("/{customerId}/products")
+  @PostMapping("/{customerId}/product")
   public Collection<Product> addProduct(@PathVariable Integer customerId,
                                            @RequestBody Product newProduct){
 
@@ -38,7 +38,7 @@ public class CustomerProductsController {
   }
 
   @Transactional
-  @DeleteMapping("/{customerId}/products")
+  @DeleteMapping("/{customerId}/product")
   public Collection<Product> deleteProduct(@PathVariable Integer customerId,
                                            @RequestBody Product productSample) {
     var customer = customerService.get(customerId);
