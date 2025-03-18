@@ -11,6 +11,10 @@ public class ObjectMatcher<T> {
     this.getters = new HashSet<>(Arrays.asList(getters));
   }
 
+  public boolean matchValue(Object value, Object sampleValue) {
+    return sampleValue == null
+      || sampleValue.equals(value);
+  }
 
   public boolean match(T object, T sampleObject, MatchType matchType) {
     for (Getter<T> getter : getters) {

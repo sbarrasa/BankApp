@@ -6,7 +6,6 @@ import com.sbarrasa.bank.util.matcher.ObjectMatcher;
 
 public class ProductsMatcher extends ObjectMatcher<Product> {
 
-
   public ProductsMatcher(){
     super(
       Product::getProductType,
@@ -20,9 +19,8 @@ public class ProductsMatcher extends ObjectMatcher<Product> {
 
  @Override
  public boolean match(Product product, Product productSample, MatchType matchType) {
-    return super.match(product, productSample, matchType)
-      && (productSample.isCredit == null
-      || productSample.isCredit == product.getIsCredit()) ;
+    return matchValue(product.getIsCredit(), productSample.isCredit)
+          && super.match(product, productSample, matchType);
   }
 
 }
