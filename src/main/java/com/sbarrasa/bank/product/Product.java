@@ -69,10 +69,18 @@ public class Product implements Descriptible {
     assignIfNotNull(this::setBranch, other.getBranch());
     assignIfNotNull(this::setTier, other.getTier());
     assignIfNotNull(this::setCurrency, other.getCurrency());
-    assignIfNotNull(this::setCreditLimit, other.getCreditLimit());
+    assignCreditLimit(other.getCreditLimit());
     assignIfNotNull(this::setCbu, other.getCbu());
 
     return this;
+  }
+
+  private <T> void assignCreditLimit(Double value) {
+    if(value != null)
+      creditLimit = (value <= 0.0)
+        ? null
+        : value;
+
   }
 
   private <T> void assignIfNotNull(Consumer<T> setter, T value) {

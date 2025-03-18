@@ -83,28 +83,6 @@ Content-Type: application/json
 
 }
 
-### Actualizar limite tarjeta de crédito VISA
-PUT http://localhost:8080/api/customers/1/products
-Content-Type: application/json
-
-{
-  "searchProduct": {
-    "productType": "TD",
-    "branch": "VISA"
-  },
-  "updateProduct": {
-    "creditLimit": -1
-  }
-}
-
-### Mostrar tarjetas VISA
-GET http://localhost:8080/api/customers/1/products/filter
-Content-Type: application/json
-
-{
-  "branch": "VISA"
-}
-
 ### Mostrar cuentas en ARS
 GET http://localhost:8080/api/customers/1/products/filter
 Content-Type: application/json
@@ -121,6 +99,18 @@ Content-Type: application/json
   "isCredit": true
 }
 
+### Mostrar tarjetas VISA
+GET http://localhost:8080/api/customers/1/products/filter
+Content-Type: application/json
+
+{
+  "branch": "VISA"
+}
+
+### Obtener todos los productos del cliente 1
+GET http://localhost:8080/api/customers/1/products
+Content-Type: application/json
+
 ### Borrar tarjeta de debito VISA
 DELETE http://localhost:8080/api/customers/1/products
 Content-Type: application/json
@@ -130,7 +120,16 @@ Content-Type: application/json
   "branch": "VISA"
 }
 
-### Obtener todos los productos del cliente 1
-GET http://localhost:8080/api/customers/1/products
+### Actualizar limite tarjeta de crédito VISA
+PUT http://localhost:8080/api/customers/1/products
 Content-Type: application/json
 
+{
+  "searchProduct": {
+    "productType": "TC",
+    "branch": "VISA"
+  },
+  "updateProduct": {
+    "creditLimit": 8000000
+  }
+}
