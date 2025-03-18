@@ -1,7 +1,6 @@
 package com.sbarrasa.bank.matcher;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class ObjectMatcher<T> {
 
@@ -12,11 +11,6 @@ public class ObjectMatcher<T> {
     this.getters = new HashSet<>(Arrays.asList(getters));
   }
 
-  public List<T> filter(Collection<T> objects, T sample, Match matchType){
-    return objects.stream()
-      .filter(object -> match(object, sample, matchType))
-      .collect(Collectors.toList());
-  }
 
   public boolean match(T object, T sampleObject, Match matchType) {
     for (Getter<T> getter : getters) {
