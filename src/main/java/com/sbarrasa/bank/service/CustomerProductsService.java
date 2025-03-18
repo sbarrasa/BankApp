@@ -5,24 +5,24 @@ import com.sbarrasa.bank.product.Product;
 import com.sbarrasa.bank.util.matcher.MatchType;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class CustomerProductsService {
 
-  public List<Product> filter(Set<Product> products, Product newProduct) {
-    return products.stream()
+  public Set<Product> filter(CustomerEntity customer, Product newProduct) {
+    return customer.getProducts().stream()
       .filter(product -> product.match(newProduct, MatchType.ALL))
-      .toList();
+      .collect(Collectors.toSet());
   }
 
-  public boolean exist(Set<Product> products, Product newProduct) {
-    return !filter(products, newProduct).isEmpty();
+  public boolean exist(CustomerEntity customer, Product newProduct) {
+    return !filter(customer, newProduct).isEmpty();
   }
 
-  public void delete(Set<Product> products, Product productSample) {
-    products
+  public void delete(CustomerEntity customer, Product productSample) {
+    customer.getProducts()
       .removeIf(product -> product.match(productSample, MatchType.ALL));
 
   }
@@ -31,9 +31,15 @@ public class CustomerProductsService {
 
     var products = customer.getProducts();
 
-    if(exist(products, newProduct))
+    if(exist(customer, newProduct))
       throw new DuplicatedProductException(customer.getId(), newProduct);
 
     products.add(newProduct);
+  }
+
+  public Product find(CustomerEntity customer, Product searchPoduct) {
+    return filter(customer, searchPoduct).stream()
+      .findFirst()
+      .orElseThrow(() -> new ProductNotFondException(customer.getId(), searchPoduct));
   }
 }

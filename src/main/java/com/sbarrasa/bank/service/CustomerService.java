@@ -48,8 +48,13 @@ public class CustomerService {
 
   public CustomerEntity delete(Integer id) {
     var customer= this.get(id);
-    var customerDeleted = new CustomerEntity(customer);
-    customerDeleted.setLastUpdate(LocalDateTime.now());
+
+    /*arma una copia del customer que se va a borrar
+    y le actualiza la fecha de ultima actualización
+    para devolverlo en caso de desear mostrar la info del customer eliminado
+     */
+    var customerDeleted = new CustomerEntity(customer)
+                                              .setLastUpdate(LocalDateTime.now());
 
     customerRepository.deleteById(id);
     return customerDeleted;

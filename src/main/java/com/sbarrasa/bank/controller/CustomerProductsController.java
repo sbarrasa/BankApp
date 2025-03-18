@@ -24,7 +24,7 @@ public class CustomerProductsController {
   }
 
   @Transactional
-  @PostMapping("/{customerId}/product")
+  @PostMapping("/{customerId}/products")
   public Collection<Product> addProduct(@PathVariable Integer customerId,
                                            @RequestBody Product newProduct){
 
@@ -33,17 +33,41 @@ public class CustomerProductsController {
     customerProductsService.add(customer, newProduct);
 
     customerService.update(customer);
+
+    /*devuelve el listado de todos los productos del cliente,
+     incluyendo el que se acaba de agregar
+     dado que podría haberse agregado otro producto desde otro servicio
+     */
     return customer.getProducts();
 
   }
 
   @Transactional
-  @DeleteMapping("/{customerId}/product")
-  public Collection<Product> deleteProduct(@PathVariable Integer customerId,
-                                           @RequestBody Product productSample) {
+  @PutMapping("/{customerId}/products")
+  public Collection<Product> updateProduct(@PathVariable Integer customerId,
+                                           @RequestBody ProductUpdatePair productUpdatePair){
+
     var customer = customerService.get(customerId);
 
-    customerProductsService.delete(customer.getProducts(), productSample);
+
+    var foundProduct = customerProductsService.find(customer, productUpdatePair.searchProduct());
+    foundProduct.assign(productUpdatePair.updateProduct());
+
+    customerService.update(customer);
+
+    return customer.getProducts();
+
+  }
+
+
+
+  @Transactional
+  @DeleteMapping("/{customerId}/products")
+  public Collection<Product> deleteProduct(@PathVariable Integer customerId,
+                                           @RequestBody Product searchProduct) {
+    var customer = customerService.get(customerId);
+
+    customerProductsService.delete(customer, searchProduct);
 
     customerService.update(customer);
     return customer.getProducts();
@@ -54,6 +78,7 @@ public class CustomerProductsController {
   public Collection<Product> getProducts(@PathVariable Integer customerId) {
 
     var customer =  customerService.get(customerId);
+
     return customer.getProducts();
 
   }
@@ -64,7 +89,7 @@ public class CustomerProductsController {
 
     var customer = customerService.get(customerId);
 
-    return customerProductsService.filter(customer.getProducts(),
+    return customerProductsService.filter(customer,
                                          productSample);
   }
 

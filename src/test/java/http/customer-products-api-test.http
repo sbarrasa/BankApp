@@ -20,7 +20,7 @@ Content-Type: application/json
 
 
 ### Agregar tarjeta de credito VISA
-POST http://localhost:8080/api/customers/1/product
+POST http://localhost:8080/api/customers/1/products
 Content-Type: application/json
 
 {
@@ -32,7 +32,7 @@ Content-Type: application/json
 
 
 ### Agregar tarjeta de credito AMEX
-POST http://localhost:8080/api/customers/1/product
+POST http://localhost:8080/api/customers/1/products
 Content-Type: application/json
 
 {
@@ -43,7 +43,7 @@ Content-Type: application/json
 }
 
 ### Agregar tarjeta de debito
-POST http://localhost:8080/api/customers/1/product
+POST http://localhost:8080/api/customers/1/products
 Content-Type: application/json
 
 {
@@ -52,7 +52,7 @@ Content-Type: application/json
 }
 
 ### Agregar caja de ahorro en pesos
-POST http://localhost:8080/api/customers/1/product
+POST http://localhost:8080/api/customers/1/products
 Content-Type: application/json
 
 {
@@ -62,7 +62,7 @@ Content-Type: application/json
 }
 
 ### Agregar caja de ahorro en dolares
-POST http://localhost:8080/api/customers/1/product
+POST http://localhost:8080/api/customers/1/products
 Content-Type: application/json
 
 {
@@ -72,7 +72,7 @@ Content-Type: application/json
 }
 
 ### Agregar cuenta corriente
-POST http://localhost:8080/api/customers/1/product
+POST http://localhost:8080/api/customers/1/products
 Content-Type: application/json
 
 {
@@ -82,6 +82,23 @@ Content-Type: application/json
   "cbu": "1234567890123456789033"
 
 }
+
+### Actualizar limite tarjeta de crédito VISA
+PUT http://localhost:8080/api/customers/1/products
+Content-Type: application/json
+
+{
+  "searchProduct": {
+    "productType": "TC",
+    "branch": "VISA"
+  },
+  "updateProduct": {
+    "creditLimit": "1000000"
+  }
+}
+
+
+
 
 ### Mostrar tarjetas VISA
 GET http://localhost:8080/api/customers/1/products/filter
@@ -108,7 +125,7 @@ Content-Type: application/json
 }
 
 ### Borrar tarjeta de debito VISA
-DELETE http://localhost:8080/api/customers/1/product
+DELETE http://localhost:8080/api/customers/1/products
 Content-Type: application/json
 
 {
