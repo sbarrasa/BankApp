@@ -1,6 +1,6 @@
 package com.sbarrasa.bank.controller;
 
-import com.sbarrasa.bank.matcher.Match;
+import com.sbarrasa.bank.util.matcher.MatchType;
 import com.sbarrasa.bank.product.Product;
 import com.sbarrasa.bank.service.CustomerService;
 import jakarta.transaction.Transactional;
@@ -41,7 +41,7 @@ public class CustomerProductsController {
     var customer = customerService.get(customerId);
 
     customer.getProducts()
-      .removeIf(product -> product.match(productSample, Match.ALL));
+      .removeIf(product -> product.match(productSample, MatchType.ALL));
 
     customerService.update(customer);
     return customer.getProducts();
@@ -63,7 +63,7 @@ public class CustomerProductsController {
     var customer = customerService.get(customerId);
 
     return customer.getProducts().stream()
-      .filter(product -> product.match(productSample, Match.ALL))
+      .filter(product -> product.match(productSample, MatchType.ALL))
       .toList();
   }
 

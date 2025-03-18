@@ -1,4 +1,4 @@
-package com.sbarrasa.bank.matcher;
+package com.sbarrasa.bank.util.matcher;
 
 import java.util.*;
 
@@ -12,7 +12,7 @@ public class ObjectMatcher<T> {
   }
 
 
-  public boolean match(T object, T sampleObject, Match matchType) {
+  public boolean match(T object, T sampleObject, MatchType matchType) {
     for (Getter<T> getter : getters) {
       boolean attributeMatch;
 
@@ -22,12 +22,12 @@ public class ObjectMatcher<T> {
         var objectValue = getter.apply(object);
         attributeMatch = sampleValue.equals(objectValue);
 
-        if (attributeMatch && matchType == Match.ANY) return true;
-        if (!attributeMatch && matchType == Match.ALL) return false;
+        if (attributeMatch && matchType == MatchType.ANY) return true;
+        if (!attributeMatch && matchType == MatchType.ALL) return false;
       }
     }
 
-    return matchType == Match.ALL;
+    return matchType == MatchType.ALL;
   }
 
 }

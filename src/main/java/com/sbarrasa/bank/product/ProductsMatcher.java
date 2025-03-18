@@ -1,7 +1,7 @@
 package com.sbarrasa.bank.product;
 
-import com.sbarrasa.bank.matcher.Match;
-import com.sbarrasa.bank.matcher.ObjectMatcher;
+import com.sbarrasa.bank.util.matcher.MatchType;
+import com.sbarrasa.bank.util.matcher.ObjectMatcher;
 
 
 public class ProductsMatcher extends ObjectMatcher<Product> {
@@ -19,7 +19,7 @@ public class ProductsMatcher extends ObjectMatcher<Product> {
 
 
  @Override
- public boolean match(Product product, Product productSample, Match matchType) {
+ public boolean match(Product product, Product productSample, MatchType matchType) {
     return super.match(product, productSample, matchType)
       && (productSample.isCredit == null
       || productSample.isCredit == product.getIsCredit()) ;

@@ -3,8 +3,8 @@ package com.sbarrasa.bank.product;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import static com.fasterxml.jackson.annotation.JsonInclude.*;
 
-import com.sbarrasa.bank.descriptible.Descriptible;
-import com.sbarrasa.bank.matcher.Match;
+import com.sbarrasa.bank.util.descriptible.Descriptible;
+import com.sbarrasa.bank.util.matcher.MatchType;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -59,7 +59,7 @@ public class Product implements Descriptible {
     return new ProductDescriptionBuilder(this).build();
   }
 
-  public boolean match(Product sample, Match matchType) {
+  public boolean match(Product sample, MatchType matchType) {
     return new ProductsMatcher().match(this, sample, matchType);
   }
 

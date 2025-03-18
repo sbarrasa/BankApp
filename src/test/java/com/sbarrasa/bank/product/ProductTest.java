@@ -1,6 +1,6 @@
 package com.sbarrasa.bank.product;
 
-import com.sbarrasa.bank.matcher.Match;
+import com.sbarrasa.bank.util.matcher.MatchType;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -35,10 +35,10 @@ class ProductTest {
       .setBranch(Branch.VISA)
       .setProductType(ProductType.TC);
 
-    assertTrue(productTC_VISA.match(sample, Match.ANY));
-    assertTrue(productTD.match(sample, Match.ANY));
-    assertTrue(productTC_AMEX.match(sample, Match.ANY));
-    assertFalse(productCC.match(sample, Match.ANY));
+    assertTrue(productTC_VISA.match(sample, MatchType.ANY));
+    assertTrue(productTD.match(sample, MatchType.ANY));
+    assertTrue(productTC_AMEX.match(sample, MatchType.ANY));
+    assertFalse(productCC.match(sample, MatchType.ANY));
 
   }
 
@@ -47,9 +47,9 @@ class ProductTest {
     var sample = new Product()
       .setBranch(Branch.VISA);
 
-    assertTrue(productTC_VISA.match(sample, Match.ALL));
-    assertTrue(productTD.match(sample, Match.ALL));
-    assertFalse(productTC_AMEX.match(sample, Match.ALL));
+    assertTrue(productTC_VISA.match(sample, MatchType.ALL));
+    assertTrue(productTD.match(sample, MatchType.ALL));
+    assertFalse(productTC_AMEX.match(sample, MatchType.ALL));
 
   }
 
@@ -58,9 +58,9 @@ class ProductTest {
     var sample = new Product()
       .setIsCredit(true);
 
-    assertTrue(productCC.match(sample, Match.ALL));
-    assertTrue(productTC_VISA.match(sample, Match.ALL));
-    assertFalse(productCA_USD.match(sample, Match.ALL));
+    assertTrue(productCC.match(sample, MatchType.ALL));
+    assertTrue(productTC_VISA.match(sample, MatchType.ALL));
+    assertFalse(productCA_USD.match(sample, MatchType.ALL));
 
   }
 

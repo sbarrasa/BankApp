@@ -1,5 +1,7 @@
 package com.sbarrasa.bank.matcher;
 
+import com.sbarrasa.bank.util.matcher.MatchType;
+import com.sbarrasa.bank.util.matcher.ObjectMatcher;
 import org.junit.jupiter.api.Test;
 
 
@@ -20,9 +22,9 @@ class ObjectMatcherTest {
 
    var sample = new Demo(1, "ROJO", null);
 
-   assertTrue(matcher.match(object1, sample, Match.ALL));
-   assertFalse(matcher.match(object2, sample, Match.ALL));
-   assertFalse(matcher.match(object3, sample, Match.ALL));
+   assertTrue(matcher.match(object1, sample, MatchType.ALL));
+   assertFalse(matcher.match(object2, sample, MatchType.ALL));
+   assertFalse(matcher.match(object3, sample, MatchType.ALL));
 
   }
 
@@ -33,9 +35,9 @@ class ObjectMatcherTest {
 
     var sample = new Demo(1, "ROJO", null);
 
-    assertTrue(matcher.match(object1, sample, Match.ANY));
-    assertFalse(matcher.match(object2, sample, Match.ANY));
-    assertTrue(matcher.match(object3, sample, Match.ANY));
+    assertTrue(matcher.match(object1, sample, MatchType.ANY));
+    assertFalse(matcher.match(object2, sample, MatchType.ANY));
+    assertTrue(matcher.match(object3, sample, MatchType.ANY));
 
   }
 
@@ -45,10 +47,10 @@ class ObjectMatcherTest {
     var matcher = new ObjectMatcher<>(Demo::key, Demo::color);
     var sample = new Demo(1, null, null);
 
-    assertTrue(matcher.match(object1, sample, Match.ANY));
-    assertTrue(matcher.match(object1, sample, Match.ALL));
-    assertFalse(matcher.match(object2, sample, Match.ANY));
-    assertFalse(matcher.match(object2, sample, Match.ALL));
+    assertTrue(matcher.match(object1, sample, MatchType.ANY));
+    assertTrue(matcher.match(object1, sample, MatchType.ALL));
+    assertFalse(matcher.match(object2, sample, MatchType.ANY));
+    assertFalse(matcher.match(object2, sample, MatchType.ALL));
 
   }
 
@@ -58,9 +60,9 @@ class ObjectMatcherTest {
 
     var sample = new Demo(null, "ROJO", null);
 
-    assertTrue(matcher.match(object1, sample, Match.ALL));
-    assertFalse(matcher.match(object2, sample, Match.ALL));
-    assertTrue(matcher.match(object3, sample, Match.ALL));
+    assertTrue(matcher.match(object1, sample, MatchType.ALL));
+    assertFalse(matcher.match(object2, sample, MatchType.ALL));
+    assertTrue(matcher.match(object3, sample, MatchType.ALL));
 
   }
 

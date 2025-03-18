@@ -1,6 +1,6 @@
 package com.sbarrasa.bank.customer;
 
-import com.sbarrasa.bank.descriptible.Descriptible;
+import com.sbarrasa.bank.util.descriptible.Descriptible;
 import lombok.Getter;
 
 

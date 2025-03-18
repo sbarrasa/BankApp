@@ -1,4 +1,4 @@
-package com.sbarrasa.bank.descriptible;
+package com.sbarrasa.bank.util.descriptible;
 
 public interface Descriptible {
     String getDescription();

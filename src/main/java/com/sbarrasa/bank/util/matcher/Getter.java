@@ -1,4 +1,4 @@
-package com.sbarrasa.bank.matcher;
+package com.sbarrasa.bank.util.matcher;
 
 import java.util.function.Function;
 
