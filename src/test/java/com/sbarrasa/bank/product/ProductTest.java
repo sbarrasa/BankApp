@@ -1,6 +1,6 @@
 package com.sbarrasa.bank.product;
 
-import com.sbarrasa.bank.util.matcher.MatchType;
+import com.sbarrasa.util.matcher.MatchType;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

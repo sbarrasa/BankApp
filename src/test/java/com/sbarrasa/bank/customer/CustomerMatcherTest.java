@@ -1,6 +1,6 @@
 package com.sbarrasa.bank.customer;
 
-import com.sbarrasa.bank.util.matcher.MatchType;
+import com.sbarrasa.util.matcher.MatchType;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

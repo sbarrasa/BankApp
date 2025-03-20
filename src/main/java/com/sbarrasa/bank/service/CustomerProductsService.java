@@ -2,7 +2,7 @@ package com.sbarrasa.bank.service;
 
 import com.sbarrasa.bank.customer.CustomerEntity;
 import com.sbarrasa.bank.product.Product;
-import com.sbarrasa.bank.util.matcher.MatchType;
+import com.sbarrasa.util.matcher.MatchType;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;

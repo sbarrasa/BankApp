@@ -1,11 +1,11 @@
 package com.sbarrasa.bank.customer;
 
-import com.sbarrasa.bank.util.identifiable.Describable;
+import com.sbarrasa.util.id.Desc;
 import lombok.Getter;
 
 
 @Getter
-public enum Gender implements Describable {
+public enum Gender implements Desc {
   F("Femenino"),
   M("Masculino"),
   X("No definido");

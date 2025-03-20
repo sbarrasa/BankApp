@@ -1,6 +1,6 @@
 package com.sbarrasa.bank.customer;
 
-import com.sbarrasa.bank.util.matcher.MatchType;
+import com.sbarrasa.util.matcher.MatchType;
 
 public interface Customer {
   Integer getId();

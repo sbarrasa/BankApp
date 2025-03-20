@@ -1,6 +1,6 @@
 package com.sbarrasa.bank.customer;
 
-import com.sbarrasa.bank.util.matcher.ObjectMatcher;
+import com.sbarrasa.util.matcher.ObjectMatcher;
 
 public class CustomerMatcher extends ObjectMatcher<Customer> {
   public CustomerMatcher() {

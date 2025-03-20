@@ -1,7 +1,7 @@
 package com.sbarrasa.bank.product;
 
-import com.sbarrasa.bank.util.matcher.MatchType;
-import com.sbarrasa.bank.util.matcher.ObjectMatcher;
+import com.sbarrasa.util.matcher.MatchType;
+import com.sbarrasa.util.matcher.ObjectMatcher;
 
 
 public class ProductsMatcher extends ObjectMatcher<Product> {
