@@ -3,7 +3,7 @@ package com.sbarrasa.bank.product;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import static com.fasterxml.jackson.annotation.JsonInclude.*;
 
-import com.sbarrasa.bank.util.descriptible.Describable;
+import com.sbarrasa.bank.util.identifiable.Describable;
 import com.sbarrasa.bank.util.matcher.MatchType;
 import jakarta.persistence.*;
 import lombok.Data;
