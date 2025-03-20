@@ -1,86 +1,44 @@
 package com.sbarrasa.bank.product;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import static com.fasterxml.jackson.annotation.JsonInclude.*;
-
-import com.sbarrasa.util.id.Desc;
 import com.sbarrasa.util.matcher.MatchType;
-import jakarta.persistence.*;
-import lombok.Data;
-import lombok.experimental.Accessors;
+
 import java.util.function.Consumer;
 
-@Data
-@Accessors(chain = true)
-@Entity
-@JsonInclude(Include.NON_NULL)
-public class Product implements Desc {
+public interface Product  {
+  ProductType getProductType();
+  String getCbu();
+  Currency getCurrency();
+  Branch getBranch();
+  String getTier();
+  Boolean getIsCredit();
+  Double getCreditLimit();
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  Product setCreditLimit(Double aDouble);
+  Product setCurrency(Currency currency);
+  Product setTier(String s);
+  Product setBranch(Branch branch);
+  Product setProductType(ProductType productType);
+  Product setCbu(String s);
 
-  @Column(length = 2)
-  @Enumerated(EnumType.STRING)
-  private ProductType productType;
-
-  @Column(length = 22)
-  private String cbu;
-
-  @Column(length = 3)
-  @Enumerated(EnumType.STRING)
-  private Currency currency;
-
-  @Column(length = 4)
-  @Enumerated(EnumType.STRING)
-  private Branch branch;
-
-  @Column(length = 10)
-  private String tier;
-
-  private Double creditLimit;
-
-  @Transient
-  Boolean isCredit;
-
-  public Boolean getIsCredit(){
-    if(isCredit == null)
-      isCredit = creditLimit != null
-                && creditLimit >0;
-
-    return isCredit;
+  default String getName() {
+    return getProductType().getDescription();
   }
 
-  public String getName() {
-    return productType.getDescription();
-  }
-
-  @Override
-  public String getDescription() {
+  default String getDescription() {
     return new ProductDescriptionBuilder(this).build();
   }
 
-  public boolean match(Product sample, MatchType matchType) {
+  default boolean match(Product sample, MatchType matchType) {
     return new ProductsMatcher().match(this, sample, matchType);
   }
 
-  public Product assign(Product other) {
+  default void assign(Product other) {
     assignIfNotNull(this::setProductType, other.getProductType());
     assignIfNotNull(this::setBranch, other.getBranch());
     assignIfNotNull(this::setTier, other.getTier());
     assignIfNotNull(this::setCurrency, other.getCurrency());
-    assignCreditLimit(other.getCreditLimit());
+    assignIfNotNull(this::setCreditLimit, other.getCreditLimit());
     assignIfNotNull(this::setCbu, other.getCbu());
-
-    return this;
-  }
-
-  private void assignCreditLimit(Double value) {
-    if(value != null)
-      creditLimit = (value <= 0.0)
-        ? null
-        : value;
-
   }
 
   private <T> void assignIfNotNull(Consumer<T> setter, T value) {

@@ -1,14 +1,20 @@
-package com.sbarrasa.bank.customer;
+package com.sbarrasa.bank.controller.dto;
 
+import com.sbarrasa.bank.customer.Address;
+import com.sbarrasa.bank.customer.Customer;
+import com.sbarrasa.bank.customer.Gender;
+import com.sbarrasa.bank.product.Product;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+
+import java.util.Set;
 
 
 @Data
 @Accessors(chain = true)
 @NoArgsConstructor
-public final class CustomerDTO implements Customer {
+public class CustomerDTO implements Customer {
   private Integer id;
   private String firstName;
   private String lastName;
@@ -16,6 +22,7 @@ public final class CustomerDTO implements Customer {
   private Address address;
   private String email;
   private String phoneNumber;
+  private Set<Product> products;
 
 
   public CustomerDTO(Customer customer) {
@@ -27,6 +34,4 @@ public final class CustomerDTO implements Customer {
     this.setAddress(customer.getAddress());
     this.setPhoneNumber(customer.getPhoneNumber());
   }
-
-
 }

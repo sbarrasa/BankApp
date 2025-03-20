@@ -14,4 +14,5 @@ public interface Customer {
   default boolean match(Customer customerSample, MatchType matchType) {
     return new CustomerMatcher().match(this, customerSample, matchType);
   }
+
 }

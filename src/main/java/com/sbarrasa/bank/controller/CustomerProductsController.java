@@ -1,13 +1,16 @@
 package com.sbarrasa.bank.controller;
 
-import com.sbarrasa.bank.service.CustomerProductsService;
+import com.sbarrasa.bank.controller.dto.ProductDTO;
+import com.sbarrasa.bank.controller.dto.ProductUpdatePair;
 import com.sbarrasa.bank.product.Product;
+import com.sbarrasa.bank.service.CustomerProductsService;
 import com.sbarrasa.bank.service.CustomerService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/customers")
@@ -26,7 +29,7 @@ public class CustomerProductsController {
   @Transactional
   @PostMapping("/{customerId}/products")
   public Product addProduct(@PathVariable Integer customerId,
-                                           @RequestBody Product newProduct){
+                            @RequestBody ProductDTO newProduct){
 
     var customer = customerService.get(customerId);
 
@@ -40,8 +43,8 @@ public class CustomerProductsController {
 
   @Transactional
   @PutMapping("/{customerId}/products")
-  public Collection<Product> updateProducts(@PathVariable Integer customerId,
-                                           @RequestBody ProductUpdatePair productUpdatePair){
+  public Set<Product> updateProducts(@PathVariable Integer customerId,
+                                                  @RequestBody ProductUpdatePair productUpdatePair){
 
     var customer = customerService.get(customerId);
 
@@ -60,8 +63,8 @@ public class CustomerProductsController {
 
   @Transactional
   @DeleteMapping("/{customerId}/products")
-  public Collection<Product> deleteProducts(@PathVariable Integer customerId,
-                                           @RequestBody Product searchProduct) {
+  public Set<Product> deleteProducts(@PathVariable Integer customerId,
+                                                  @RequestBody ProductDTO searchProduct) {
     var customer = customerService.get(customerId);
 
     var deletedProducts = customerProductsService.delete(customer, searchProduct);
@@ -72,25 +75,20 @@ public class CustomerProductsController {
 
 
   @GetMapping("/{customerId}/products")
-  public Collection<Product> getProducts(@PathVariable Integer customerId) {
-
+  public Set<Product> getProducts(@PathVariable Integer customerId) {
     var customer =  customerService.get(customerId);
 
-    return customer.getProducts();
-
+    return new HashSet<>(customer.getProducts());
   }
 
   @GetMapping("/{customerId}/products/filter")
-  public Collection<Product> getProductsByExample(@PathVariable Integer customerId,
-                                          @RequestBody Product productSample) {
-
+  public Set<Product> getProductsByExample(@PathVariable Integer customerId,
+                                                        @RequestBody ProductDTO productSample) {
     var customer = customerService.get(customerId);
 
-    return customerProductsService.filter(customer,
-                                         productSample);
+    return customerProductsService.filter(customer, productSample);
+
   }
-
-
 
 
 }

@@ -38,8 +38,7 @@ Content-Type: application/json
 {
   "productType": "TC",
   "creditLimit": 2000000.00,
-  "branch": "AMEX",
-  "tier": "SIGNATURE"
+  "branch": "AMEX"
 }
 
 ### Agregar tarjeta de debito
@@ -116,7 +115,7 @@ DELETE http://localhost:8080/api/customers/1/products
 Content-Type: application/json
 
 {
-  "productType": "TD",
+  "productType": "TC",
   "branch": "VISA"
 }
 
@@ -130,6 +129,6 @@ Content-Type: application/json
     "branch": "VISA"
   },
   "updateProduct": {
-    "creditLimit": 8000000
+    "creditLimit": 7000000
   }
 }

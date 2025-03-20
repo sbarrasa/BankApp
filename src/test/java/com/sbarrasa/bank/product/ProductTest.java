@@ -1,38 +1,39 @@
 package com.sbarrasa.bank.product;
 
+import com.sbarrasa.bank.controller.dto.ProductDTO;
 import com.sbarrasa.util.matcher.MatchType;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProductTest {
-  Product productTC_VISA = new Product()
+  ProductEntity productTC_VISA = new ProductEntity()
     .setProductType(ProductType.TC)
     .setBranch(Branch.VISA)
     .setTier("GOLD")
     .setCreditLimit(6000000.00);
 
-  Product productTC_AMEX = new Product()
+  ProductEntity productTC_AMEX = new ProductEntity()
     .setProductType(ProductType.TC)
     .setBranch(Branch.AMEX)
     .setCreditLimit(5000000.00);
 
-  Product productTD = new Product()
+  ProductEntity productTD = new ProductEntity()
     .setProductType(ProductType.TD)
     .setBranch(Branch.VISA);
 
-  Product productCC = new Product()
+  ProductEntity productCC = new ProductEntity()
     .setProductType(ProductType.CC)
     .setCurrency(Currency.ARS)
     .setCreditLimit(1000000.00);
 
-  Product productCA_USD = new Product()
+  ProductEntity productCA_USD = new ProductEntity()
     .setProductType(ProductType.CA)
     .setCurrency(Currency.USD);
 
   @Test
   void anyMatch() {
-    var sample = new Product()
+    var sample = new ProductDTO()
       .setBranch(Branch.VISA)
       .setProductType(ProductType.TC);
 
@@ -45,7 +46,7 @@ class ProductTest {
 
   @Test
   void matchBranch() {
-    var sample = new Product()
+    var sample = new ProductDTO()
       .setBranch(Branch.VISA);
 
     assertTrue(productTC_VISA.match(sample, MatchType.ALL));
@@ -56,7 +57,7 @@ class ProductTest {
 
   @Test
   void matchCredit() {
-    var sample = new Product()
+    var sample = new ProductDTO()
       .setIsCredit(true);
 
     assertTrue(productCC.match(sample, MatchType.ALL));
@@ -78,7 +79,7 @@ class ProductTest {
     assertEquals("GOLD", productTC_VISA.getTier());
     assertNotNull(productTC_VISA.getCreditLimit());
 
-    productTC_VISA.assign(new Product().setTier("SIGNATURE"));
+    productTC_VISA.assign(new ProductEntity().setTier("SIGNATURE"));
     assertEquals("SIGNATURE", productTC_VISA.getTier());
     assertNotNull(productTC_VISA.getCreditLimit());
 

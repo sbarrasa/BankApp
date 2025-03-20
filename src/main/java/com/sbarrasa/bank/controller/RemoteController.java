@@ -1,9 +1,7 @@
 package com.sbarrasa.bank.controller;
 
-import com.sbarrasa.bank.customer.Customer;
-import com.sbarrasa.bank.customer.CustomerDTO;
-import com.sbarrasa.bank.customer.CustomerEntity;
-import com.sbarrasa.bank.product.Product;
+import com.sbarrasa.bank.controller.dto.CustomerDTO;
+import com.sbarrasa.bank.controller.dto.ProductDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Objects;
 
 //Simulación de un controller que usando restTemplate llama a otros microservicios para armar un response
 @Controller
@@ -28,16 +27,17 @@ public class RemoteController {
   }
 
   @GetMapping("/{customerId}")
-  public ResponseEntity<CustomerEntity> getCustomerWithProducts(@PathVariable Integer customerId){
+  public ResponseEntity<CustomerDTO> getCustomerWithProducts(@PathVariable Integer customerId){
     var customerUrl = customersApiUrl+customerId;
-    Customer customer = restTemplate.getForObject(customerUrl, CustomerDTO.class);
+    var customer = restTemplate.getForObject(customerUrl, CustomerDTO.class);
+    Objects.requireNonNull(customer);
 
     var productsUrl = customersApiUrl+customerId+"/products";
-    var products = restTemplate.getForObject(productsUrl, Product[].class);
+    var products = restTemplate.getForObject(productsUrl, ProductDTO[].class);
+    Objects.requireNonNull(products);
 
-    var customerEntity = new CustomerEntity(customer);
-    customerEntity.setProducts(new HashSet<>(Arrays.asList(products)));
-    return new ResponseEntity<>(customerEntity, HttpStatus.OK);
+    customer.setProducts(new HashSet<>(Arrays.asList(products)));
+    return new ResponseEntity<>(customer, HttpStatus.OK);
   }
 
 }

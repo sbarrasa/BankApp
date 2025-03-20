@@ -1,7 +1,7 @@
 package com.sbarrasa.bank.customer;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.sbarrasa.bank.product.Product;
+import com.sbarrasa.bank.product.ProductEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 import jakarta.validation.constraints.Email;
@@ -57,7 +57,7 @@ public class CustomerEntity implements Customer {
 
   @OneToMany(cascade = CascadeType.ALL)
   @JoinColumn(name = "customer_id")
-  private Set<Product> products;
+  private Set<ProductEntity> products;
 
 
   public CustomerEntity(){

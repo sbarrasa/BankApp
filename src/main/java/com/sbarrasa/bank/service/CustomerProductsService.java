@@ -2,15 +2,17 @@ package com.sbarrasa.bank.service;
 
 import com.sbarrasa.bank.customer.CustomerEntity;
 import com.sbarrasa.bank.product.Product;
+import com.sbarrasa.bank.product.ProductEntity;
 import com.sbarrasa.util.matcher.MatchType;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.HashSet;
 import java.util.stream.Collectors;
 
 @Service
 public class CustomerProductsService {
+
 
   public Set<Product> filter(CustomerEntity customer, Product newProduct) {
     return customer.getProducts().stream()
@@ -38,7 +40,7 @@ public class CustomerProductsService {
     if(exist(customer, newProduct))
       throw new DuplicatedProductException(customer.getId(), newProduct);
 
-    products.add(newProduct);
+    products.add(new ProductEntity(newProduct));
   }
 
 
@@ -47,4 +49,7 @@ public class CustomerProductsService {
       .findFirst()
       .orElseThrow(() -> new ProductNotFondException(customer.getId(), searchProduct));
   }
+
+
+ 
 }

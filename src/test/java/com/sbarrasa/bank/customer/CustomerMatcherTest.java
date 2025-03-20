@@ -1,5 +1,6 @@
 package com.sbarrasa.bank.customer;
 
+import com.sbarrasa.bank.controller.dto.CustomerDTO;
 import com.sbarrasa.util.matcher.MatchType;
 import org.junit.jupiter.api.Test;
 
