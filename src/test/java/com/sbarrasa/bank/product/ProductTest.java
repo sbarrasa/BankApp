@@ -82,7 +82,5 @@ class ProductTest {
     productTC_VISA.assign(new ProductEntity().setTier("SIGNATURE"));
     assertEquals("SIGNATURE", productTC_VISA.getTier());
     assertNotNull(productTC_VISA.getCreditLimit());
-
-
   }
 }

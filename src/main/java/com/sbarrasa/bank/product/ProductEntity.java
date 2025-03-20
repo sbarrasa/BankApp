@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+
 @Data
 @Accessors(chain = true)
 @Entity
@@ -34,7 +35,6 @@ public class ProductEntity implements Product {
 
   private Double creditLimit;
 
-
   public ProductEntity(Product product) {
     assign(product);
   }
@@ -46,4 +46,6 @@ public class ProductEntity implements Product {
   public Boolean getIsCredit(){
     return creditLimit != null;
   }
+
+
 }

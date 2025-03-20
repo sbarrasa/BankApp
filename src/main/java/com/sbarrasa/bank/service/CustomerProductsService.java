@@ -34,13 +34,16 @@ public class CustomerProductsService {
   }
 
   public void add(CustomerEntity customer, Product newProduct) {
+    newProduct.validate();
 
     var products = customer.getProducts();
 
     if(exist(customer, newProduct))
       throw new DuplicatedProductException(customer.getId(), newProduct);
 
-    products.add(new ProductEntity(newProduct));
+    var productEntity = new ProductEntity(newProduct);
+
+    products.add(productEntity);
   }
 
 

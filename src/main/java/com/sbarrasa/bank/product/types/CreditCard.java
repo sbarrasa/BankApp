@@ -8,6 +8,7 @@ public class CreditCard extends Card{
 
   public CreditCard(Product product) {
     super(product);
+    requiredAttributes().put("creditLimit", Product::getCreditLimit);
   }
 
   @Override

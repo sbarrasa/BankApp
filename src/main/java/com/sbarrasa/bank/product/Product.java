@@ -47,6 +47,12 @@ public interface Product  {
     if (value != null) {
       setter.accept(value);
     }
+  }
 
+  default void validate() {
+    if(getProductType() == null)
+      throw new ProductException("productType es requerido" );
+
+    getProductType().getInfo(this).validate();
   }
 }

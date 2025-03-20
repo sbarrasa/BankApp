@@ -4,8 +4,9 @@ import com.sbarrasa.bank.product.Product;
 
 public abstract class Card extends ProductStrategy {
 
-  protected Card(Product product) {
+  public Card(Product product) {
     super(product);
+    requiredAttributes().put("branch", Product::getBranch);
   }
 
 
@@ -13,4 +14,6 @@ public abstract class Card extends ProductStrategy {
   public String getDescription() {
     return getName()+ " " + getProduct().getBranch();
   }
+
+
 }

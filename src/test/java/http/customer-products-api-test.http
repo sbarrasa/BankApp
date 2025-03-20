@@ -132,3 +132,11 @@ Content-Type: application/json
     "creditLimit": 7000000
   }
 }
+
+### Agregar producto incorrecto
+POST http://localhost:8080/api/customers/1/products
+Content-Type: application/json
+
+{
+  "productType": "CA"
+}
