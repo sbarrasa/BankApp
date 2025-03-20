@@ -1,9 +1,11 @@
 package com.sbarrasa.bank.product;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.sbarrasa.util.matcher.MatchType;
 
 import java.util.function.Consumer;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public interface Product  {
   ProductType getProductType();
   String getCbu();
@@ -21,11 +23,11 @@ public interface Product  {
   Product setCbu(String s);
 
   default String getName() {
-    return getProductType().getDescription();
+    return getProductType().getInfo(this).getName();
   }
 
   default String getDescription() {
-    return new ProductDescriptionBuilder(this).build();
+    return getProductType().getInfo(this).getDescription();
   }
 
   default boolean match(Product sample, MatchType matchType) {

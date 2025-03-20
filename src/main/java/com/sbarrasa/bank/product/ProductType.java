@@ -1,20 +1,30 @@
 package com.sbarrasa.bank.product;
 
+import com.sbarrasa.bank.product.types.*;
 import com.sbarrasa.util.id.Desc;
 import lombok.Getter;
 
+import java.util.function.Function;
+
 @Getter
 public enum ProductType implements Desc {
-  TC("Tarjeta de crédito") ,
-  TD("Tarjeta de débito"),
-  CC("Cuenta corriente"),
-  CA("Caja de ahorro");
+  TC(CreditCard::new) ,
+  TD(DebitCard::new),
+  CC(CheckingAccount::new),
+  CA(SavingAccount::new);
 
-  private final String description;
+  private final Function<Product, ProductStrategy> infoCreator;
 
-  ProductType(String description) {
-    this.description = description;
+  ProductType(Function<Product, ProductStrategy> infoCreator) {
+    this.infoCreator = infoCreator;
   }
 
+  @Override
+  public String getDescription() {
+    return getInfo(null).getName();
+  }
 
+  public ProductStrategy getInfo(Product product) {
+    return infoCreator.apply(product);
+  }
 }
