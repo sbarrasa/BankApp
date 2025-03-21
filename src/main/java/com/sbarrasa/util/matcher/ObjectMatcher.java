@@ -4,10 +4,10 @@ import java.util.*;
 
 public class ObjectMatcher<T> {
 
-  private final Set<Getter<T>> getters;
+  private final Set<GetFuntion<T>> getters;
 
   @SafeVarargs
-  public ObjectMatcher(Getter<T>... getters) {
+  public ObjectMatcher(GetFuntion<T>... getters) {
     this.getters = new HashSet<>(Arrays.asList(getters));
   }
 
@@ -16,14 +16,14 @@ public class ObjectMatcher<T> {
     if(!hasCriteria(sampleObject))
       return false;
 
-    for (Getter<T> getter : getters) {
+    for (GetFuntion<T> getFuntion : getters) {
 
       boolean attributeMatch;
 
-      var sampleValue = getter.apply(sampleObject);
+      var sampleValue = getFuntion.apply(sampleObject);
 
       if(sampleValue != null) {
-        var objectValue = getter.apply(object);
+        var objectValue = getFuntion.apply(object);
         attributeMatch = sampleValue.equals(objectValue);
 
         if (attributeMatch && matchType == MatchType.ANY) return true;
@@ -36,7 +36,7 @@ public class ObjectMatcher<T> {
 
   private boolean hasCriteria(T sampleObject) {
     return getters.stream()
-      .anyMatch(getter -> getter.apply(sampleObject) != null);
+      .anyMatch(getFuntion -> getFuntion.apply(sampleObject) != null);
   }
 
 }

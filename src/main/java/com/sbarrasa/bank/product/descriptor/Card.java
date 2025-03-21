@@ -6,7 +6,7 @@ public abstract class Card extends ProductDescriptor {
 
   public Card(Product product) {
     super(product);
-    requiredAttributes().put("branch", Product::getBranch);
+    getRequiredAttributes().put("branch", Product::getBranch);
   }
 
 

@@ -5,8 +5,8 @@ import com.sbarrasa.bank.product.Product;
 public abstract class Account extends ProductDescriptor {
   protected Account(Product product) {
     super(product);
-    requiredAttributes().put("cbu", Product::getCbu);
-    requiredAttributes().put("currency", Product::getCurrency);
+    getRequiredAttributes().put("cbu", Product::getCbu);
+    getRequiredAttributes().put("currency", Product::getCurrency);
   }
 
   @Override

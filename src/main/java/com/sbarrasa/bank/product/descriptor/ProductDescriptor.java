@@ -1,40 +1,19 @@
 package com.sbarrasa.bank.product.descriptor;
 
 import com.sbarrasa.bank.product.Product;
-import com.sbarrasa.util.matcher.Getter;
+import com.sbarrasa.util.matcher.GetFuntion;
+import lombok.Getter;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
-
+@Getter
 public abstract class ProductDescriptor implements ProductInfo {
   private final Product product;
-  private final Map<String, Getter<Product>> requiredAttributes = new HashMap<>();
+
+  private final Map<String, GetFuntion<Product>> requiredAttributes = new HashMap<>();
 
   public ProductDescriptor(Product product) {
     this.product = product;
-  }
-
-  protected Product getProduct(){
-    return product;
-  }
-
-
-  public Map<String, Getter<Product>> requiredAttributes(){
-    return requiredAttributes;
-  }
-
-  private Set<String> getMissingAttributes(Product product) {
-    return requiredAttributes().entrySet().stream()
-      .filter(entry -> entry.getValue().apply(product) == null)
-      .map(Map.Entry::getKey)
-      .collect(Collectors.toSet());
-  }
-
-  public void validate() throws AttributeRequiredException {
-    var missingAttributes = getMissingAttributes(product);
-    if (!missingAttributes.isEmpty())
-      throw new AttributeRequiredException(product.getProductType(), missingAttributes);
   }
 
 }

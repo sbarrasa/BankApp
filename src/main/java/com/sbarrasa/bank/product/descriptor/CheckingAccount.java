@@ -6,7 +6,7 @@ public class CheckingAccount extends Account {
 
   public CheckingAccount(Product product) {
     super(product);
-    requiredAttributes().put("creditLimit", Product::getCbu);
+    getRequiredAttributes().put("creditLimit", Product::getCbu);
   }
 
   @Override
