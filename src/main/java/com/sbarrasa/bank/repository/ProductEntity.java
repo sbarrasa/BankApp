@@ -1,6 +1,10 @@
-package com.sbarrasa.bank.product;
+package com.sbarrasa.bank.repository;
 
 
+import com.sbarrasa.bank.product.Branch;
+import com.sbarrasa.bank.product.Currency;
+import com.sbarrasa.bank.product.Product;
+import com.sbarrasa.bank.product.ProductType;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.experimental.Accessors;

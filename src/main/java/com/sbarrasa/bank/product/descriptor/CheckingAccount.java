@@ -1,4 +1,4 @@
-package com.sbarrasa.bank.product.types;
+package com.sbarrasa.bank.product.descriptor;
 
 import com.sbarrasa.bank.product.Product;
 
@@ -10,7 +10,7 @@ public class CheckingAccount extends Account {
   }
 
   @Override
-  public String getName() {
+  public String getDescription() {
     return "Cuenta corriente";
   }
 

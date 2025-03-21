@@ -1,8 +1,8 @@
-package com.sbarrasa.bank.product.types;
+package com.sbarrasa.bank.product.descriptor;
 
 import com.sbarrasa.bank.product.Product;
 
-public abstract class Account extends ProductStrategy {
+public abstract class Account extends ProductDescriptor {
   protected Account(Product product) {
     super(product);
     requiredAttributes().put("cbu", Product::getCbu);
@@ -10,8 +10,8 @@ public abstract class Account extends ProductStrategy {
   }
 
   @Override
-  public String getDescription() {
-    return getName()+" en "+getProduct().getCurrency().getDescription();
+  public String getLargeDescription() {
+    return getDescription()+" en "+getProduct().getCurrency().getDescription();
   }
 
 

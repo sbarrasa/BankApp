@@ -1,4 +1,4 @@
-package com.sbarrasa.bank.product.types;
+package com.sbarrasa.bank.product.descriptor;
 
 import com.sbarrasa.bank.product.Product;
 
@@ -9,7 +9,7 @@ public class DebitCard extends Card {
   }
 
   @Override
-  public String getName() {
+  public String getDescription() {
     return "Tarjeta de débito";
   }
 

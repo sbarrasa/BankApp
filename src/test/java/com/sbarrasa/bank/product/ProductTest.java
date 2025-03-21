@@ -1,6 +1,7 @@
 package com.sbarrasa.bank.product;
 
 import com.sbarrasa.bank.controller.dto.ProductDTO;
+import com.sbarrasa.bank.repository.ProductEntity;
 import com.sbarrasa.util.matcher.MatchType;
 import org.junit.jupiter.api.Test;
 
@@ -68,9 +69,9 @@ class ProductTest {
 
 
   @Test
-  void getName(){
-    assertEquals(ProductType.TD.getDescription(), productTD.getName());
-    assertEquals(ProductType.TC.getDescription(), productTC_VISA.getName());
+  void getDescription(){
+    assertEquals(ProductType.TD.getDescription(), productTD.getDescription());
+    assertEquals(ProductType.TC.getDescription(), productTC_VISA.getDescription());
 
   }
 

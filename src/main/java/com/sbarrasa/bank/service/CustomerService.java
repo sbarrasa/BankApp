@@ -2,7 +2,7 @@ package com.sbarrasa.bank.service;
 
 import com.sbarrasa.bank.customer.Customer;
 import com.sbarrasa.bank.controller.dto.CustomerDTO;
-import com.sbarrasa.bank.customer.CustomerEntity;
+import com.sbarrasa.bank.repository.CustomerEntity;
 import com.sbarrasa.bank.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;

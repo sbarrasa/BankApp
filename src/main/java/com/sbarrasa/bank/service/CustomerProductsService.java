@@ -1,8 +1,8 @@
 package com.sbarrasa.bank.service;
 
-import com.sbarrasa.bank.customer.CustomerEntity;
+import com.sbarrasa.bank.repository.CustomerEntity;
 import com.sbarrasa.bank.product.Product;
-import com.sbarrasa.bank.product.ProductEntity;
+import com.sbarrasa.bank.repository.ProductEntity;
 import com.sbarrasa.util.matcher.MatchType;
 import org.springframework.stereotype.Service;
 

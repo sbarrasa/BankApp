@@ -1,4 +1,4 @@
-package com.sbarrasa.bank.product.types;
+package com.sbarrasa.bank.product.descriptor;
 
 import com.sbarrasa.bank.product.Product;
 
@@ -8,7 +8,7 @@ public class SavingAccount extends Account {
   }
 
   @Override
-  public String getName() {
+  public String getDescription() {
     return "Caja de ahorro";
   }
 

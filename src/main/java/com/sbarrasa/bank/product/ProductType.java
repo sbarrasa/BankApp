@@ -1,10 +1,9 @@
 package com.sbarrasa.bank.product;
 
-import com.sbarrasa.bank.product.types.*;
+import com.sbarrasa.bank.product.descriptor.*;
+import com.sbarrasa.util.factory.Factory;
 import com.sbarrasa.util.id.Desc;
 import lombok.Getter;
-
-import java.util.function.Function;
 
 @Getter
 public enum ProductType implements Desc {
@@ -13,18 +12,22 @@ public enum ProductType implements Desc {
   CC(CheckingAccount::new),
   CA(SavingAccount::new);
 
-  private final Function<Product, ProductStrategy> infoCreator;
+  private final Factory<Product, ProductDescriptor> descriptorCreator;
 
-  ProductType(Function<Product, ProductStrategy> infoCreator) {
-    this.infoCreator = infoCreator;
+  ProductType(Factory<Product, ProductDescriptor> descriptorCreator) {
+    this.descriptorCreator = descriptorCreator;
   }
 
   @Override
   public String getDescription() {
-    return getInfo(null).getName();
+    return getDescriptor().getDescription();
   }
 
-  public ProductStrategy getInfo(Product product) {
-    return infoCreator.apply(product);
+  public ProductDescriptor getDescriptor() {
+    return getDescriptor(null);
+  }
+
+  public ProductDescriptor getDescriptor(Product product) {
+    return descriptorCreator.create(product);
   }
 }

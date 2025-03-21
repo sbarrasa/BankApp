@@ -1,4 +1,4 @@
-package com.sbarrasa.bank.product.types;
+package com.sbarrasa.bank.product.descriptor;
 
 import com.sbarrasa.bank.product.Product;
 import com.sbarrasa.util.matcher.Getter;
@@ -7,11 +7,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 
-public abstract class ProductStrategy {
+public abstract class ProductDescriptor implements ProductInfo {
   private final Product product;
   private final Map<String, Getter<Product>> requiredAttributes = new HashMap<>();
 
-  public ProductStrategy(Product product) {
+  public ProductDescriptor(Product product) {
     this.product = product;
   }
 
@@ -19,15 +19,6 @@ public abstract class ProductStrategy {
     return product;
   }
 
-  public abstract String getName();
-  public abstract String getDescription();
-
-
-  protected String getNotNull(String text) {
-    return Objects.isNull(text)
-      ? ""
-      : " " + text;
-  }
 
   public Map<String, Getter<Product>> requiredAttributes(){
     return requiredAttributes;
@@ -40,10 +31,10 @@ public abstract class ProductStrategy {
       .collect(Collectors.toSet());
   }
 
-  public void validate() throws InvalidProductData {
+  public void validate() throws AttributeRequiredException {
     var missingAttributes = getMissingAttributes(product);
     if (!missingAttributes.isEmpty())
-      throw new InvalidProductData(product.getProductType(), missingAttributes);
+      throw new AttributeRequiredException(product.getProductType(), missingAttributes);
   }
 
 }

@@ -1,7 +1,7 @@
 package com.sbarrasa.bank.product;
 
 import com.sbarrasa.bank.controller.dto.ProductDTO;
-import com.sbarrasa.bank.product.types.InvalidProductData;
+import com.sbarrasa.bank.product.descriptor.AttributeRequiredException;
 import org.junit.jupiter.api.Test;
 
 import java.util.Set;
@@ -14,7 +14,7 @@ public class ProductValidateTest {
   void validateNoProductType() {
     var product = new ProductDTO();
 
-    assertThrows(ProductException.class, product::validate);
+    assertThrows(AttributeRequiredException.class, product::validate);
   }
 
   @Test
@@ -22,7 +22,7 @@ public class ProductValidateTest {
     var product = new ProductDTO()
       .setProductType(ProductType.TC);
 
-    var ex = assertThrows(InvalidProductData.class, product::validate);
+    var ex = assertThrows(AttributeRequiredException.class, product::validate);
     assertEquals(Set.of("creditLimit", "branch") , ex.getMissingAttributes());
 
   }
@@ -32,7 +32,7 @@ public class ProductValidateTest {
     var product = new ProductDTO()
       .setProductType(ProductType.CA);
 
-    var ex = assertThrows(InvalidProductData.class, product::validate);
+    var ex = assertThrows(AttributeRequiredException.class, product::validate);
     assertEquals(Set.of("cbu", "currency") , ex.getMissingAttributes());
 
   }
