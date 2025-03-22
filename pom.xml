@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.sbarrasa</groupId>
     <artifactId>BankCustomers</artifactId>
-    <version>0.5.15</version>
+    <version>0.5.16</version>
     <name>BankCustomers</name>
     <description>BankCustomers</description>
     <properties>
