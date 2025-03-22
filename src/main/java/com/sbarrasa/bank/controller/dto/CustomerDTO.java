@@ -1,9 +1,9 @@
 package com.sbarrasa.bank.controller.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.sbarrasa.bank.customer.Address;
-import com.sbarrasa.bank.customer.Customer;
-import com.sbarrasa.bank.customer.Gender;
+import com.sbarrasa.bank.model.customer.Address;
+import com.sbarrasa.bank.model.customer.Customer;
+import com.sbarrasa.bank.model.customer.Gender;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
