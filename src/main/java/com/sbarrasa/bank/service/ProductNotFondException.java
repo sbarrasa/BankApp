@@ -1,10 +1,10 @@
 package com.sbarrasa.bank.service;
 
-import com.sbarrasa.bank.product.Product;
+import com.sbarrasa.bank.controller.dto.ProductDTO;
 
 public class ProductNotFondException extends CustomerProductException {
 
-  public ProductNotFondException(Integer id, Product product) {
+  public ProductNotFondException(Integer id, ProductDTO product) {
     super(id, product);
   }
 

@@ -3,7 +3,6 @@ package com.sbarrasa.bank.controller.dto;
 import com.sbarrasa.bank.customer.Address;
 import com.sbarrasa.bank.customer.Customer;
 import com.sbarrasa.bank.customer.Gender;
-import com.sbarrasa.bank.product.Product;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;

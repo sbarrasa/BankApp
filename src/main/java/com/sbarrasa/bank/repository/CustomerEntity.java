@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.sbarrasa.bank.customer.Address;
 import com.sbarrasa.bank.customer.Customer;
 import com.sbarrasa.bank.customer.Gender;
+import com.sbarrasa.bank.product.ProductEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 import jakarta.validation.constraints.Email;

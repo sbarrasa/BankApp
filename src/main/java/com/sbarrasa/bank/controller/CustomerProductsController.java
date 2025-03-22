@@ -2,7 +2,6 @@ package com.sbarrasa.bank.controller;
 
 import com.sbarrasa.bank.controller.dto.ProductDTO;
 import com.sbarrasa.bank.controller.dto.ProductUpdatePair;
-import com.sbarrasa.bank.product.Product;
 import com.sbarrasa.bank.service.CustomerProductsService;
 import com.sbarrasa.bank.service.CustomerService;
 import jakarta.transaction.Transactional;
@@ -28,7 +27,7 @@ public class CustomerProductsController {
 
   @Transactional
   @PostMapping("/{customerId}/products")
-  public Product addProduct(@PathVariable Integer customerId,
+  public ProductDTO addProduct(@PathVariable Integer customerId,
                             @RequestBody ProductDTO newProduct){
 
     var customer = customerService.get(customerId);
@@ -43,7 +42,7 @@ public class CustomerProductsController {
 
   @Transactional
   @PutMapping("/{customerId}/products")
-  public Set<Product> updateProducts(@PathVariable Integer customerId,
+  public Set<ProductDTO> updateProducts(@PathVariable Integer customerId,
                                                   @RequestBody ProductUpdatePair productUpdatePair){
 
     var customer = customerService.get(customerId);
@@ -63,7 +62,7 @@ public class CustomerProductsController {
 
   @Transactional
   @DeleteMapping("/{customerId}/products")
-  public Set<Product> deleteProducts(@PathVariable Integer customerId,
+  public Set<ProductDTO> deleteProducts(@PathVariable Integer customerId,
                                                   @RequestBody ProductDTO searchProduct) {
     var customer = customerService.get(customerId);
 
@@ -75,14 +74,14 @@ public class CustomerProductsController {
 
 
   @GetMapping("/{customerId}/products")
-  public Set<Product> getProducts(@PathVariable Integer customerId) {
+  public Set<ProductDTO> getProducts(@PathVariable Integer customerId) {
     var customer =  customerService.get(customerId);
 
     return new HashSet<>(customer.getProducts());
   }
 
   @GetMapping("/{customerId}/products/filter")
-  public Set<Product> getProductsByExample(@PathVariable Integer customerId,
+  public Set<ProductDTO> getProductsByExample(@PathVariable Integer customerId,
                                                         @RequestBody ProductDTO productSample) {
     var customer = customerService.get(customerId);
 

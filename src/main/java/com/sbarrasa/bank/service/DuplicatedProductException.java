@@ -1,10 +1,10 @@
 package com.sbarrasa.bank.service;
 
-import com.sbarrasa.bank.product.Product;
+import com.sbarrasa.bank.controller.dto.ProductDTO;
 
 public class DuplicatedProductException extends CustomerProductException {
 
-  public DuplicatedProductException(Integer id, Product product) {
+  public DuplicatedProductException(Integer id, ProductDTO product) {
     super(id, product);
   }
 
