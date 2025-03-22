@@ -2,6 +2,8 @@ package com.sbarrasa.bank.service;
 
 import com.sbarrasa.bank.controller.dto.ProductDTO;
 import com.sbarrasa.bank.repository.CustomerEntity;
+import com.sbarrasa.bank.service.exceptions.DuplicatedProductException;
+import com.sbarrasa.bank.service.exceptions.ProductNotFondException;
 import com.sbarrasa.util.matcher.MatchType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

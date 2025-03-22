@@ -4,6 +4,8 @@ import com.sbarrasa.bank.customer.Customer;
 import com.sbarrasa.bank.controller.dto.CustomerDTO;
 import com.sbarrasa.bank.repository.CustomerEntity;
 import com.sbarrasa.bank.repository.CustomerRepository;
+import com.sbarrasa.bank.service.exceptions.CustomerNotFoundException;
+import com.sbarrasa.bank.service.exceptions.DuplicatedCustomerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
