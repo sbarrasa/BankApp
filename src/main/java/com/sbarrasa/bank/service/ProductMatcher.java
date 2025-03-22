@@ -1,7 +1,7 @@
 package com.sbarrasa.bank.service;
 
 import com.sbarrasa.bank.controller.dto.ProductDTO;
-import com.sbarrasa.bank.product.ProductEntity;
+import com.sbarrasa.bank.model.product.ProductEntity;
 import com.sbarrasa.util.matcher.MatchType;
 import com.sbarrasa.util.matcher.ObjectMatcher;
 import org.springframework.stereotype.Service;

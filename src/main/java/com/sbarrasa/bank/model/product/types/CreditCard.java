@@ -1,7 +1,8 @@
-package com.sbarrasa.bank.product.types;
+package com.sbarrasa.bank.model.product.types;
 
 
 import com.sbarrasa.bank.controller.dto.ProductDTO;
+import com.sbarrasa.bank.model.product.ProductType;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -23,6 +24,11 @@ public class CreditCard extends Card implements CreditProduct {
   @Override
   public String getDescription() {
     return super.getDescription() +getTierIfNotNull();
+  }
+
+  public CreditCard(){
+    super();
+    this.setProductType(ProductType.TC);
   }
 
   private String getTierIfNotNull() {

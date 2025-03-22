@@ -1,4 +1,4 @@
-package com.sbarrasa.bank.product;
+package com.sbarrasa.bank.model.product;
 import com.sbarrasa.bank.service.ProductAdapter;
 import org.junit.jupiter.api.Test;
 

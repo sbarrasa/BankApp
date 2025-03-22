@@ -1,10 +1,7 @@
-package com.sbarrasa.bank.product;
+package com.sbarrasa.bank.model.product;
 
 import com.sbarrasa.bank.controller.dto.ProductDTO;
-import com.sbarrasa.bank.product.types.CheckingAccount;
-import com.sbarrasa.bank.product.types.CreditCard;
-import com.sbarrasa.bank.product.types.DebitCard;
-import com.sbarrasa.bank.product.types.SavingAccount;
+import com.sbarrasa.bank.model.product.types.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

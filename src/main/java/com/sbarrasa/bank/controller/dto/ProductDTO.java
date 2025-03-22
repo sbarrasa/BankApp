@@ -1,7 +1,9 @@
 package com.sbarrasa.bank.controller.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.sbarrasa.bank.product.*;
+import com.sbarrasa.bank.model.product.Branch;
+import com.sbarrasa.bank.model.product.Currency;
+import com.sbarrasa.bank.model.product.ProductType;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import jakarta.validation.constraints.NotNull;

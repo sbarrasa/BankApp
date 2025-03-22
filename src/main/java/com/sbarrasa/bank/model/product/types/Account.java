@@ -1,9 +1,9 @@
-package com.sbarrasa.bank.product.types;
+package com.sbarrasa.bank.model.product.types;
 
 
 import com.sbarrasa.bank.controller.dto.ProductDTO;
-import com.sbarrasa.bank.product.Currency;
-import com.sbarrasa.bank.product.ProductEntity;
+import com.sbarrasa.bank.model.product.Currency;
+import com.sbarrasa.bank.model.product.ProductEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

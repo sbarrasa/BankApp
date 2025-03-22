@@ -1,8 +1,8 @@
 package com.sbarrasa.bank.service;
 
 import com.sbarrasa.bank.controller.dto.ProductDTO;
-import com.sbarrasa.bank.product.ProductEntity;
-import com.sbarrasa.bank.product.types.*;
+import com.sbarrasa.bank.model.product.ProductEntity;
+import com.sbarrasa.bank.model.product.types.*;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;

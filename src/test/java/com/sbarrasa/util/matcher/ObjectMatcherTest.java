@@ -1,7 +1,5 @@
-package com.sbarrasa.bank.matcher;
+package com.sbarrasa.util.matcher;
 
-import com.sbarrasa.util.matcher.MatchType;
-import com.sbarrasa.util.matcher.ObjectMatcher;
 import org.junit.jupiter.api.Test;
 
 

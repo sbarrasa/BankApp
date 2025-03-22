@@ -1,4 +1,4 @@
-package com.sbarrasa.bank.customer;
+package com.sbarrasa.bank.model.customer;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

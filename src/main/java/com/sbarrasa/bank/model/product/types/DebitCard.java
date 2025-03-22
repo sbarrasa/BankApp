@@ -1,5 +1,6 @@
-package com.sbarrasa.bank.product.types;
+package com.sbarrasa.bank.model.product.types;
 
+import com.sbarrasa.bank.model.product.ProductType;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.experimental.Accessors;
@@ -8,4 +9,9 @@ import lombok.experimental.Accessors;
 @DiscriminatorValue("TD")
 @Accessors(chain = true)
 public class DebitCard extends Card {
+  public DebitCard(){
+    super();
+    this.setProductType(ProductType.TD);
+  }
+
 }

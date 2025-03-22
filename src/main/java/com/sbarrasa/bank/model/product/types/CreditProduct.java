@@ -1,6 +1,6 @@
-package com.sbarrasa.bank.product.types;
+package com.sbarrasa.bank.model.product.types;
 
-import com.sbarrasa.bank.product.ProductEntity;
+import com.sbarrasa.bank.model.product.ProductEntity;
 import jakarta.validation.constraints.NotNull;
 
 public interface CreditProduct {

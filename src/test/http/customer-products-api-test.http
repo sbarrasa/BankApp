@@ -110,7 +110,7 @@ Content-Type: application/json
 GET http://localhost:8080/api/customers/1/products
 Content-Type: application/json
 
-### Borrar tarjeta de debito VISA
+### Borrar tarjeta de crédito VISA
 DELETE http://localhost:8080/api/customers/1/products
 Content-Type: application/json
 
@@ -119,17 +119,33 @@ Content-Type: application/json
   "branch": "VISA"
 }
 
+### Borrar tarjetas VISA
+DELETE http://localhost:8080/api/customers/1/products
+Content-Type: application/json
+
+{
+  "branch": "VISA"
+}
+
+### Borrar CC
+DELETE http://localhost:8080/api/customers/1/products
+Content-Type: application/json
+
+{
+  "productType": "CC",
+  "currency": "ARS"
+}
+
 ### Actualizar limite tarjeta de crédito VISA
 PUT http://localhost:8080/api/customers/1/products
 Content-Type: application/json
 
 {
   "searchProduct": {
-    "productType": "TC",
     "branch": "VISA"
   },
   "updateProduct": {
-    "creditLimit": 7000000
+    "creditLimit": 8000000
   }
 }
 
@@ -138,5 +154,6 @@ POST http://localhost:8080/api/customers/1/products
 Content-Type: application/json
 
 {
-  "productType": "CA"
+  "productType": "CC",
+  "currency": "ARS"
 }

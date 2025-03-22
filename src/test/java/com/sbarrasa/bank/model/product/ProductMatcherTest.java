@@ -1,11 +1,11 @@
-package com.sbarrasa.bank.product;
+package com.sbarrasa.bank.model.product;
 
 import com.sbarrasa.bank.controller.dto.ProductDTO;
 import com.sbarrasa.bank.service.ProductMatcher;
 import com.sbarrasa.util.matcher.MatchType;
 import org.junit.jupiter.api.Test;
 
-import static com.sbarrasa.bank.product.ProductEntityTest.*;
+import static com.sbarrasa.bank.model.product.ProductEntityTest.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

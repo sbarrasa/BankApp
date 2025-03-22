@@ -1,5 +1,6 @@
-package com.sbarrasa.bank.product.types;
+package com.sbarrasa.bank.model.product.types;
 
+import com.sbarrasa.bank.model.product.ProductType;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.experimental.Accessors;
@@ -8,5 +9,9 @@ import lombok.experimental.Accessors;
 @DiscriminatorValue("CA")
 @Accessors(chain = true)
 public class SavingAccount extends Account {
+  public SavingAccount() {
+    super();
+    this.setProductType(ProductType.CA);
+  }
 
 }

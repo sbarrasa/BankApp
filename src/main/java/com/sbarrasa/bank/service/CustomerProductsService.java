@@ -1,7 +1,7 @@
 package com.sbarrasa.bank.service;
 
 import com.sbarrasa.bank.controller.dto.ProductDTO;
-import com.sbarrasa.bank.repository.CustomerEntity;
+import com.sbarrasa.bank.model.customer.CustomerEntity;
 import com.sbarrasa.bank.service.exceptions.DuplicatedProductException;
 import com.sbarrasa.bank.service.exceptions.ProductNotFondException;
 import com.sbarrasa.util.matcher.MatchType;
@@ -31,22 +31,38 @@ public class CustomerProductsService {
     return adapter.toDTOSet(filteredProducts);
   }
 
+
+
   public boolean exist(CustomerEntity customer, ProductDTO newProduct) {
     return !filter(customer, newProduct).isEmpty();
   }
 
-  public Set<ProductDTO> delete(CustomerEntity customer, ProductDTO productSample) {
-    var products = customer.getProducts();
+  public Set<ProductDTO> update(CustomerEntity customer, ProductDTO productSample, ProductDTO updateProduct) {
+    if(filter(customer, productSample).isEmpty())
+      throw new ProductNotFondException(customer.getId(), productSample);
 
-    products
+    var updatedProducts = customer.getProducts().stream()
+      .filter(currentProduct -> matcher.match(currentProduct, productSample, MatchType.ALL))
+      .map(currentProduct -> currentProduct.assign(updateProduct))
+      .collect(Collectors.toSet());
+
+    return adapter.toDTOSet(updatedProducts);
+  }
+
+  public Set<ProductDTO> delete(CustomerEntity customer, ProductDTO productSample) {
+    var productsToDelete = filter(customer, productSample);
+    if(productsToDelete.isEmpty())
+      throw new ProductNotFondException(customer.getId(), productSample);
+
+    customer.getProducts()
       .removeIf(product ->
         matcher.match(product, productSample, MatchType.ALL)
       );
 
-    return adapter.toDTOSet(products);
+    return productsToDelete;
   }
 
-  public void add(CustomerEntity customer, ProductDTO newProduct) {
+  public ProductDTO add(CustomerEntity customer, ProductDTO newProduct) {
 
     var products = customer.getProducts();
 
@@ -56,20 +72,11 @@ public class CustomerProductsService {
     var productEntity = adapter.toEntity(newProduct);
 
     products.add(productEntity);
+
+    return adapter.toDTO(productEntity);
   }
 
 
-  public ProductDTO find(CustomerEntity customer, ProductDTO searchProduct) {
-    return filter(customer, searchProduct).stream()
-      .findFirst()
-      .orElseThrow(() -> new ProductNotFondException(customer.getId(), searchProduct));
-  }
 
 
-  public void update(CustomerEntity customer, ProductDTO newProduct) {
-      customer.getProducts().forEach(currentProduct ->{
-        if(matcher.match(currentProduct, newProduct, MatchType.ALL))
-          currentProduct.assign(newProduct);
-      });
-  }
 }

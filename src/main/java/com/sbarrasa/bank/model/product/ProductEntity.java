@@ -1,4 +1,4 @@
-package com.sbarrasa.bank.product;
+package com.sbarrasa.bank.model.product;
 
 
 import com.sbarrasa.bank.controller.dto.ProductDTO;
@@ -28,7 +28,7 @@ public abstract class ProductEntity implements Desc {
   private ProductType productType;
 
   public ProductEntity assign(ProductDTO productDTO) {
-    productType = productDTO.getProductType();
+    assignNotNull(productDTO::setProductType, productDTO.getProductType());
     return this;
   }
 

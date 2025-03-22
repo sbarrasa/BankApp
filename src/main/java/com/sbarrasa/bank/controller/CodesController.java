@@ -1,10 +1,10 @@
 package com.sbarrasa.bank.controller;
 
-import com.sbarrasa.bank.customer.Gender;
+import com.sbarrasa.bank.model.customer.Gender;
 import com.sbarrasa.util.id.EnumDesc;
-import com.sbarrasa.bank.product.Branch;
-import com.sbarrasa.bank.product.Currency;
-import com.sbarrasa.bank.product.ProductType;
+import com.sbarrasa.bank.model.product.Branch;
+import com.sbarrasa.bank.model.product.Currency;
+import com.sbarrasa.bank.model.product.ProductType;
 import com.sbarrasa.util.id.IdDesc;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

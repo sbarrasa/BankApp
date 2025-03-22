@@ -1,8 +1,8 @@
 package com.sbarrasa.bank.service;
 
-import com.sbarrasa.bank.customer.Customer;
 import com.sbarrasa.bank.controller.dto.CustomerDTO;
-import com.sbarrasa.bank.repository.CustomerEntity;
+import com.sbarrasa.bank.model.customer.Customer;
+import com.sbarrasa.bank.model.customer.CustomerEntity;
 import com.sbarrasa.bank.repository.CustomerRepository;
 import com.sbarrasa.bank.service.exceptions.CustomerNotFoundException;
 import com.sbarrasa.bank.service.exceptions.DuplicatedCustomerException;
@@ -52,10 +52,8 @@ public class CustomerService {
   public CustomerEntity delete(Integer id) {
     var customer= this.get(id);
 
-    /*arma una copia del customer que se va a borrar
-    y le actualiza la fecha de ultima actualización
-    para devolverlo en caso de desear mostrar la info del customer eliminado
-     */
+    /* arma copia de customer a borrar
+    y actualiza lastUpdate para mostrar customer eliminado */
     var customerDeleted = new CustomerEntity(customer)
                                               .setLastUpdate(LocalDateTime.now());
 

@@ -1,6 +1,7 @@
-package com.sbarrasa.bank.product.types;
+package com.sbarrasa.bank.model.product.types;
 
 import com.sbarrasa.bank.controller.dto.ProductDTO;
+import com.sbarrasa.bank.model.product.ProductType;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.Data;
@@ -14,6 +15,11 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class CheckingAccount extends Account implements CreditProduct {
   private Double creditLimit;
+
+  public CheckingAccount(){
+    super();
+    this.setProductType(ProductType.CC);
+  }
 
   @Override
   public CheckingAccount assign(ProductDTO other){

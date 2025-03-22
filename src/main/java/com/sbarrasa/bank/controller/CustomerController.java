@@ -1,8 +1,8 @@
 package com.sbarrasa.bank.controller;
 
-import com.sbarrasa.bank.customer.Customer;
 import com.sbarrasa.bank.controller.dto.CustomerDTO;
-import com.sbarrasa.bank.repository.CustomerEntity;
+import com.sbarrasa.bank.model.customer.Customer;
+import com.sbarrasa.bank.model.customer.CustomerEntity;
 import com.sbarrasa.bank.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,7 +31,7 @@ public class CustomerController {
   }
 
   @GetMapping("/{id}")
-  public Customer get(@PathVariable Integer id) {
+  public CustomerDTO get(@PathVariable Integer id) {
     return new CustomerDTO(customerService.get(id));
   }
 

@@ -33,11 +33,11 @@ public class CustomerProductsController {
 
     var customer = customerService.get(customerId);
 
-    customerProductsService.add(customer, newProduct);
+    var productAdded = customerProductsService.add(customer, newProduct);
 
     customerService.update(customer);
 
-    return customerProductsService.find(customer, newProduct);
+    return productAdded;
 
   }
 
@@ -48,15 +48,13 @@ public class CustomerProductsController {
 
     var customer = customerService.get(customerId);
 
-
-    /*actualiza todos los productos que cumplan con el criterio especificado.
-    Ver Product.assign para comprender la lógica de actualización de cada producto
-     */
-    customerProductsService.update(customer, productUpdatePair.searchProduct());
+    var updatedProducts = customerProductsService.update(customer,
+      productUpdatePair.searchProduct(),
+      productUpdatePair.updateProduct());
 
     customerService.update(customer);
 
-    return customerProductsService.filter(customer, productUpdatePair.searchProduct());
+    return updatedProducts;
 
   }
 
