@@ -1,5 +1,6 @@
 package com.sbarrasa.bank.controller.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.sbarrasa.bank.customer.Address;
 import com.sbarrasa.bank.customer.Customer;
 import com.sbarrasa.bank.customer.Gender;
@@ -12,6 +13,7 @@ import java.util.Set;
 
 @Data
 @Accessors(chain = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @NoArgsConstructor
 public class CustomerDTO implements Customer {
   private Integer id;

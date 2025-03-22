@@ -8,13 +8,14 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class ProductsMatcher extends ObjectMatcher<ProductDTO> {
-  public Boolean match(ProductEntity product, ProductDTO sampleProduct, MatchType matchType) {
-    var productDTO = new ProductAdapter().toDTO(product);
-    return match(productDTO, sampleProduct, matchType);
+public class ProductMatcher extends ObjectMatcher<ProductDTO> {
+  private final ProductAdapter adapter;
+
+  public ProductMatcher(){
+    this(new ProductAdapter());
   }
 
-  public ProductsMatcher(){
+  public ProductMatcher(ProductAdapter adapter){
     super(
       ProductDTO::getProductType,
       ProductDTO::getBranch,
@@ -23,8 +24,10 @@ public class ProductsMatcher extends ObjectMatcher<ProductDTO> {
       ProductDTO::getCurrency,
       ProductDTO::getIsCredit
     );
+    this.adapter = adapter;
   }
 
-
-
+  public boolean match(ProductEntity product, ProductDTO sampleObject, MatchType matchType) {
+    return match(adapter.toDTO(product), sampleObject, matchType);
+  }
 }

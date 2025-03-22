@@ -7,26 +7,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
-import java.util.HashSet;
 import java.util.stream.Collectors;
 
 @Service
 public class CustomerProductsService {
-  private final ProductAdapter productAdapter;
-  private final ProductsMatcher productsMatcher;
+  private final ProductMatcher matcher;
+  private final ProductAdapter adapter;
 
   @Autowired
-  public CustomerProductsService(ProductAdapter productAdapter, ProductsMatcher productsMatcher) {
-    this.productAdapter = productAdapter;
-    this.productsMatcher = productsMatcher;
+  public CustomerProductsService(ProductMatcher matcher, ProductAdapter adapter ) {
+    this.matcher = matcher;
+    this.adapter = adapter;
   }
 
 
   public Set<ProductDTO> filter(CustomerEntity customer, ProductDTO newProduct) {
-    var productSet = productAdapter.toDTOSet(customer.getProducts());
-    return productSet.stream()
-      .filter(product -> productsMatcher.match(product, newProduct, MatchType.ALL))
+    var filteredProducts = customer.getProducts().stream()
+      .filter(product -> matcher.match(product, newProduct, MatchType.ALL))
       .collect(Collectors.toSet());
+
+    return adapter.toDTOSet(filteredProducts);
   }
 
   public boolean exist(CustomerEntity customer, ProductDTO newProduct) {
@@ -34,14 +34,14 @@ public class CustomerProductsService {
   }
 
   public Set<ProductDTO> delete(CustomerEntity customer, ProductDTO productSample) {
-    var productsFound = new HashSet<>(filter(customer, productSample));
+    var products = customer.getProducts();
 
-    customer.getProducts()
+    products
       .removeIf(product ->
-        productsMatcher.match(productAdapter.toDTO(product),productSample, MatchType.ALL)
+        matcher.match(product, productSample, MatchType.ALL)
       );
 
-    return productsFound;
+    return adapter.toDTOSet(products);
   }
 
   public void add(CustomerEntity customer, ProductDTO newProduct) {
@@ -51,7 +51,7 @@ public class CustomerProductsService {
     if(exist(customer, newProduct))
       throw new DuplicatedProductException(customer.getId(), newProduct);
 
-    var productEntity = productAdapter.toEntity(newProduct);
+    var productEntity = adapter.toEntity(newProduct);
 
     products.add(productEntity);
   }
@@ -64,10 +64,10 @@ public class CustomerProductsService {
   }
 
 
-  public void update(CustomerEntity customer, ProductDTO productDTO) {
-      customer.getProducts().forEach(product ->{
-        if(productsMatcher.match(product, productDTO, MatchType.ALL))
-          product.assign(productDTO);
+  public void update(CustomerEntity customer, ProductDTO newProduct) {
+      customer.getProducts().forEach(currentProduct ->{
+        if(matcher.match(currentProduct, newProduct, MatchType.ALL))
+          currentProduct.assign(newProduct);
       });
   }
 }

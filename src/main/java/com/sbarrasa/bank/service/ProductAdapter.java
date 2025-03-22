@@ -49,8 +49,7 @@ public class ProductAdapter {
       dto.setBranch(card.getBranch());
     }
     if (productEntity instanceof CreditCard tc) {
-      dto.setCreditLimit(tc.getCreditLimit())
-        .setTier(tc.getTier());
+      dto.setTier(tc.getTier());
     }
     if (productEntity instanceof CreditProduct creditProduct) {
       dto.setCreditLimit(creditProduct.getCreditLimit());
