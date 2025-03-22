@@ -1,6 +1,7 @@
 package com.sbarrasa.bank.product.types;
 
 
+import com.sbarrasa.bank.controller.dto.ProductDTO;
 import com.sbarrasa.bank.product.Branch;
 import com.sbarrasa.bank.product.ProductEntity;
 import jakarta.persistence.Column;
@@ -25,5 +26,11 @@ public abstract class Card extends ProductEntity {
     return getProductType().getDescription()+ " " + getBranch();
   }
 
+  @Override
+  public Card assign(ProductDTO other){
+    super.assign(other);
+    assignNotNull(this::setBranch, other.getBranch());
+    return this;
+  }
 
 }

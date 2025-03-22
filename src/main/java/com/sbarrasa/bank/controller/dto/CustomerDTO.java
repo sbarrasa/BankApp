@@ -21,7 +21,7 @@ public class CustomerDTO implements Customer {
   private Address address;
   private String email;
   private String phoneNumber;
-  private Set<Product> products;
+  private Set<ProductDTO> products;
 
 
   public CustomerDTO(Customer customer) {

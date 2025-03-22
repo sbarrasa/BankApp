@@ -12,6 +12,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProductTest {
+  ProductsMatcher matcher = new ProductsMatcher();
+
   ProductEntity productTC_VISA = new CreditCard()
     .setCreditLimit(6000000.00)
     .setTier("GOLD")
@@ -34,7 +36,7 @@ class ProductTest {
 
   ProductEntity productCA_USD = new SavingAccount()
     .setCurrency(Currency.USD)
-    .setProductType(ProductType.CA)
+    .setProductType(ProductType.CA);
 
   @Test
   void anyMatch() {
@@ -42,12 +44,11 @@ class ProductTest {
       .setBranch(Branch.VISA)
       .setProductType(ProductType.TC);
 
-    var matcher = new ProductsMatcher();
 
     assertTrue(matcher.match(productTC_VISA, sample, MatchType.ANY));
-    assertTrue(productTD.match(sample, MatchType.ANY));
-    assertTrue(productTC_AMEX.match(sample, MatchType.ANY));
-    assertFalse(productCC.match(sample, MatchType.ANY));
+    assertTrue(matcher.match(productTD, sample, MatchType.ANY));
+    assertTrue(matcher.match(productTC_AMEX, sample, MatchType.ANY));
+    assertFalse(matcher.match(productCC, sample, MatchType.ANY));
 
   }
 
@@ -56,9 +57,9 @@ class ProductTest {
     var sample = new ProductDTO()
       .setBranch(Branch.VISA);
 
-    assertTrue(productTC_VISA.match(sample, MatchType.ALL));
-    assertTrue(productTD.match(sample, MatchType.ALL));
-    assertFalse(productTC_AMEX.match(sample, MatchType.ALL));
+    assertTrue(matcher.match(productTC_VISA,sample, MatchType.ALL));
+    assertTrue(matcher.match(productTD,sample, MatchType.ALL));
+    assertFalse(productTC_AMEX,sample, MatchType.ALL));
 
   }
 
@@ -67,27 +68,27 @@ class ProductTest {
     var sample = new ProductDTO()
       .setIsCredit(true);
 
-    assertTrue(productCC.match(sample, MatchType.ALL));
-    assertTrue(productTC_VISA.match(sample, MatchType.ALL));
-    assertFalse(productCA_USD.match(sample, MatchType.ALL));
+    assertTrue(matcher.match(productCC,sample, MatchType.ALL));
+    assertTrue(matcher.match(productTC_VISA,sample, MatchType.ALL));
+    assertFalse(matcher.match(productCA_USD,sample, MatchType.ALL));
 
   }
 
 
   @Test
   void getDescription() {
-    assertEquals(ProductType.TD.getDescription(), productTD.getDescription());
-    assertEquals(ProductType.TC.getDescription(), productTC_VISA.getDescription());
+    assertEquals(matcher.match(productType.TD.getDescription(), productTD.getDescription());
+    assertEquals(matcher.match(productType.TC.getDescription(), productTC_VISA.getDescription());
 
   }
 
   @Test
   void assign() {
     assertEquals("GOLD", productTC_VISA.getTier());
-    assertNotNull(productTC_VISA.getCreditLimit());
+    assertNotNull(matcher.match(productTC_VISA.getCreditLimit());
 
     productTC_VISA.assign(new ProductEntity().setTier("SIGNATURE"));
     assertEquals("SIGNATURE", productTC_VISA.getTier());
-    assertNotNull(productTC_VISA.getCreditLimit());
+    assertNotNull(matcher.match(productTC_VISA.getCreditLimit());
   }
 }

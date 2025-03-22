@@ -1,6 +1,7 @@
 package com.sbarrasa.bank.product.types;
 
 
+import com.sbarrasa.bank.controller.dto.ProductDTO;
 import com.sbarrasa.bank.product.Currency;
 import com.sbarrasa.bank.product.ProductEntity;
 import jakarta.persistence.Column;
@@ -28,5 +29,13 @@ public abstract class Account extends ProductEntity {
     return getProductType().getDescription()+" en "+getCurrency().getDescription();
   }
 
+  @Override
+  public Account assign(ProductDTO other){
+    super.assign(other);
+    assignNotNull(this::setCbu, other.getCbu());
+    assignNotNull(this::setCurrency, other.getCurrency());
+
+    return this;
+  }
 
 }

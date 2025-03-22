@@ -5,30 +5,34 @@ import com.sbarrasa.bank.product.ProductEntity;
 import com.sbarrasa.bank.product.types.*;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Service
 public class ProductAdapter {
+  public Set<ProductEntity> toEntitySet(Set<ProductDTO> productDTOSet) {
+    return productDTOSet.stream()
+      .map(this::toEntity)
+      .collect(Collectors.toSet());
+  }
+
+  public Set<ProductDTO> toDTOSet(Set<ProductEntity> productEntitieSet) {
+    return productEntitieSet.stream()
+      .map(this::toDTO)
+      .collect(Collectors.toSet());
+  }
+
   public ProductEntity toEntity(ProductDTO productDTO) {
     ProductEntity productEntity = switch (productDTO.getProductType()) {
-      case TC -> new CreditCard()
-        .setTier(productDTO.getTier())
-        .setCreditLimit(productDTO.getCreditLimit())
-        .setBranch(productDTO.getBranch());
-      case TD -> new DebitCard()
-        .setBranch(productDTO.getBranch());
-      case CA -> new SavingAccount()
-        .setCbu(productDTO.getCbu())
-        .setCurrency(productDTO.getCurrency());
-      case CC -> new CheckingAccount()
-        .setCreditLimit(productDTO.getCreditLimit())
-        .setCurrency(productDTO.getCurrency())
-        .setCbu(productDTO.getCbu());
+      case TC -> new CreditCard();
+      case TD -> new DebitCard();
+      case CA -> new SavingAccount();
+      case CC -> new CheckingAccount();
     };
 
-    productEntity
-      .setProductType(productDTO.getProductType());
+    productEntity.assign(productDTO);
 
     return productEntity;
-
 
   }
 

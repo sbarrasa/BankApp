@@ -2,7 +2,6 @@ package com.sbarrasa.bank.service;
 
 import com.sbarrasa.bank.controller.dto.ProductDTO;
 import com.sbarrasa.bank.repository.CustomerEntity;
-import com.sbarrasa.bank.product.ProductEntity;
 import com.sbarrasa.util.matcher.MatchType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +23,8 @@ public class CustomerProductsService {
 
 
   public Set<ProductDTO> filter(CustomerEntity customer, ProductDTO newProduct) {
-    return customer.getProducts().stream()
+    var productSet = productAdapter.toDTOSet(customer.getProducts());
+    return productSet.stream()
       .filter(product -> productsMatcher.match(product, newProduct, MatchType.ALL))
       .collect(Collectors.toSet());
   }
@@ -37,31 +37,37 @@ public class CustomerProductsService {
     var productsFound = new HashSet<>(filter(customer, productSample));
 
     customer.getProducts()
-      .removeIf(product -> product.match(productSample, MatchType.ALL));
+      .removeIf(product ->
+        productsMatcher.match(productAdapter.toDTO(product),productSample, MatchType.ALL)
+      );
 
     return productsFound;
   }
 
-  public void add(CustomerEntity customer, Product newProduct) {
-    newProduct.validate();
+  public void add(CustomerEntity customer, ProductDTO newProduct) {
 
     var products = customer.getProducts();
 
     if(exist(customer, newProduct))
       throw new DuplicatedProductException(customer.getId(), newProduct);
 
-    var productEntity = new ProductEntity(newProduct);
+    var productEntity = productAdapter.toEntity(newProduct);
 
     products.add(productEntity);
   }
 
 
-  public Product find(CustomerEntity customer, Product searchProduct) {
+  public ProductDTO find(CustomerEntity customer, ProductDTO searchProduct) {
     return filter(customer, searchProduct).stream()
       .findFirst()
       .orElseThrow(() -> new ProductNotFondException(customer.getId(), searchProduct));
   }
 
 
- 
+  public void update(CustomerEntity customer, ProductDTO productDTO) {
+      customer.getProducts().forEach(product ->{
+        if(productsMatcher.match(product, productDTO, MatchType.ALL))
+          product.assign(productDTO);
+      });
+  }
 }
