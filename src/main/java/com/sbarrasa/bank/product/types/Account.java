@@ -11,6 +11,7 @@ import jakarta.persistence.Enumerated;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import jakarta.validation.constraints.NotNull;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -18,10 +19,12 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public abstract class Account extends ProductEntity {
   @Column(length = 22)
+  @NotNull
   private String cbu;
 
   @Column(length = 3)
   @Enumerated(EnumType.STRING)
+  @NotNull
   private Currency currency;
 
   @Override
