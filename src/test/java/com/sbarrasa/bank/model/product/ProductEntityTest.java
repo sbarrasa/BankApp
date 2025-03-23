@@ -1,6 +1,5 @@
 package com.sbarrasa.bank.model.product;
 
-import com.sbarrasa.bank.controller.dto.ProductDTO;
 import com.sbarrasa.bank.model.product.types.*;
 import org.junit.jupiter.api.Test;
 
@@ -51,18 +50,14 @@ class ProductEntityTest {
 
 
   @Test
-  void getDescription() {
-    assertTrue(productTD.getDescription().startsWith(productTD.getProductType().getDescription()));
+  void getIsCredit(){
+    assertTrue(productTC_VISA.getIsCredit());
+    assertFalse(productCA_USD.getIsCredit());
   }
 
   @Test
-  void assign() {
-    assertEquals("GOLD", productTC_VISA.getTier());
-    assertNotNull(productTC_VISA.getCreditLimit());
-
-    productTC_VISA.assign(new ProductDTO().setTier("SIGNATURE"));
-    assertEquals("SIGNATURE", productTC_VISA.getTier());
-    assertNotNull(productTC_VISA.getCreditLimit());
+  void getDescription() {
+    assertTrue(productTD.getDescription().startsWith(productTD.getProductType().getDescription()));
   }
 
 }

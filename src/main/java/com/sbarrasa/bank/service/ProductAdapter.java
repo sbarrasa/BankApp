@@ -4,6 +4,8 @@ import com.sbarrasa.bank.controller.dto.ProductDTO;
 import com.sbarrasa.bank.model.product.ProductEntity;
 import com.sbarrasa.bank.model.product.types.*;
 import com.sbarrasa.util.validator.Validator;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -12,6 +14,7 @@ import java.util.stream.Collectors;
 @Service
 public class ProductAdapter {
   private final Validator validator = new Validator();
+  private final ModelMapper modelMapper = buildModelMapper();
 
   public Set<ProductDTO> toDTOSet(Set<ProductEntity> productEntitieSet) {
     return productEntitieSet.stream()
@@ -29,41 +32,49 @@ public class ProductAdapter {
       case CC -> new CheckingAccount();
     };
 
-    productEntity.assign(productDTO);
-    productEntity.setProductType(productDTO.getProductType());
+    modelMapper.map(productDTO, productEntity);
 
     validator.validate(productEntity);
     return productEntity;
 
   }
 
+
   public ProductDTO toDTO(ProductEntity productEntity) {
-    ProductDTO dto = new ProductDTO()
-      .setProductType(productEntity.getProductType())
-      .setDescription(productEntity.getDescription());
+    var productDTO = new ProductDTO();
 
-    if (productEntity instanceof Account acc) {
-      dto.setCbu(acc.getCbu())
-        .setCurrency(acc.getCurrency());
-    }
-    if (productEntity instanceof Card card) {
-      dto.setBranch(card.getBranch());
-    }
-    if (productEntity instanceof CreditCard tc) {
-      dto.setTier(tc.getTier());
-    }
-    if (productEntity instanceof CreditProduct creditProduct) {
-      dto.setCreditLimit(creditProduct.getCreditLimit());
-      dto.setIsCredit(true);
-    } else {
-      dto.setIsCredit(false);
-    }
-
-    return dto;
+    modelMapper.map(productEntity, productDTO);
+    return productDTO;
   }
 
   public ProductDTO cleanDTO(ProductDTO sampleProduct) {
     return toDTO(toEntity(sampleProduct));
 
   }
+
+
+
+  public ProductDTO map(ProductEntity source, ProductDTO target) {
+    modelMapper.map(source, target);
+    return target;
+  }
+  public ProductEntity map(ProductDTO source, ProductEntity target) {
+    modelMapper.map(source, target);
+    return target;
+  }
+
+  private ModelMapper buildModelMapper(){
+    var mapper = new ModelMapper();
+    mapper.getConfiguration().setSkipNullEnabled(true);
+
+    mapper.addMappings(new PropertyMap<ProductEntity, ProductDTO>() {
+      @Override
+      protected void configure() {
+        map(false, destination.getIsCredit());
+      }
+    });
+
+    return mapper;
+  }
+
 }

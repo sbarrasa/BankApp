@@ -1,13 +1,12 @@
 package com.sbarrasa.bank.model.product;
 
 
-import com.sbarrasa.bank.controller.dto.ProductDTO;
+import com.sbarrasa.bank.model.product.types.CreditProduct;
 import com.sbarrasa.util.id.Desc;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import java.util.function.Consumer;
 
 @Accessors(chain = true)
 @Entity
@@ -25,20 +24,14 @@ public abstract class ProductEntity implements Desc {
   @NotNull
   private ProductType productType;
 
-  public ProductEntity assign(ProductDTO productDTO) {
-    assignNotNull(productDTO::setProductType, productDTO.getProductType());
-    return this;
-  }
-
-  protected  <T> void assignNotNull(Consumer<T> setter, T value) {
-    if (value != null)
-      setter.accept(value);
-  }
 
   @Override
   public String getDescription() {
     return productType.getDescription();
   }
 
+  public boolean getIsCredit(){
+    return this instanceof CreditProduct;
+  }
 
 }

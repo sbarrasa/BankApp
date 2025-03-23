@@ -1,6 +1,5 @@
 package com.sbarrasa.bank.model.product.types;
 
-import com.sbarrasa.bank.controller.dto.ProductDTO;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.Min;
@@ -19,13 +18,6 @@ public class CheckingAccount extends Account implements CreditProduct {
   @Min(1)
   private Double creditLimit;
 
-  @Override
-  public CheckingAccount assign(ProductDTO other){
-    assignNotNull(this::setCreditLimit, other.getCreditLimit());
-    super.assign(other);
-
-    return this;
-  }
 
 
 }

@@ -62,7 +62,7 @@ public class CustomerProductsService {
 
     var updatedProducts = customer.getProducts().stream()
       .filter(currentProduct -> matcher.match(currentProduct, productSample, MatchType.ALL))
-      .map(currentProduct -> currentProduct.assign(updateProduct))
+      .map(currentProduct -> adapter.map(updateProduct, currentProduct))
       .collect(Collectors.toSet());
 
     return adapter.toDTOSet(updatedProducts);

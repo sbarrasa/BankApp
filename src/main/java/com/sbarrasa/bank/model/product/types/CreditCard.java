@@ -1,7 +1,6 @@
 package com.sbarrasa.bank.model.product.types;
 
 
-import com.sbarrasa.bank.controller.dto.ProductDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -33,14 +32,6 @@ public class CreditCard extends Card implements CreditProduct {
     return tier == null
       ? ""
       : " " +tier;
-  }
-
-  @Override
-  public CreditCard assign(ProductDTO other){
-    assignNotNull(this::setCreditLimit, other.getCreditLimit());
-    assignNotNull(this::setTier, other.getTier());
-    super.assign(other);
-    return this;
   }
 
 }
