@@ -1,5 +1,6 @@
 package com.sbarrasa.bank.service;
 
+import com.sbarrasa.bank.controller.dto.CustomerDTO;
 import com.sbarrasa.bank.controller.dto.ProductDTO;
 import com.sbarrasa.bank.model.customer.CustomerEntity;
 import com.sbarrasa.bank.model.product.ProductEntity;
@@ -43,7 +44,7 @@ public class CustomerProductsService {
   private void verifyExists(CustomerEntity customer, ProductDTO sampleProduct) {
     var product = find(customer, sampleProduct);
     if (product != null)
-      throw new DuplicatedProductException(customer.getId(), adapter.toDTO(product));
+      throw new DuplicatedProductException(new CustomerDTO(customer), adapter.toDTO(product));
   }
 
   private void verifyCBU(CustomerEntity customer, ProductDTO newProduct) {
@@ -57,7 +58,7 @@ public class CustomerProductsService {
   @Transactional
   public Set<ProductDTO> update(CustomerEntity customer, ProductDTO productSample, ProductDTO updateProduct) {
     if(filter(customer, productSample).isEmpty())
-      throw new ProductNotFondException(customer.getId(), productSample);
+      throw new ProductNotFondException(new CustomerDTO(customer), productSample);
 
     var updatedProducts = customer.getProducts().stream()
       .filter(currentProduct -> matcher.match(currentProduct, productSample, MatchType.ALL))
@@ -71,7 +72,7 @@ public class CustomerProductsService {
   public Set<ProductDTO> delete(CustomerEntity customer, ProductDTO productSample) {
     var productsToDelete = filter(customer, productSample);
     if(productsToDelete.isEmpty())
-      throw new ProductNotFondException(customer.getId(), productSample);
+      throw new ProductNotFondException(new CustomerDTO(customer), productSample);
 
     customer.getProducts()
       .removeIf(product ->

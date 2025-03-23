@@ -1,10 +1,13 @@
 package com.sbarrasa.bank.service.exceptions;
 
 
+import com.sbarrasa.bank.controller.dto.CustomerDTO;
+
 public class DuplicatedCustomerException extends CustomerException {
 
-  public DuplicatedCustomerException(Integer customerId) {
-    super(customerId);
+
+  public DuplicatedCustomerException(CustomerDTO customer) {
+    super(customer);
   }
 
   @Override

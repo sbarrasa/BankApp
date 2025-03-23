@@ -1,8 +1,11 @@
 package com.sbarrasa.bank.service.exceptions;
 
+import com.sbarrasa.bank.controller.dto.CustomerDTO;
+
 public class CustomerNotFoundException extends CustomerException {
-  public CustomerNotFoundException(Integer customerId) {
-    super(customerId);
+
+  public CustomerNotFoundException(CustomerDTO customer) {
+    super(customer);
   }
 
   @Override

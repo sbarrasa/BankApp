@@ -36,7 +36,7 @@ public class CustomerService {
   @Transactional
   public CustomerEntity create(CustomerEntity customer) {
     if( customerRepository.existsById(customer.getId()))
-      throw new DuplicatedCustomerException(customer.getId());
+      throw new DuplicatedCustomerException(new CustomerDTO(customer));
 
     validator.validate(customer);
 
@@ -47,7 +47,7 @@ public class CustomerService {
   @Transactional
   public CustomerEntity update(CustomerEntity customer) {
     if(get(customer.getId())==null)
-      throw new CustomerNotFoundException(customer.getId());
+      throw new CustomerNotFoundException(new CustomerDTO(customer));
 
     validator.validate(customer);
 
@@ -58,7 +58,7 @@ public class CustomerService {
   public CustomerEntity delete(Integer id) {
     var customer = get(id);
     if(customer == null)
-      throw new CustomerNotFoundException(customer.getId());
+      throw new CustomerNotFoundException(new CustomerDTO().setId(id));
 
 
     /* arma copia de customer a borrar
@@ -81,6 +81,6 @@ public class CustomerService {
 
 
   public CustomerEntity get(Integer id) {
-    return customerRepository.findById(id).get();
+    return customerRepository.findById(id).orElseThrow(() -> new CustomerNotFoundException(new CustomerDTO().setId(id)));
   }
 }
