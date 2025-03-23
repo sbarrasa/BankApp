@@ -6,9 +6,10 @@ import com.sbarrasa.bank.model.customer.CustomerEntity;
 import com.sbarrasa.bank.repository.CustomerRepository;
 import com.sbarrasa.bank.service.exceptions.CustomerNotFoundException;
 import com.sbarrasa.bank.service.exceptions.DuplicatedCustomerException;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.sbarrasa.util.validator.Validator;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,8 +19,8 @@ import java.util.stream.Collectors;
 public class CustomerService {
 
   private final CustomerRepository customerRepository;
+  private final Validator validator = new Validator();
 
-  @Autowired
   public CustomerService(CustomerRepository customerRepository) {
     this.customerRepository = customerRepository;
   }
@@ -31,29 +32,38 @@ public class CustomerService {
   }
 
 
-  public CustomerEntity get(Integer id) {
-    return customerRepository.findById(id)
-      .orElseThrow(() -> new CustomerNotFoundException(id));
-  }
 
+  @Transactional
   public CustomerEntity create(CustomerEntity customer) {
-    if(customerRepository.existsById(customer.getId()))
+    if( customerRepository.existsById(customer.getId()))
       throw new DuplicatedCustomerException(customer.getId());
 
+    validator.validate(customer);
+
     return customerRepository.save(customer);
 
   }
 
+  @Transactional
   public CustomerEntity update(CustomerEntity customer) {
-    get(customer.getId());
+    if(get(customer.getId())==null)
+      throw new CustomerNotFoundException(customer.getId());
+
+    validator.validate(customer);
+
     return customerRepository.save(customer);
   }
 
+  @Transactional
   public CustomerEntity delete(Integer id) {
-    var customer= this.get(id);
+    var customer = get(id);
+    if(customer == null)
+      throw new CustomerNotFoundException(customer.getId());
+
 
     /* arma copia de customer a borrar
     y actualiza lastUpdate para mostrar customer eliminado */
+
     var customerDeleted = new CustomerEntity(customer)
                                               .setLastUpdate(LocalDateTime.now());
 
@@ -67,5 +77,10 @@ public class CustomerService {
     return customerRepository.findAll(example).stream()
       .map(customer -> (Customer)new CustomerDTO(customer))
       .toList();
+  }
+
+
+  public CustomerEntity get(Integer id) {
+    return customerRepository.findById(id).get();
   }
 }

@@ -23,13 +23,6 @@ public abstract class Card extends ProductEntity {
   @NotNull
   private Branch branch;
 
-  public Card(){
-    super();
-    getValidator()
-      .addNonNull(this::getBranch, "branch");
-
-  }
-
   @Override
   public String getDescription() {
     return getProductType().getDescription()+ " " + getBranch();

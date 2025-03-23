@@ -2,7 +2,6 @@ package com.sbarrasa.bank.model.product;
 
 import com.sbarrasa.bank.controller.dto.ProductDTO;
 import com.sbarrasa.bank.model.product.types.*;
-import com.sbarrasa.util.validator.ValidationException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -66,16 +65,4 @@ class ProductEntityTest {
     assertNotNull(productTC_VISA.getCreditLimit());
   }
 
-  @Test
-  void validate(){
-    var product = new CreditCard();
-    assertThrows(ValidationException.class, () -> product.getValidator().validate());
-    product.setBranch(Branch.VISA);
-    product.setCreditLimit(0.0);
-    assertThrows(ValidationException.class, () -> product.getValidator().validate());
-    product.setCreditLimit(1234.0);
-
-    assertDoesNotThrow(() -> product.getValidator().validate());
-
-  }
 }

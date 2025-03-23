@@ -8,6 +8,7 @@ import com.sbarrasa.bank.service.exceptions.ProductNotFondException;
 import com.sbarrasa.util.matcher.MatchType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -53,6 +54,7 @@ public class CustomerProductsService {
 
   }
 
+  @Transactional
   public Set<ProductDTO> update(CustomerEntity customer, ProductDTO productSample, ProductDTO updateProduct) {
     if(filter(customer, productSample).isEmpty())
       throw new ProductNotFondException(customer.getId(), productSample);
@@ -65,6 +67,7 @@ public class CustomerProductsService {
     return adapter.toDTOSet(updatedProducts);
   }
 
+  @Transactional
   public Set<ProductDTO> delete(CustomerEntity customer, ProductDTO productSample) {
     var productsToDelete = filter(customer, productSample);
     if(productsToDelete.isEmpty())
@@ -78,6 +81,7 @@ public class CustomerProductsService {
     return productsToDelete;
   }
 
+  @Transactional
   public ProductDTO add(CustomerEntity customer, ProductDTO newProduct) {
 
     verifyExists(customer, adapter.cleanDTO(newProduct));

@@ -34,3 +34,4 @@ build/
 /data/bank.mv.db
 /data/bank.trace.db
 /BankCustomers.project.zip
+/data/bank.lock.db

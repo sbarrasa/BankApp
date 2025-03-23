@@ -155,8 +155,8 @@ POST http://localhost:8080/api/customers/1/products
 Content-Type: application/json
 
 {
-  "productType": "CC",
-  "currency": "ARS",
-  "creditLimit": 1,
-  "cbu": "1234567890123456789022"
+  "productType": "CA",
+  "creditLimit": 123,
+  "currency": "EUR",
+  "cbu": "1234567890123456789055"
 }

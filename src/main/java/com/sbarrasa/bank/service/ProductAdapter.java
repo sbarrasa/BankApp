@@ -11,12 +11,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class ProductAdapter {
-
-  public Set<ProductEntity> toEntitySet(Set<ProductDTO> productDTOSet) {
-    return productDTOSet.stream()
-      .map(this::toEntity)
-      .collect(Collectors.toSet());
-  }
+  private final Validator validator = new Validator();
 
   public Set<ProductDTO> toDTOSet(Set<ProductEntity> productEntitieSet) {
     return productEntitieSet.stream()
@@ -25,9 +20,7 @@ public class ProductAdapter {
   }
 
   public ProductEntity toEntity(ProductDTO productDTO) {
-    new Validator()
-      .addNonNull(productDTO::getProductType, "productType")
-      .validate();
+    validator.validate(productDTO);
 
     ProductEntity productEntity = switch (productDTO.getProductType()) {
       case TC -> new CreditCard();
@@ -37,7 +30,9 @@ public class ProductAdapter {
     };
 
     productEntity.assign(productDTO);
+    productEntity.setProductType(productDTO.getProductType());
 
+    validator.validate(productEntity);
     return productEntity;
 
   }

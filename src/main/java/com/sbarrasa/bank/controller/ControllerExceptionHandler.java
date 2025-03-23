@@ -3,7 +3,8 @@ package com.sbarrasa.bank.controller;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.sbarrasa.bank.controller.dto.CustomerExceptionDTO;
 import com.sbarrasa.bank.service.exceptions.*;
-import com.sbarrasa.util.validator.ValidationException;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -25,12 +26,6 @@ public class ControllerExceptionHandler {
       HttpStatus.BAD_REQUEST);
   }
 
-
-  @ExceptionHandler(ValidationException.class)
-  public ResponseEntity<Map<String, String>> handle(ValidationException ex) {
-    return new ResponseEntity<>(ex.getErrors(), HttpStatus.BAD_REQUEST);
-  }
-
   @ExceptionHandler(InvalidFormatException.class)
   public ResponseEntity<Map<String, String>> handle(InvalidFormatException ex) {
     Class<?> targetType = ex.getTargetType();
@@ -38,12 +33,22 @@ public class ControllerExceptionHandler {
     String message;
 
     if (targetType.isEnum()) {
-      var possibleValues = Arrays.stream(((Class<? extends Enum>) targetType).getEnumConstants()).toList();
+      var possibleValues = Arrays.stream(((Class<? extends Enum<?>>) targetType).getEnumConstants()).toList();
       message = "valores posibles %s".formatted(possibleValues);
     }else{
       message = "No es un %s valido".formatted(targetType.getSimpleName());
     }
 
     return new ResponseEntity<>(Map.of(fieldName, message), HttpStatus.BAD_REQUEST);
+  }
+
+  @ExceptionHandler(ConstraintViolationException.class)
+  public ResponseEntity<Map<String, String>> handleValidation(ConstraintViolationException ex) {
+    Map<String, String> errors = new HashMap<>();
+    for (ConstraintViolation<?> violation : ex.getConstraintViolations()) {
+      String field = violation.getPropertyPath().toString();
+      errors.put(field, violation.getMessage());
+    }
+    return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
   }
 }

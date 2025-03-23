@@ -43,11 +43,9 @@ POST http://localhost:8080/api/customers
 Content-Type: application/json
 
 {
-  "id": 5,
-  "firstName": "Carlos",
-  "lastName": "Mendez",
+  "id": 8,
   "gender": "M",
-  "email": "carlos.mendez@example.com",
+  "email": "carlos.mendezexample.com",
   "phoneNumber": "1167890123",
   "address": {
     "addressLine": "Avenida Libertador 1234",
