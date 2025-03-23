@@ -18,15 +18,22 @@ public class CheckingAccount extends Account implements CreditProduct {
 
   public CheckingAccount(){
     super();
-    this.setProductType(ProductType.CC);
+    getValidator()
+      .addNonNull(this::getCreditLimit, "creditLimit")
+      .addCondition(() ->this.getCreditLimit() >0, "creditLimit", "debe ser mayor que 0");
   }
 
   @Override
   public CheckingAccount assign(ProductDTO other){
-    super.assign(other);
     assignNotNull(this::setCreditLimit, other.getCreditLimit());
+    super.assign(other);
 
     return this;
+  }
+
+  @Override
+  protected ProductType defaultProductType() {
+    return ProductType.CC;
   }
 
 }

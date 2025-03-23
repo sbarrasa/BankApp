@@ -9,9 +9,9 @@ import lombok.experimental.Accessors;
 @DiscriminatorValue("TD")
 @Accessors(chain = true)
 public class DebitCard extends Card {
-  public DebitCard(){
-    super();
-    this.setProductType(ProductType.TD);
-  }
 
+  @Override
+  protected ProductType defaultProductType() {
+    return ProductType.TD;
+  }
 }

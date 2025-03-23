@@ -11,20 +11,24 @@ import jakarta.persistence.Enumerated;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import jakarta.validation.constraints.NotNull;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
 @Accessors(chain = true)
 public abstract class Account extends ProductEntity {
+  public Account(){
+    super();
+    getValidator()
+      .addNonNull(this::getCbu, "cbu")
+      .addNonNull(this::getCurrency, "currency");
+  }
+
   @Column(length = 22)
-  @NotNull
   private String cbu;
 
   @Column(length = 3)
   @Enumerated(EnumType.STRING)
-  @NotNull
   private Currency currency;
 
   @Override
@@ -34,9 +38,10 @@ public abstract class Account extends ProductEntity {
 
   @Override
   public Account assign(ProductDTO other){
-    super.assign(other);
     assignNotNull(this::setCbu, other.getCbu());
     assignNotNull(this::setCurrency, other.getCurrency());
+
+    super.assign(other);
 
     return this;
   }

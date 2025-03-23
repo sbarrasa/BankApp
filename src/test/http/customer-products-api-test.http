@@ -142,10 +142,11 @@ Content-Type: application/json
 
 {
   "searchProduct": {
+    "productType": "TC",
     "branch": "VISA"
   },
   "updateProduct": {
-    "creditLimit": 8000000
+    "creditLimit": 85000
   }
 }
 
@@ -154,6 +155,9 @@ POST http://localhost:8080/api/customers/1/products
 Content-Type: application/json
 
 {
-  "productType": "CC",
-  "currency": "ARS"
+  "productType": "CA",
+  "cbu": 121212,
+  "currency": 2,
+  "creditLimit": 1234
+
 }

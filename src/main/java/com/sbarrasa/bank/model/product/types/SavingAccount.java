@@ -9,9 +9,8 @@ import lombok.experimental.Accessors;
 @DiscriminatorValue("CA")
 @Accessors(chain = true)
 public class SavingAccount extends Account {
-  public SavingAccount() {
-    super();
-    this.setProductType(ProductType.CA);
+  @Override
+  protected ProductType defaultProductType() {
+    return ProductType.CA;
   }
-
 }

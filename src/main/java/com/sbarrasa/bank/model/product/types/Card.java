@@ -9,19 +9,26 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
-@Getter
-@Setter
+@Data
 @Accessors(chain = true)
 public abstract class Card extends ProductEntity {
   @Column(length = 4)
   @Enumerated(EnumType.STRING)
   @NotNull
   private Branch branch;
+
+  public Card(){
+    super();
+    getValidator()
+      .addNonNull(this::getBranch, "branch");
+
+  }
 
   @Override
   public String getDescription() {
@@ -30,8 +37,8 @@ public abstract class Card extends ProductEntity {
 
   @Override
   public Card assign(ProductDTO other){
-    super.assign(other);
     assignNotNull(this::setBranch, other.getBranch());
+    super.assign(other);
     return this;
   }
 
