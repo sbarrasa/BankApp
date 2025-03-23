@@ -2,6 +2,7 @@ package com.sbarrasa.bank.service;
 
 import com.sbarrasa.bank.controller.dto.ProductDTO;
 import com.sbarrasa.bank.model.customer.CustomerEntity;
+import com.sbarrasa.bank.model.product.ProductEntity;
 import com.sbarrasa.bank.service.exceptions.DuplicatedProductException;
 import com.sbarrasa.bank.service.exceptions.ProductNotFondException;
 import com.sbarrasa.util.matcher.MatchType;
@@ -31,10 +32,25 @@ public class CustomerProductsService {
     return adapter.toDTOSet(filteredProducts);
   }
 
+  public ProductEntity find(CustomerEntity customer, ProductDTO sampleProduct) {
 
+    return customer.getProducts().stream()
+      .filter(product -> matcher.match(product, sampleProduct, MatchType.ALL))
+      .findFirst().orElse(null);
+  }
 
-  public boolean exist(CustomerEntity customer, ProductDTO newProduct) {
-    return !filter(customer, newProduct).isEmpty();
+  private void verifyExists(CustomerEntity customer, ProductDTO sampleProduct) {
+    var product = find(customer, sampleProduct);
+    if (product != null)
+      throw new DuplicatedProductException(customer.getId(), adapter.toDTO(product));
+  }
+
+  private void verifyCBU(CustomerEntity customer, ProductDTO newProduct) {
+    if(newProduct.getCbu()!=null) {
+      var account = new ProductDTO().setCbu(newProduct.getCbu());
+      verifyExists(customer, account);
+    }
+
   }
 
   public Set<ProductDTO> update(CustomerEntity customer, ProductDTO productSample, ProductDTO updateProduct) {
@@ -64,18 +80,15 @@ public class CustomerProductsService {
 
   public ProductDTO add(CustomerEntity customer, ProductDTO newProduct) {
 
-    var products = customer.getProducts();
-
-    if(exist(customer, newProduct))
-      throw new DuplicatedProductException(customer.getId(), newProduct);
+    verifyExists(customer, adapter.cleanDTO(newProduct));
+    verifyCBU(customer, newProduct);
 
     var productEntity = adapter.toEntity(newProduct);
 
-    products.add(productEntity);
+    customer.getProducts().add(productEntity);
 
     return adapter.toDTO(productEntity);
   }
-
 
 
 

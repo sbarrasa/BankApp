@@ -18,18 +18,20 @@ public class CustomerProductsController {
   private final CustomerService customerService;
   private final CustomerProductsService customerProductsService;
   private final ProductAdapter productAdapter;
+
   @Autowired
   public CustomerProductsController(CustomerService customerService,
-                                    CustomerProductsService customerProductsService, ProductAdapter productAdapter, ProductAdapter productAdapter1) {
+                                    CustomerProductsService customerProductsService,
+                                    ProductAdapter productAdapter) {
     this.customerService = customerService;
     this.customerProductsService = customerProductsService;
-    this.productAdapter = productAdapter1;
+    this.productAdapter = productAdapter;
   }
 
   @Transactional
   @PostMapping("/{customerId}/products")
   public ProductDTO addProduct(@PathVariable Integer customerId,
-                            @RequestBody ProductDTO newProduct){
+                               @RequestBody ProductDTO newProduct) {
 
     var customer = customerService.get(customerId);
 
@@ -44,7 +46,7 @@ public class CustomerProductsController {
   @Transactional
   @PutMapping("/{customerId}/products")
   public Set<ProductDTO> updateProducts(@PathVariable Integer customerId,
-                                                  @RequestBody ProductUpdatePair productUpdatePair){
+                                        @RequestBody ProductUpdatePair productUpdatePair) {
 
     var customer = customerService.get(customerId);
 
@@ -61,7 +63,7 @@ public class CustomerProductsController {
   @Transactional
   @DeleteMapping("/{customerId}/products")
   public Set<ProductDTO> deleteProducts(@PathVariable Integer customerId,
-                                                  @RequestBody ProductDTO searchProduct) {
+                                        @RequestBody ProductDTO searchProduct) {
     var customer = customerService.get(customerId);
 
     var deletedProducts = customerProductsService.delete(customer, searchProduct);
@@ -73,14 +75,14 @@ public class CustomerProductsController {
 
   @GetMapping("/{customerId}/products")
   public Set<ProductDTO> getProducts(@PathVariable Integer customerId) {
-    var customer =  customerService.get(customerId);
+    var customer = customerService.get(customerId);
 
     return productAdapter.toDTOSet(customer.getProducts());
   }
 
   @GetMapping("/{customerId}/products/filter")
   public Set<ProductDTO> getProductsByExample(@PathVariable Integer customerId,
-                                                        @RequestBody ProductDTO productSample) {
+                                              @RequestBody ProductDTO productSample) {
     var customer = customerService.get(customerId);
 
     return customerProductsService.filter(customer, productSample);
