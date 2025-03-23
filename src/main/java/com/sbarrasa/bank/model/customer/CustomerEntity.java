@@ -3,6 +3,7 @@ package com.sbarrasa.bank.model.customer;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.sbarrasa.bank.model.product.ProductEntity;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import jakarta.validation.constraints.Email;
@@ -40,6 +41,7 @@ public class CustomerEntity implements Customer {
   @NotNull
   private Gender gender;
 
+  @Valid
   @Embedded
   private Address address;
 
