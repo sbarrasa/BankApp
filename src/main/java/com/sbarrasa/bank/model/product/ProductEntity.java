@@ -5,8 +5,7 @@ import com.sbarrasa.bank.controller.dto.ProductDTO;
 import com.sbarrasa.util.id.Desc;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import lombok.experimental.Accessors;
 import java.util.function.Consumer;
 
@@ -14,15 +13,15 @@ import java.util.function.Consumer;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "product_type")
+@Table(name = "products")
+@Data
 public abstract class ProductEntity implements Desc {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Getter @Setter
   private Long id;
 
   @Column(name = "product_type", length = 2, insertable=false, updatable=false)
   @Enumerated(EnumType.STRING)
-  @Getter @Setter
   @NotNull
   private ProductType productType;
 

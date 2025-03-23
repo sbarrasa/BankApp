@@ -45,7 +45,9 @@ Content-Type: application/json
 {
   "id": 8,
   "gender": "M",
-  "email": "carlos.mendezexample.com",
+  "lastName": "Karim",
+  "firstName": "Julio",
+  "email": "carlos.mendez@example.com",
   "phoneNumber": "1167890123",
   "address": {
     "addressLine": "Avenida Libertador 1234",

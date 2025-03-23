@@ -17,7 +17,7 @@ import java.util.Set;
 
 
 @Entity
-@Table(name = "CUSTOMER")
+@Table(name = "customers")
 @Data
 @Accessors(chain = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
