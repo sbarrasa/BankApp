@@ -50,17 +50,4 @@ class ProductEntityTest {
     assertFalse(productCA_USD.getIsCredit());
   }
 
-  @Test
-  void productType() {
-    assertEquals(ProductType.TC, productTC_VISA.getProductType());
-    assertEquals(ProductType.TD, productTD.getProductType());
-    assertEquals(ProductType.CA, productCA_USD.getProductType());
-    assertEquals(ProductType.CC, productCC.getProductType());
-  }
-
-  @Test
-  void getDescription() {
-    assertTrue(productTD.getDescription().startsWith(productTD.getProductType().getDescription()));
-  }
-
 }

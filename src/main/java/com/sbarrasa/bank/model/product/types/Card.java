@@ -23,7 +23,7 @@ public abstract class Card extends ProductEntity {
 
   @Override
   public String getDescription() {
-    return getProductType().getDescription()+ " " + getBranch();
+    return super.getDescription()+ " " + getBranch();
   }
 
 }

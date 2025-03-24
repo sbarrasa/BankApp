@@ -1,6 +1,7 @@
 package com.sbarrasa.bank.model.product;
 
 import com.sbarrasa.bank.controller.dto.ProductDTO;
+import com.sbarrasa.bank.model.product.types.*;
 import com.sbarrasa.bank.service.ProductMatcher;
 import com.sbarrasa.util.matcher.MatchType;
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,7 @@ public class ProductMatcherTest {
   void anyMatch() {
     var sample = new ProductDTO()
       .setBranch(Branch.VISA)
-      .setProductType(ProductType.TC);
+      .setProductType(CreditCard.PRODUCT_TYPE);
 
     assertTrue(matcher.match(productTC_VISA, sample, MatchType.ANY));
     assertTrue(matcher.match(productTD, sample, MatchType.ANY));

@@ -12,7 +12,7 @@ public final class EnumDescAdapter<E extends Enum<E> & Desc> implements IdDesc<E
   }
 
   @Override
-  public E id() {
+  public E getId() {
     return enumType;
   }
 

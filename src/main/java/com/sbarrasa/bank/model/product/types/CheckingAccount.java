@@ -1,6 +1,5 @@
 package com.sbarrasa.bank.model.product.types;
 
-import com.sbarrasa.bank.model.product.ProductType;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.Min;
@@ -23,8 +22,8 @@ public class CheckingAccount extends Account implements CreditProduct {
   private Double creditLimit;
 
   @Override
-  public ProductType getProductType() {
-    return ProductType.valueOf(PRODUCT_TYPE);
+  public String getProductType() {
+    return PRODUCT_TYPE;
   }
 
   @Override

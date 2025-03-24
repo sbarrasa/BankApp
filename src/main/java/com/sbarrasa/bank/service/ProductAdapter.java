@@ -3,8 +3,10 @@ package com.sbarrasa.bank.service;
 import com.sbarrasa.bank.controller.dto.ProductDTO;
 import com.sbarrasa.bank.model.product.ProductEntity;
 import com.sbarrasa.util.validator.Validator;
+import lombok.Getter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -12,8 +14,21 @@ import java.util.stream.Collectors;
 
 @Service
 public class ProductAdapter {
-  private final Validator validator = new Validator();
+
   private final ModelMapper modelMapper = buildModelMapper();
+
+  @Getter
+  private final ProductFactory productFactory;
+
+  @Autowired
+  public ProductAdapter(ProductFactory productFactory) {
+    this.productFactory = productFactory;
+  }
+
+  public ProductAdapter() {
+    this.productFactory = new ProductFactory();
+  }
+
 
   public Set<ProductDTO> toDTOSet(Set<ProductEntity> productEntitieSet) {
     return productEntitieSet.stream()
@@ -23,11 +38,11 @@ public class ProductAdapter {
 
   @SuppressWarnings("unchecked")
   public <T extends ProductEntity> T toEntity(ProductDTO productDTO) {
-    validator.validate(productDTO);
-    ProductEntity productEntity = productDTO.getProductType().createProduct();
+    Validator.validate(productDTO);
+    ProductEntity productEntity = productFactory.create(productDTO.getProductType());
     modelMapper.map(productDTO, productEntity);
 
-    validator.validate(productEntity);
+    Validator.validate(productEntity);
     return (T) productEntity;
   }
 

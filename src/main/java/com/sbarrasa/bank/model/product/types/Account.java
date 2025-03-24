@@ -31,7 +31,7 @@ public abstract class Account extends ProductEntity {
 
   @Override
   public String getDescription() {
-    return getProductType().getDescription()+" en "+getCurrency().getDescription();
+    return super.getDescription()+" en "+getCurrency().getDescription();
   }
 
 }

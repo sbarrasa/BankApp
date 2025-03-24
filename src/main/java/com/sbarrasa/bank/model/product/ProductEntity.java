@@ -3,6 +3,7 @@ package com.sbarrasa.bank.model.product;
 
 import com.sbarrasa.bank.model.product.types.CreditProduct;
 import com.sbarrasa.util.id.Desc;
+import com.sbarrasa.util.validator.Validator;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -15,6 +16,10 @@ import lombok.experimental.Accessors;
 @Table(name = "products")
 @Data
 public abstract class ProductEntity implements Desc {
+
+  @Transient
+  private final Validator validator = new Validator();
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -22,8 +27,7 @@ public abstract class ProductEntity implements Desc {
   @Column(name = "product_type", length = 2, insertable=false, updatable=false)
   @Enumerated(EnumType.STRING)
   @NotNull
-  public abstract ProductType getProductType();
-
+  public abstract String getProductType();
 
   @Override
   public String getDescription() {
