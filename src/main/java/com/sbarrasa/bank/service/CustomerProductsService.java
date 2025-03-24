@@ -91,6 +91,7 @@ public class CustomerProductsService {
     validator.validate(newProduct);
     verifyExists(customer, adapter.cleanDTO(newProduct));
     verifyCBU(customer, newProduct);
+
     var productEntity = adapter.toEntity(newProduct);
     validator.validate(productEntity);
 
