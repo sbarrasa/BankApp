@@ -25,7 +25,6 @@ public abstract class ProductEntity implements Desc {
   private Long id;
 
   @Column(name = "product_type", length = 2, insertable=false, updatable=false)
-  @Enumerated(EnumType.STRING)
   @NotNull
   public abstract String getProductType();
 

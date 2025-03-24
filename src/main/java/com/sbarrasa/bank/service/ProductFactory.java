@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
 @Service
 public class ProductFactory  {
   private final Set<Descriptor> descriptors = new HashSet<>();
-  public final static String INVALID_PRODUCT_TYPE = "tipo de producto inválido";
-  public final static String NO_PRODCUTS_REGISTERED = "no hay tipos de productos registrados";
+  public final static String INVALID_PRODUCT_TYPE = "valores posibles %s";
+  public final static String NO_PRODCUTS_REGISTERED = "no hay productos registrados";
 
   public ProductFactory register(Descriptor descriptor){
     descriptors.add(descriptor);
@@ -32,13 +32,19 @@ public class ProductFactory  {
       .filter(descriptor -> descriptor.id.equals(productType))
       .map(descriptor -> (T) descriptor.supplier.get())
       .findFirst()
-      .orElseThrow(() -> new ProductFactoryException(productType, INVALID_PRODUCT_TYPE));
+      .orElseThrow(() -> new ProductFactoryException(INVALID_PRODUCT_TYPE.formatted(getIds())));
   }
 
   public Set<IdDesc<String>> getAllDescriptors() {
       return descriptors.stream()
         .map(descriptor -> IdDesc.of(descriptor.id, descriptor.name))
         .collect(Collectors.toSet());
+  }
+
+  public Set<String> getIds() {
+    return descriptors.stream()
+      .map(descriptor -> descriptor.id)
+      .collect(Collectors.toSet());
   }
 
   public record Descriptor(String id, String name, Supplier<? extends ProductEntity> supplier){}

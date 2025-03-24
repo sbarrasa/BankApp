@@ -156,7 +156,6 @@ Content-Type: application/json
 
 {
   "productType": "TC",
-  "branch": "MC",
-  "creditLimit": 1234.00,
-  "currency": "EUR"
+  "branch": "VISA",
+  "creditLimit": 123.45
 }

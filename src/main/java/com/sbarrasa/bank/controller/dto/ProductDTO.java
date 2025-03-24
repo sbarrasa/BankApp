@@ -3,9 +3,9 @@ package com.sbarrasa.bank.controller.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.sbarrasa.bank.model.product.Branch;
 import com.sbarrasa.bank.model.product.Currency;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.experimental.Accessors;
-import jakarta.validation.constraints.NotNull;
 
 @Data
 @Accessors(chain = true)

@@ -51,4 +51,10 @@ public class ControllerExceptionHandler {
     }
     return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
   }
+
+  @ExceptionHandler(ProductFactoryException.class)
+  public ResponseEntity<Map<String, String>> handle(ProductFactoryException ex) {
+    return new ResponseEntity<>(Map.of("productType", ex.getMessage()),
+          HttpStatus.BAD_REQUEST);
+  }
 }

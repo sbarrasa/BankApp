@@ -11,7 +11,7 @@ public class DuplicatedProductException extends CustomerProductException {
 
   @Override
   public String getMessage() {
-    return "Producto duplicado";
+    return "producto existente";
   }
 
 }
