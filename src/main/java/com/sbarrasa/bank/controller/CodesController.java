@@ -2,7 +2,7 @@ package com.sbarrasa.bank.controller;
 
 import com.sbarrasa.bank.model.customer.Gender;
 import com.sbarrasa.bank.service.ProductFactory;
-import com.sbarrasa.util.id.EnumDesc;
+import com.sbarrasa.util.id.EnumIdDesc;
 import com.sbarrasa.bank.model.product.Branch;
 import com.sbarrasa.bank.model.product.Currency;
 import com.sbarrasa.util.id.IdDesc;
@@ -29,17 +29,17 @@ public class CodesController {
 
   @GetMapping("/gender")
   public Set<IdDesc<Gender>> getGenderList() {
-    return new EnumDesc<>(Gender.class).asSet();
+    return new EnumIdDesc<>(Gender.class).asSet();
   }
 
   @GetMapping("/branch")
   public Set<IdDesc<Branch>> getBranchList() {
-    return new EnumDesc<>(Branch.class).asSet();
+    return new EnumIdDesc<>(Branch.class).asSet();
   }
 
   @GetMapping("/currency")
   public Set<IdDesc<Currency>> getCurrencyList() {
-    return new EnumDesc<>(Currency.class).asSet();
+    return new EnumIdDesc<>(Currency.class).asSet();
   }
 
 }
