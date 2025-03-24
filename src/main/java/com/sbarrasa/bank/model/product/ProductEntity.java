@@ -27,11 +27,12 @@ public abstract class ProductEntity implements Desc {
 
   @Override
   public String getDescription() {
-    return productType.getDescription();
+    return getProductDescription();
   }
 
   public boolean getIsCredit(){
     return this instanceof CreditProduct;
   }
 
+  public abstract String getProductDescription();
 }

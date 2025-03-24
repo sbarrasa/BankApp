@@ -18,6 +18,8 @@ public class CheckingAccount extends Account implements CreditProduct {
   @Min(1)
   private Double creditLimit;
 
-
-
+  @Override
+  public String getProductDescription() {
+    return "Cuenta corriente";
+  }
 }

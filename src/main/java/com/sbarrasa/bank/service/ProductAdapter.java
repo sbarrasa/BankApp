@@ -2,7 +2,6 @@ package com.sbarrasa.bank.service;
 
 import com.sbarrasa.bank.controller.dto.ProductDTO;
 import com.sbarrasa.bank.model.product.ProductEntity;
-import com.sbarrasa.bank.model.product.types.*;
 import com.sbarrasa.util.validator.Validator;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
@@ -22,21 +21,14 @@ public class ProductAdapter {
       .collect(Collectors.toSet());
   }
 
-  public ProductEntity toEntity(ProductDTO productDTO) {
+  @SuppressWarnings("unchecked")
+  public <T extends ProductEntity> T toEntity(ProductDTO productDTO) {
     validator.validate(productDTO);
-
-    ProductEntity productEntity = switch (productDTO.getProductType()) {
-      case TC -> new CreditCard();
-      case TD -> new DebitCard();
-      case CA -> new SavingAccount();
-      case CC -> new CheckingAccount();
-    };
-
+    ProductEntity productEntity = productDTO.getProductType().createProduct();
     modelMapper.map(productDTO, productEntity);
 
     validator.validate(productEntity);
-    return productEntity;
-
+    return (T) productEntity;
   }
 
 

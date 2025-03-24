@@ -9,4 +9,8 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class SavingAccount extends Account {
 
+  @Override
+  public String getProductDescription() {
+    return "Caja de ahorro";
+  }
 }

@@ -28,6 +28,11 @@ public class CreditCard extends Card implements CreditProduct {
     return super.getDescription() +getTierIfNotNull();
   }
 
+  @Override
+  public String getProductDescription() {
+    return "Tarjeta de crédito";
+  }
+
   private String getTierIfNotNull() {
     return tier == null
       ? ""

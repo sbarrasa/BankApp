@@ -126,4 +126,17 @@ public class ProductAdapterTest {
 
   }
 
+  @Test
+  void toEntity(){
+    var productDTO = new ProductDTO();
+    productDTO.setProductType(ProductType.TC);
+    productDTO.setBranch(Branch.VISA);
+    productDTO.setCreditLimit(123.00);
+
+    var productEntity = adapter.toEntity(productDTO);
+    assertEquals(ProductType.TC, productEntity.getProductType());
+    assertEquals(CreditCard.class, productEntity.getClass());
+
+  }
+
 }

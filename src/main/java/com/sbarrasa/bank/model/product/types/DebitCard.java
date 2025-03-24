@@ -5,9 +5,13 @@ import jakarta.persistence.Entity;
 import lombok.experimental.Accessors;
 
 @Entity
-@DiscriminatorValue("TD")
+@DiscriminatorValue( "TD")
 @Accessors(chain = true)
 public class DebitCard extends Card {
 
 
+  @Override
+  public String getProductDescription() {
+    return "Tarjeta de débito";
+  }
 }
