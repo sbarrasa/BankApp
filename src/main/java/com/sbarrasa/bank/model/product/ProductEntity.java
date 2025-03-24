@@ -22,17 +22,17 @@ public abstract class ProductEntity implements Desc {
   @Column(name = "product_type", length = 2, insertable=false, updatable=false)
   @Enumerated(EnumType.STRING)
   @NotNull
-  private ProductType productType;
+  public abstract ProductType getProductType();
 
 
   @Override
   public String getDescription() {
-    return getProductDescription();
+    return getName();
   }
 
   public boolean getIsCredit(){
     return this instanceof CreditProduct;
   }
 
-  public abstract String getProductDescription();
+  public abstract String getName();
 }

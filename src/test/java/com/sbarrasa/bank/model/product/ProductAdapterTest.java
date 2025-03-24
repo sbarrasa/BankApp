@@ -106,7 +106,6 @@ public class ProductAdapterTest {
   @Test
   void mapDTOToEntity() {
     var productEntity = new CreditCard();
-    productEntity.setProductType(ProductType.TC);
     productEntity.setBranch(Branch.VISA);
 
     assertEquals(ProductType.TC, productEntity.getProductType());

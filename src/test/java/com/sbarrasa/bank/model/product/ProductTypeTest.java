@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ProductTypeTest {
+
   @Test
   public void create() {
     CreditCard product = ProductType.TC.createProduct();
@@ -17,6 +18,6 @@ public class ProductTypeTest {
   @Test
   public void getDescription() {
     var product = ProductType.TD.createProduct();
-    assertEquals(ProductType.TD.getDescription(), product.getProductDescription());
+    assertEquals(ProductType.TD.getDescription(), product.getName());
   }
 }

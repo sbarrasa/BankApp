@@ -1,6 +1,7 @@
 package com.sbarrasa.bank.model.product.types;
 
 
+import com.sbarrasa.bank.model.product.ProductType;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -13,9 +14,12 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-@DiscriminatorValue("TC")
+@DiscriminatorValue(CreditCard.PRODUCT_TYPE)
 @Accessors(chain = true)
 public class CreditCard extends Card implements CreditProduct {
+  public static final String PRODUCT_TYPE = "TC";
+  public static final String NAME = "Tarjeta de crédito";
+
   @NotNull
   @Min(1)
   private Double creditLimit;
@@ -24,13 +28,18 @@ public class CreditCard extends Card implements CreditProduct {
   private String tier;
 
   @Override
+  public ProductType getProductType() {
+    return ProductType.valueOf(PRODUCT_TYPE);
+  }
+
+  @Override
   public String getDescription() {
     return super.getDescription() +getTierIfNotNull();
   }
 
   @Override
-  public String getProductDescription() {
-    return "Tarjeta de crédito";
+  public String getName() {
+    return NAME;
   }
 
   private String getTierIfNotNull() {

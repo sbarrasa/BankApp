@@ -5,34 +5,28 @@ import com.sbarrasa.bank.model.product.types.CreditCard;
 import com.sbarrasa.bank.model.product.types.DebitCard;
 import com.sbarrasa.bank.model.product.types.SavingAccount;
 import com.sbarrasa.util.id.Desc;
+import lombok.Getter;
 
 import java.util.function.Supplier;
 
 public enum ProductType implements Desc {
-  TC(CreditCard::new) ,
-  TD(DebitCard::new),
-  CC(CheckingAccount::new),
-  CA(SavingAccount::new);
+  TC(CreditCard::new, CreditCard.NAME) ,
+  TD(DebitCard::new, DebitCard.NAME),
+  CC(CheckingAccount::new, CheckingAccount.NAME),
+  CA(SavingAccount::new, SavingAccount.NAME);
 
   private final Supplier<? extends ProductEntity> productSupplier;
-  private String description;
 
-  ProductType(Supplier<? extends ProductEntity> productSupplier) {
+  @Getter
+  private final String description;
+
+  ProductType(Supplier<? extends ProductEntity> productSupplier, String name) {
     this.productSupplier = productSupplier;
-  }
-
-  @Override
-  public String getDescription() {
-    if(description == null) {
-      description = productSupplier.get().getProductDescription();
-    }
-    return description;
+    this.description = name;
   }
 
   @SuppressWarnings("unchecked")
   public <T extends ProductEntity> T createProduct() {
-    T product = (T) productSupplier.get();
-    product.setProductType(this);
-    return product;
+    return (T) productSupplier.get();
   }
 }
