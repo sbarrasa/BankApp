@@ -24,7 +24,7 @@ public class CustomerController {
 
   @GetMapping
   public ResponseEntity<List<Customer>> getAll() {
-    var customers = customerService.getAll();
+    var customers = customerService.getAllCustomers();
     return customers.isEmpty()
       ? new ResponseEntity<>(HttpStatus.NO_CONTENT)
       : new ResponseEntity<>(customers, HttpStatus.OK);
@@ -32,7 +32,7 @@ public class CustomerController {
 
   @GetMapping("/{id}")
   public CustomerDTO get(@PathVariable Integer id) {
-    return new CustomerDTO(customerService.get(id));
+    return new CustomerDTO(customerService.getCustomer(id));
   }
 
   @GetMapping("/filter")

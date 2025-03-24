@@ -41,7 +41,8 @@ public class ProductAdapter {
   @SuppressWarnings("unchecked")
   public <T extends ProductEntity> T toEntity(ProductDTO productDTO) {
     validator.validate(productDTO);
-    ProductEntity productEntity = productFactory.create(productDTO.getProductType());
+    
+    var productEntity = productFactory.create(productDTO.getProductType());
     modelMapper.map(productDTO, productEntity);
 
     validator.validate(productEntity);
@@ -66,6 +67,7 @@ public class ProductAdapter {
     modelMapper.map(source, target);
     return target;
   }
+  
   public ProductEntity map(ProductDTO source, ProductEntity target) {
     modelMapper.map(source, target);
     return target;

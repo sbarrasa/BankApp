@@ -16,6 +16,8 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 public abstract class Card extends ProductEntity {
+  public static final String DESCRIPTION_FORMAT = "%s %s";
+
   @Column(length = 4)
   @Enumerated(EnumType.STRING)
   @NotNull
@@ -23,7 +25,9 @@ public abstract class Card extends ProductEntity {
 
   @Override
   public String getDescription() {
-    return super.getDescription()+ " " + getBranch();
+    return DESCRIPTION_FORMAT.formatted(
+      super.getDescription(),
+      getBranch());
   }
 
 }

@@ -25,16 +25,15 @@ public class CustomerService {
     this.validator = new Validator();
   }
 
-  public List<Customer> getAll() {
+  public List<Customer> getAllCustomers() {
       return customerRepository.findAll().stream()
         .map(CustomerDTO::new)
         .collect(Collectors.toList());
   }
 
 
-
   @Transactional
-  public CustomerEntity create(CustomerEntity customer) {
+  public Customer create(CustomerEntity customer) {
     if( customerRepository.existsById(customer.getId()))
       throw new CustomerException(new CustomerDTO(customer), CustomerException.DUPLICATED);
 
@@ -45,8 +44,8 @@ public class CustomerService {
   }
 
   @Transactional
-  public CustomerEntity update(CustomerEntity customer) {
-    if(get(customer.getId())==null)
+  public Customer update(CustomerEntity customer) {
+    if(getCustomer(customer.getId())==null)
       throw new CustomerException(new CustomerDTO(customer), CustomerException.NOT_FOUND);
 
     validator.validate(customer);
@@ -55,15 +54,12 @@ public class CustomerService {
   }
 
   @Transactional
-  public CustomerEntity delete(Integer id) {
-    var customer = get(id);
+  public Customer delete(Integer id) {
+    var customer = getCustomer(id);
     if(customer == null)
       throw new CustomerException(new CustomerDTO().setId(id), CustomerException.NOT_FOUND);
 
-
-    /* arma copia de customer a borrar
-    y actualiza lastUpdate para mostrar customer eliminado */
-
+    // se devolverá una copia del customer borrado con el lastUpdate de la eliminación
     var customerDeleted = new CustomerEntity(customer)
                                               .setLastUpdate(LocalDateTime.now());
 
@@ -80,7 +76,7 @@ public class CustomerService {
   }
 
 
-  public CustomerEntity get(Integer id) {
+  public CustomerEntity getCustomer(Integer id) {
     return customerRepository.findById(id).orElseThrow(
       () -> new CustomerException(new CustomerDTO().setId(id), CustomerException.NOT_FOUND)
     );

@@ -18,6 +18,7 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 public abstract class Account extends ProductEntity {
+  public static final String DESCRIPTION_FORMAT = "%s en %s" ;
 
   @Column(length = 22)
   @NotNull
@@ -31,7 +32,9 @@ public abstract class Account extends ProductEntity {
 
   @Override
   public String getDescription() {
-    return super.getDescription()+" en "+getCurrency().getDescription();
+    return DESCRIPTION_FORMAT.formatted(
+      super.getDescription(),
+      getCurrency().getDescription());
   }
 
 }

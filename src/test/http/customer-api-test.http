@@ -18,6 +18,14 @@ Content-Type: application/json
   }
 }
 
+### Actualizar datos cliente 1
+PUT http://localhost:8080/api/customers/1
+Content-Type: application/json
+
+{
+  "gender": "X"
+}
+
 ### Crear el cliente 2
 POST http://localhost:8080/api/customers
 Content-Type: application/json
@@ -38,19 +46,19 @@ Content-Type: application/json
   }
 }
 
-### Crear cliente 5
+### Crear cliente 9
 POST http://localhost:8080/api/customers
 Content-Type: application/json
 
 {
-  "id": 8,
+  "id": 9,
   "gender": "M",
-  "lastName": "Karim",
-  "firstName": "Julio",
-  "email": "carlos.mendez@example.com",
-  "phoneNumber": "1167890123",
+  "lastName": "Palmera",
+  "firstName": "Flavio",
+  "email": "flavio.palmera@olaverde.com.ar",
+  "phoneNumber": "1155555555",
   "address": {
-    "addressLine": "Avenida Libertador 1234",
+    "addressLine": "Avenida Libertador 4321",
     "city": "Buenos Aires",
     "region": "CABA",
     "postalCode": "1426",
@@ -73,6 +81,6 @@ Content-Type: application/json
 }
 
 
-### Eliminar el primer cliente
-DELETE http://localhost:8080/api/customers/1
+### Eliminar cliente 2
+DELETE http://localhost:8080/api/customers/2
 
