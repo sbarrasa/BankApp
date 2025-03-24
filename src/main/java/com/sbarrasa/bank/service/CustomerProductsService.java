@@ -4,9 +4,9 @@ import com.sbarrasa.bank.controller.dto.CustomerDTO;
 import com.sbarrasa.bank.controller.dto.ProductDTO;
 import com.sbarrasa.bank.model.customer.CustomerEntity;
 import com.sbarrasa.bank.model.product.ProductEntity;
-import com.sbarrasa.bank.service.exceptions.DuplicatedProductException;
-import com.sbarrasa.bank.service.exceptions.ProductNotFondException;
+import com.sbarrasa.bank.service.exceptions.CustomerProductException;
 import com.sbarrasa.util.matcher.MatchType;
+import com.sbarrasa.util.validator.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,11 +18,13 @@ import java.util.stream.Collectors;
 public class CustomerProductsService {
   private final ProductMatcher matcher;
   private final ProductAdapter adapter;
+  private final Validator validator;
 
   @Autowired
-  public CustomerProductsService(ProductMatcher matcher, ProductAdapter adapter ) {
+  public CustomerProductsService(ProductMatcher matcher, ProductAdapter adapter) {
     this.matcher = matcher;
     this.adapter = adapter;
+    this.validator = new Validator();
   }
 
 
@@ -44,11 +46,11 @@ public class CustomerProductsService {
   private void verifyExists(CustomerEntity customer, ProductDTO sampleProduct) {
     var product = find(customer, sampleProduct);
     if (product != null)
-      throw new DuplicatedProductException(new CustomerDTO(customer), adapter.toDTO(product));
+      throw new CustomerProductException(new CustomerDTO(customer), adapter.toDTO(product), CustomerProductException.DUPLICATED);
   }
 
   private void verifyCBU(CustomerEntity customer, ProductDTO newProduct) {
-    if(newProduct.getCbu()!=null) {
+    if (newProduct.getCbu() != null) {
       var account = new ProductDTO().setCbu(newProduct.getCbu());
       verifyExists(customer, account);
     }
@@ -57,8 +59,8 @@ public class CustomerProductsService {
 
   @Transactional
   public Set<ProductDTO> update(CustomerEntity customer, ProductDTO productSample, ProductDTO updateProduct) {
-    if(filter(customer, productSample).isEmpty())
-      throw new ProductNotFondException(new CustomerDTO(customer), productSample);
+    if (filter(customer, productSample).isEmpty())
+      throw new CustomerProductException(new CustomerDTO(customer), productSample, CustomerProductException.NOT_FOUND);
 
     var updatedProducts = customer.getProducts().stream()
       .filter(currentProduct -> matcher.match(currentProduct, productSample, MatchType.ALL))
@@ -71,8 +73,10 @@ public class CustomerProductsService {
   @Transactional
   public Set<ProductDTO> delete(CustomerEntity customer, ProductDTO productSample) {
     var productsToDelete = filter(customer, productSample);
-    if(productsToDelete.isEmpty())
-      throw new ProductNotFondException(new CustomerDTO(customer), productSample);
+    if (productsToDelete.isEmpty())
+      throw new CustomerProductException(new CustomerDTO(customer),
+        productSample,
+        CustomerProductException.NOT_FOUND);
 
     customer.getProducts()
       .removeIf(product ->
@@ -84,17 +88,17 @@ public class CustomerProductsService {
 
   @Transactional
   public ProductDTO add(CustomerEntity customer, ProductDTO newProduct) {
-
+    validator.validate(newProduct);
     verifyExists(customer, adapter.cleanDTO(newProduct));
     verifyCBU(customer, newProduct);
-
     var productEntity = adapter.toEntity(newProduct);
+    validator.validate(productEntity);
+
 
     customer.getProducts().add(productEntity);
 
     return adapter.toDTO(productEntity);
   }
-
 
 
 }

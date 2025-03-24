@@ -156,6 +156,8 @@ POST http://localhost:8080/api/customers/1/products
 Content-Type: application/json
 
 {
-  "productType": "TC_VISA",
-  "creditLimit": 123.45
+  "productType": "TC",
+  "branch": "VISA",
+  "creditLimit": 1234,
+  "cbu": "1234567890123456789033"
 }

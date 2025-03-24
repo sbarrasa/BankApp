@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 public class ProductAdapter {
 
   private final ModelMapper modelMapper;
+  private final Validator validator;
 
   @Getter
   private final ProductFactory productFactory;
@@ -26,6 +27,7 @@ public class ProductAdapter {
 
   @Autowired
   public ProductAdapter(ProductFactory productFactory) {
+    this.validator = new Validator();
     this.productFactory = productFactory;
     modelMapper = buildModelMapper();
   }
@@ -38,11 +40,11 @@ public class ProductAdapter {
 
   @SuppressWarnings("unchecked")
   public <T extends ProductEntity> T toEntity(ProductDTO productDTO) {
-    Validator.validate(productDTO);
+    validator.validate(productDTO);
     ProductEntity productEntity = productFactory.create(productDTO.getProductType());
     modelMapper.map(productDTO, productEntity);
 
-    Validator.validate(productEntity);
+    validator.validate(productEntity);
     return (T) productEntity;
   }
 
