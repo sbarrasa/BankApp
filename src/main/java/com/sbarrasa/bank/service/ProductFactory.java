@@ -18,6 +18,13 @@ public class ProductFactory  {
   public final static String INVALID_PRODUCT_TYPE = "valores posibles %s";
   public final static String NO_PRODCUTS_REGISTERED = "no hay productos registrados";
 
+  public ProductFactory register(Supplier<? extends ProductEntity> productSupplier){
+    var product = productSupplier.get();
+    var descriptor = new Descriptor(product.getProductType(), product.getName(), productSupplier);
+    register(descriptor);
+    return this;
+  }
+
   public ProductFactory register(Descriptor descriptor){
     descriptors.add(descriptor);
     return this;
