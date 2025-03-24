@@ -146,7 +146,8 @@ Content-Type: application/json
     "branch": "VISA"
   },
   "updateProduct": {
-    "creditLimit": 85000
+    "creditLimit": 85000,
+    "tier": "SINGNATURE"
   }
 }
 
@@ -155,7 +156,6 @@ POST http://localhost:8080/api/customers/1/products
 Content-Type: application/json
 
 {
-  "productType": "TC",
-  "branch": "VISA",
+  "productType": "TC_VISA",
   "creditLimit": 123.45
 }

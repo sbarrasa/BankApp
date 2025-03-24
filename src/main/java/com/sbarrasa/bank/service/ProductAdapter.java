@@ -15,20 +15,20 @@ import java.util.stream.Collectors;
 @Service
 public class ProductAdapter {
 
-  private final ModelMapper modelMapper = buildModelMapper();
+  private final ModelMapper modelMapper;
 
   @Getter
   private final ProductFactory productFactory;
 
+  public ProductAdapter() {
+    this(new ProductFactory());
+  }
+
   @Autowired
   public ProductAdapter(ProductFactory productFactory) {
     this.productFactory = productFactory;
+    modelMapper = buildModelMapper();
   }
-
-  public ProductAdapter() {
-    this.productFactory = new ProductFactory();
-  }
-
 
   public Set<ProductDTO> toDTOSet(Set<ProductEntity> productEntitieSet) {
     return productEntitieSet.stream()
@@ -58,7 +58,6 @@ public class ProductAdapter {
     return toDTO(toEntity(sampleProduct));
 
   }
-
 
 
   public ProductDTO map(ProductEntity source, ProductDTO target) {
