@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
 public class CustomerService {
 
   private final CustomerRepository customerRepository;
-  private final Validator validator = new Validator();
 
   public CustomerService(CustomerRepository customerRepository) {
     this.customerRepository = customerRepository;
@@ -38,7 +37,7 @@ public class CustomerService {
     if( customerRepository.existsById(customer.getId()))
       throw new DuplicatedCustomerException(new CustomerDTO(customer));
 
-    validator.validate(customer);
+    Validator.validate(customer);
 
     return customerRepository.save(customer);
 
@@ -49,7 +48,7 @@ public class CustomerService {
     if(get(customer.getId())==null)
       throw new CustomerNotFoundException(new CustomerDTO(customer));
 
-    validator.validate(customer);
+    Validator.validate(customer);
 
     return customerRepository.save(customer);
   }
