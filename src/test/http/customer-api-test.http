@@ -81,6 +81,9 @@ Content-Type: application/json
 }
 
 
+### Eliminar cliente 1
+DELETE http://localhost:8080/api/customers/1
+
 ### Eliminar cliente 2
 DELETE http://localhost:8080/api/customers/2
 
