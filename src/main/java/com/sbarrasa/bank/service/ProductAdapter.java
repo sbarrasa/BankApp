@@ -29,7 +29,7 @@ public class ProductAdapter {
   public ProductAdapter(ProductFactory productFactory) {
     this.validator = new Validator();
     this.productFactory = productFactory;
-    modelMapper = buildModelMapper();
+    modelMapper = createModelMapper();
   }
 
   public Set<ProductDTO> toDTOSet(Set<ProductEntity> productEntitieSet) {
@@ -73,7 +73,7 @@ public class ProductAdapter {
     return target;
   }
 
-  private ModelMapper buildModelMapper(){
+  private ModelMapper createModelMapper(){
     var mapper = new ModelMapper();
     mapper.getConfiguration().setSkipNullEnabled(true);
 
