@@ -33,7 +33,7 @@ public class CustomerProductsController {
   public ProductDTO addProduct(@PathVariable Integer customerId,
                                @RequestBody ProductDTO newProduct) {
 
-    var customer = customerService.getCustomer(customerId);
+    var customer = customerService.findCustomer(customerId);
 
     var productAdded = customerProductsService.add(customer, newProduct);
 
@@ -48,7 +48,7 @@ public class CustomerProductsController {
   public Set<ProductDTO> updateProducts(@PathVariable Integer customerId,
                                         @RequestBody ProductUpdatePair productUpdatePair) {
 
-    var customer = customerService.getCustomer(customerId);
+    var customer = customerService.findCustomer(customerId);
 
     var updatedProducts = customerProductsService.update(customer,
       productUpdatePair.searchProduct(),
@@ -64,7 +64,7 @@ public class CustomerProductsController {
   @DeleteMapping("/{customerId}/products")
   public Set<ProductDTO> deleteProducts(@PathVariable Integer customerId,
                                         @RequestBody ProductDTO searchProduct) {
-    var customer = customerService.getCustomer(customerId);
+    var customer = customerService.findCustomer(customerId);
 
     var deletedProducts = customerProductsService.delete(customer, searchProduct);
 
@@ -75,7 +75,7 @@ public class CustomerProductsController {
 
   @GetMapping("/{customerId}/products")
   public Set<ProductDTO> getProducts(@PathVariable Integer customerId) {
-    var customer = customerService.getCustomer(customerId);
+    var customer = customerService.findCustomer(customerId);
 
     return productAdapter.toDTOSet(customer.getProducts());
   }
@@ -83,7 +83,7 @@ public class CustomerProductsController {
   @GetMapping("/{customerId}/products/filter")
   public Set<ProductDTO> getProductsByExample(@PathVariable Integer customerId,
                                               @RequestBody ProductDTO productSample) {
-    var customer = customerService.getCustomer(customerId);
+    var customer = customerService.findCustomer(customerId);
 
     return customerProductsService.filter(customer, productSample);
 

@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
 
 @Data
@@ -24,6 +23,5 @@ public class CustomerDTO implements Customer {
   private Address address;
   private String email;
   private String phoneNumber;
-  private Set<ProductDTO> products;
   private LocalDateTime lastUpdate;
 }
