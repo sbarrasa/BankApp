@@ -49,7 +49,7 @@ public class CustomerEntity implements Customer {
   @Column(length = 40)
   private String email;
 
-  @Pattern(regexp = "^[0-9]{10}$", message = "Invalid phone number")
+  @Pattern(regexp = "^[0-9]{10}$", message = "Teléfono inválido")
   @Column(length = 20)
   private String phoneNumber;
 

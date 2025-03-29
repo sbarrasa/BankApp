@@ -23,7 +23,7 @@ PUT http://localhost:8080/api/customers/1
 Content-Type: application/json
 
 {
-  "gender": "M"
+  "gender": "X"
 }
 
 ### Crear el cliente 2
