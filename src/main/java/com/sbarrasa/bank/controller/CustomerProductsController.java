@@ -37,7 +37,7 @@ public class CustomerProductsController {
 
     var productAdded = customerProductsService.add(customer, newProduct);
 
-    customerService.update(customer);
+    customerService.save(customer);
 
     return productAdded;
 
@@ -54,7 +54,7 @@ public class CustomerProductsController {
       productUpdatePair.searchProduct(),
       productUpdatePair.updateProduct());
 
-    customerService.update(customer);
+    customerService.save(customer);
 
     return updatedProducts;
 
@@ -68,7 +68,7 @@ public class CustomerProductsController {
 
     var deletedProducts = customerProductsService.delete(customer, searchProduct);
 
-    customerService.update(customer);
+    customerService.save(customer);
     return deletedProducts;
   }
 

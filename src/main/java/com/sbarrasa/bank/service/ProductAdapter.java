@@ -15,10 +15,11 @@ import java.util.stream.Collectors;
 @Service
 public class ProductAdapter {
 
-  private final ModelMapper modelMapper;
   private final Validator validator;
-
+  
   @Getter
+  private final ModelMapper mapper;
+
   private final ProductFactory productFactory;
 
   public ProductAdapter() {
@@ -29,7 +30,7 @@ public class ProductAdapter {
   public ProductAdapter(ProductFactory productFactory) {
     this.validator = new Validator();
     this.productFactory = productFactory;
-    modelMapper = createModelMapper();
+    this.mapper = createModelMapper();
   }
 
   public Set<ProductDTO> toDTOSet(Set<ProductEntity> productEntitieSet) {
@@ -43,7 +44,7 @@ public class ProductAdapter {
     validator.validate(productDTO);
     
     var productEntity = productFactory.create(productDTO.getProductType());
-    modelMapper.map(productDTO, productEntity);
+    mapper.map(productDTO, productEntity);
 
     validator.validate(productEntity);
     return (T) productEntity;
@@ -51,28 +52,14 @@ public class ProductAdapter {
 
 
   public ProductDTO toDTO(ProductEntity productEntity) {
-    var productDTO = new ProductDTO();
-
-    modelMapper.map(productEntity, productDTO);
-    return productDTO;
+    return mapper.map(productEntity, ProductDTO.class);
   }
 
   public ProductDTO cleanDTO(ProductDTO sampleProduct) {
     return toDTO(toEntity(sampleProduct));
 
   }
-
-
-  public ProductDTO map(ProductEntity source, ProductDTO target) {
-    modelMapper.map(source, target);
-    return target;
-  }
   
-  public ProductEntity map(ProductDTO source, ProductEntity target) {
-    modelMapper.map(source, target);
-    return target;
-  }
-
   private ModelMapper createModelMapper(){
     var mapper = new ModelMapper();
     mapper.getConfiguration().setSkipNullEnabled(true);
@@ -87,4 +74,9 @@ public class ProductAdapter {
     return mapper;
   }
 
+
+  public <S, T> T map(S source, T target) {
+    mapper.map(source, target);
+    return target;
+  }
 }

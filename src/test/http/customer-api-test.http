@@ -72,12 +72,12 @@ GET http://localhost:8080/api/customers/1
 ### Obtener todos los clientes
 GET http://localhost:8080/api/customers
 
-### Obtener clientes masculinos
+### Obtener clientes femeninos
 GET http://localhost:8080/api/customers/filter
 Content-Type: application/json
 
 {
-  "gender": "M"
+  "gender": "X"
 }
 
 
@@ -86,4 +86,3 @@ DELETE http://localhost:8080/api/customers/1
 
 ### Eliminar cliente 2
 DELETE http://localhost:8080/api/customers/2
-

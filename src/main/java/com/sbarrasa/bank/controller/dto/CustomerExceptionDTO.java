@@ -6,8 +6,6 @@ import com.sbarrasa.bank.service.exceptions.CustomerException;
 import com.sbarrasa.bank.service.exceptions.CustomerProductException;
 import lombok.Getter;
 
-import java.util.Objects;
-
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
 public final class CustomerExceptionDTO {
@@ -34,29 +32,6 @@ public final class CustomerExceptionDTO {
 
   public CustomerExceptionDTO(CustomerProductException ex) {
     this(ex.getMessage(), ex.getCustomer(), ex.getProduct());
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (obj == this) return true;
-    if (obj == null || obj.getClass() != this.getClass()) return false;
-    var that = (CustomerExceptionDTO) obj;
-    return Objects.equals(this.message, that.message) &&
-      Objects.equals(this.customer, that.customer) &&
-      Objects.equals(this.product, that.product);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(message, customer, product);
-  }
-
-  @Override
-  public String toString() {
-    return "CustomerExceptionDTO[" +
-      "message=" + message + ", " +
-      "customer=" + customer + ", " +
-      "product=" + product + ']';
   }
 
 

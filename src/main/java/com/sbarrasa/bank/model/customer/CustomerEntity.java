@@ -66,19 +66,5 @@ public class CustomerEntity implements Customer {
   private Set<ProductEntity> products;
 
 
-  public CustomerEntity(){
-
-  }
-
-  public CustomerEntity(Customer customer){
-    this.setId(customer.getId());
-    this.setFirstName(customer.getFirstName());
-    this.setLastName(customer.getLastName());
-    this.setGender(customer.getGender());
-    this.setEmail(customer.getEmail());
-    this.setAddress(customer.getAddress());
-    this.setPhoneNumber(customer.getPhoneNumber());
-  }
-
 
 }
