@@ -1,12 +1,14 @@
-package com.sbarrasa.bank.model.product;
+package com.sbarrasa.bank.service;
 
 import com.sbarrasa.bank.config.ProductFactoryConfig;
 import com.sbarrasa.bank.controller.dto.ProductDTO;
+import com.sbarrasa.bank.model.product.Branch;
+import com.sbarrasa.bank.model.product.Currency;
 import com.sbarrasa.bank.model.product.types.*;
-import com.sbarrasa.bank.service.ProductAdapter;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static com.sbarrasa.bank.model.product.ProductEntityTest.*;
+import static com.sbarrasa.bank.model.product.ProductSamples.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ProductAdapterTest {
@@ -25,14 +27,14 @@ public class ProductAdapterTest {
 
     assertNull(productDTO.getBranch());
     assertNotNull(productDTO.getCbu());
-    assertEquals(Currency.ARS, productDTO.getCurrency());
+    Assertions.assertEquals(Currency.ARS, productDTO.getCurrency());
   }
 
   @Test
   void card() {
     var productDTO = adapter.toDTO(productTC_VISA);
 
-    assertEquals(Branch.VISA, productDTO.getBranch());
+    Assertions.assertEquals(Branch.VISA, productDTO.getBranch());
     assertNull(productDTO.getCurrency());
   }
 

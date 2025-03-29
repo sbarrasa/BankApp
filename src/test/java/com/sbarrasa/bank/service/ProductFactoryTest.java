@@ -1,8 +1,7 @@
-package com.sbarrasa.bank.model.product;
+package com.sbarrasa.bank.service;
 
 import com.sbarrasa.bank.config.ProductFactoryConfig;
 import com.sbarrasa.bank.model.product.types.CreditCard;
-import com.sbarrasa.bank.service.ProductFactory;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
