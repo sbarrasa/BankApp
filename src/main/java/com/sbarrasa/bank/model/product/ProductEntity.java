@@ -20,7 +20,7 @@ public abstract class ProductEntity implements Desc {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "product_type", length = 2, insertable=false, updatable=false)
+  @Column(name = "product_type", length = 2, insertable = false, updatable = false)
   @NotNull
   public abstract String getProductType();
 
@@ -29,7 +29,7 @@ public abstract class ProductEntity implements Desc {
     return getName();
   }
 
-  public boolean getIsCredit(){
+  public boolean getIsCredit() {
     return this instanceof CreditProduct;
   }
 

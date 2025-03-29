@@ -1,6 +1,8 @@
 package com.sbarrasa.util.matcher;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ObjectMatcher<T> {
 
@@ -13,7 +15,7 @@ public class ObjectMatcher<T> {
 
 
   public boolean match(T object, T sampleObject, MatchType matchType) {
-    if(!hasCriteria(sampleObject))
+    if (!hasCriteria(sampleObject))
       return false;
 
     for (GetFuntion<T> getFuntion : getters) {
@@ -22,7 +24,7 @@ public class ObjectMatcher<T> {
 
       var sampleValue = getFuntion.apply(sampleObject);
 
-      if(sampleValue != null) {
+      if (sampleValue != null) {
         var objectValue = getFuntion.apply(object);
         attributeMatch = sampleValue.equals(objectValue);
 

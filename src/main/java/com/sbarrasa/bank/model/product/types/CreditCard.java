@@ -33,7 +33,7 @@ public class CreditCard extends Card implements CreditProduct {
 
   @Override
   public String getDescription() {
-    return super.getDescription() +getTierIfNotNull();
+    return super.getDescription() + getTierIfNotNull();
   }
 
   @Override
@@ -44,7 +44,7 @@ public class CreditCard extends Card implements CreditProduct {
   private String getTierIfNotNull() {
     return tier == null
       ? ""
-      : " " +tier;
+      : " " + tier;
   }
 
 }

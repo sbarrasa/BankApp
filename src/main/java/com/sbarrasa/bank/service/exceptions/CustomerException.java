@@ -9,6 +9,7 @@ public class CustomerException extends RuntimeException {
   public static final String DUPLICATED = "cliente existente";
 
   private final Customer customer;
+
   public CustomerException(Customer customer, String message) {
     super(message);
     this.customer = customer;

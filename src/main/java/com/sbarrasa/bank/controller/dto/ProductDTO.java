@@ -10,7 +10,7 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class ProductDTO  {
+public class ProductDTO {
   @NotNull
   private String productType;
   private String cbu;

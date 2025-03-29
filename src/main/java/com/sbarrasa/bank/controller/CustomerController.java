@@ -49,14 +49,13 @@ public class CustomerController {
   @PutMapping("/{id}")
   public Customer update(@PathVariable Integer id,
                          @RequestBody CustomerDTO customer) {
-     return customerService.update(id, customer);
+    return customerService.update(id, customer);
   }
 
   @DeleteMapping("/{id}")
   public Customer delete(@PathVariable Integer id) {
     return customerService.delete(id);
   }
-
 
 
 }

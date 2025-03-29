@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class DebitCard extends Card {
   public static final String PRODUCT_TYPE = "TD";
-  public static final String NAME  = "Tarjeta de débito";
+  public static final String NAME = "Tarjeta de débito";
 
   @Override
   public String getProductType() {

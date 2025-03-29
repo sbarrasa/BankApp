@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
 public class ProductMatcher extends ObjectMatcher<ProductDTO> {
   private final ProductAdapter productAdapter;
 
-  public ProductMatcher(){
+  public ProductMatcher() {
     this(new ProductAdapter());
   }
 
   @Autowired
-  public ProductMatcher(ProductAdapter productAdapter){
+  public ProductMatcher(ProductAdapter productAdapter) {
     super(
       ProductDTO::getProductType,
       ProductDTO::getBranch,
@@ -28,7 +28,7 @@ public class ProductMatcher extends ObjectMatcher<ProductDTO> {
     this.productAdapter = productAdapter;
   }
 
-   public boolean match(ProductEntity product, ProductDTO sampleObject, MatchType matchType) {
+  public boolean match(ProductEntity product, ProductDTO sampleObject, MatchType matchType) {
     return match(productAdapter.toDTO(product), sampleObject, matchType);
   }
 }

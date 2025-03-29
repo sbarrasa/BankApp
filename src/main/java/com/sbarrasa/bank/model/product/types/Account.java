@@ -18,7 +18,7 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 public abstract class Account extends ProductEntity {
-  public static final String DESCRIPTION_FORMAT = "%s en %s" ;
+  public static final String DESCRIPTION_FORMAT = "%s en %s";
 
   @Column(length = 22)
   @NotNull

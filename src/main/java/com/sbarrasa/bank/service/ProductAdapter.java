@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class ProductAdapter {
 
   private final Validator validator;
-  
+
   @Getter
   private final ModelMapper mapper;
 
@@ -42,7 +42,7 @@ public class ProductAdapter {
   @SuppressWarnings("unchecked")
   public <T extends ProductEntity> T toEntity(ProductDTO productDTO) {
     validator.validate(productDTO);
-    
+
     var productEntity = productFactory.create(productDTO.getProductType());
     mapper.map(productDTO, productEntity);
 
@@ -59,8 +59,8 @@ public class ProductAdapter {
     return toDTO(toEntity(sampleProduct));
 
   }
-  
-  private ModelMapper createModelMapper(){
+
+  private ModelMapper createModelMapper() {
     var mapper = new ModelMapper();
     mapper.getConfiguration().setSkipNullEnabled(true);
 

@@ -4,14 +4,14 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class EnumIdDesc<E extends Enum<E> & Desc>{
+public class EnumIdDesc<E extends Enum<E> & Desc> {
   private final Class<E> enumType;
 
   public EnumIdDesc(Class<E> enumType) {
     this.enumType = enumType;
   }
 
-  public Set<IdDesc<E>> asSet(){
+  public Set<IdDesc<E>> asSet() {
     return Arrays.stream(enumType.getEnumConstants())
       .map(EnumIdDescAdapter::new)
       .collect(Collectors.toSet());

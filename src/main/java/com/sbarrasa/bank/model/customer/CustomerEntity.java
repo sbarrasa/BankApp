@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.sbarrasa.bank.model.product.ProductEntity;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -64,7 +64,6 @@ public class CustomerEntity implements Customer {
   @OneToMany(cascade = CascadeType.ALL)
   @JoinColumn(name = "customer_id")
   private Set<ProductEntity> products;
-
 
 
 }

@@ -38,7 +38,7 @@ public class CustomerService {
 
   @Transactional
   public Customer create(CustomerDTO customer) {
-    if(customerRepository.existsById(customer.getId()))
+    if (customerRepository.existsById(customer.getId()))
       throw new CustomerException(customer, CustomerException.DUPLICATED);
 
     var customerEntity = mapper.map(customer, CustomerEntity.class);
@@ -57,10 +57,10 @@ public class CustomerService {
   @Transactional
   public Customer update(Integer customerId, Customer customer) {
     var customerEntity = findCustomer(customerId);
-    
-    if(customerEntity==null)
+
+    if (customerEntity == null)
       throw new CustomerException(customer, CustomerException.NOT_FOUND);
-    
+
     mapper.map(customer, customerEntity);
     return save(customerEntity);
 
@@ -69,7 +69,7 @@ public class CustomerService {
   @Transactional
   public Customer delete(Integer id) {
     var customer = getCustomer(id);
-    if(customer == null)
+    if (customer == null)
       throw new CustomerException(new CustomerDTO().setId(id), CustomerException.NOT_FOUND);
 
     // se devolverá una copia del customer borrado con el lastUpdate de la eliminación
@@ -96,7 +96,7 @@ public class CustomerService {
       .collect(Collectors.toList());
   }
 
-  public CustomerEntity findCustomer(Integer id){
+  public CustomerEntity findCustomer(Integer id) {
     return customerRepository.findById(id).orElseThrow(
       () -> new CustomerException(new CustomerDTO().setId(id), CustomerException.NOT_FOUND)
     );

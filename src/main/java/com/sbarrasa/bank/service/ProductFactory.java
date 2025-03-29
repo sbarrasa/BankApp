@@ -13,26 +13,26 @@ import java.util.stream.Collectors;
 
 @Getter
 @Service
-public class ProductFactory  {
+public class ProductFactory {
   private final Set<Descriptor> descriptors = new HashSet<>();
   public final static String INVALID_PRODUCT_TYPE = "valores posibles %s";
   public final static String NO_PRODCUTS_REGISTERED = "no hay productos registrados";
 
-  public ProductFactory register(Supplier<? extends ProductEntity> productSupplier){
+  public ProductFactory register(Supplier<? extends ProductEntity> productSupplier) {
     var product = productSupplier.get();
     var descriptor = new Descriptor(product.getProductType(), product.getName(), productSupplier);
     register(descriptor);
     return this;
   }
 
-  public ProductFactory register(Descriptor descriptor){
+  public ProductFactory register(Descriptor descriptor) {
     descriptors.add(descriptor);
     return this;
   }
 
   @SuppressWarnings("unchecked")
   public <T extends ProductEntity> T create(String productType) {
-    if(descriptors.isEmpty())
+    if (descriptors.isEmpty())
       throw new ProductFactoryException(NO_PRODCUTS_REGISTERED);
 
     return descriptors.stream()
@@ -43,9 +43,9 @@ public class ProductFactory  {
   }
 
   public Set<IdDesc<String>> getAllDescriptors() {
-      return descriptors.stream()
-        .map(descriptor -> IdDesc.of(descriptor.id, descriptor.name))
-        .collect(Collectors.toSet());
+    return descriptors.stream()
+      .map(descriptor -> IdDesc.of(descriptor.id, descriptor.name))
+      .collect(Collectors.toSet());
   }
 
   public Set<String> getIds() {
@@ -54,5 +54,5 @@ public class ProductFactory  {
       .collect(Collectors.toSet());
   }
 
-  public record Descriptor(String id, String name, Supplier<? extends ProductEntity> supplier){}
+  public record Descriptor(String id, String name, Supplier<? extends ProductEntity> supplier) {}
 }
