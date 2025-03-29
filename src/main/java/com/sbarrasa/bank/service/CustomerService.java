@@ -50,13 +50,13 @@ public class CustomerService {
   public Customer save(CustomerEntity customer) {
     validator.validate(customer);
 
-    return customerRepository.save(customer);
+    return mapper.map(customerRepository.save(customer), CustomerDTO.class);
 
   }
 
   @Transactional
   public Customer update(Integer customerId, Customer customer) {
-    var customerEntity = getCustomer(customerId);
+    var customerEntity = findCustomer(customerId);
     
     if(customerEntity==null)
       throw new CustomerException(customer, CustomerException.NOT_FOUND);
@@ -80,7 +80,7 @@ public class CustomerService {
     return customerDeleted;
   }
 
-  public List<Customer> getAllCustomers() {
+  public List<Customer> getAll() {
     return customerRepository.findAll().stream()
       .map(customer -> mapper.map(customer, CustomerDTO.class))
       .collect(Collectors.toList());
@@ -96,9 +96,13 @@ public class CustomerService {
       .collect(Collectors.toList());
   }
 
-  public CustomerEntity getCustomer(Integer id) {
+  public CustomerEntity findCustomer(Integer id){
     return customerRepository.findById(id).orElseThrow(
       () -> new CustomerException(new CustomerDTO().setId(id), CustomerException.NOT_FOUND)
     );
+  }
+
+  public Customer getCustomer(Integer id) {
+    return mapper.map(findCustomer(id), CustomerDTO.class);
   }
 }

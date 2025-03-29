@@ -23,8 +23,7 @@ public class CustomerController {
 
   @GetMapping
   public ResponseEntity<List<Customer>> getAll() {
-    //TODO: mostrar sólo datos de los clientes sin sus productos
-    var customers = customerService.getAllCustomers();
+    var customers = customerService.getAll();
     return customers.isEmpty()
       ? new ResponseEntity<>(HttpStatus.NO_CONTENT)
       : new ResponseEntity<>(customers, HttpStatus.OK);
