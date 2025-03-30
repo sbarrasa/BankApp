@@ -19,7 +19,7 @@
 
 
 ### SERVICIOS
-La app tiene 4 controllers separados que podrían ponerse en microservicios independientes.
+La app tiene controllers separados que podrían ponerse en microservicios independientes.
 
 ### CustomerController 
 > Api: http://localhost:8080/api/customers
@@ -85,15 +85,6 @@ usados tanto para manipulación como consultas de products y customers
 * PRODUCT_TYPE
 * CURRENCY
 * BRANCH
-
-### RemoteControl
-> Api: http://localhost:8080/remote/customers/{customerId}
-
-> Api tests: src/test/java/http/remote-api-test.http
-
-A modo de demostración, este controller expone una única operación (GET)
-que llama a los otros dos controllers para armar un customer con todos sus productos
-
 
 
 ### JUnit test
