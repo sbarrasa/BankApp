@@ -1,7 +1,6 @@
 package com.sbarrasa.bank.controller.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.sbarrasa.bank.model.customer.Customer;
 import com.sbarrasa.bank.service.exceptions.CustomerException;
 import com.sbarrasa.bank.service.exceptions.CustomerProductException;
 import lombok.Getter;

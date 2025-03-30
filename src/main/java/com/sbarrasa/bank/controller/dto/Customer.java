@@ -1,4 +1,7 @@
-package com.sbarrasa.bank.model.customer;
+package com.sbarrasa.bank.controller.dto;
+
+import com.sbarrasa.bank.model.customer.Address;
+import com.sbarrasa.bank.model.customer.Gender;
 
 import java.time.LocalDateTime;
 

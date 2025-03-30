@@ -1,6 +1,7 @@
 package com.sbarrasa.bank.model.customer;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.sbarrasa.bank.controller.dto.Customer;
 import com.sbarrasa.bank.model.product.ProductEntity;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;

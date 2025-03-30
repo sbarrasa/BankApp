@@ -1,7 +1,7 @@
 package com.sbarrasa.bank.service;
 
 import com.sbarrasa.bank.controller.dto.CustomerDTO;
-import com.sbarrasa.bank.model.customer.Customer;
+import com.sbarrasa.bank.controller.dto.Customer;
 import com.sbarrasa.bank.model.customer.CustomerEntity;
 import com.sbarrasa.bank.repository.CustomerRepository;
 import com.sbarrasa.bank.service.exceptions.CustomerException;

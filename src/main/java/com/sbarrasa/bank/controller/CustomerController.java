@@ -1,7 +1,7 @@
 package com.sbarrasa.bank.controller;
 
 import com.sbarrasa.bank.controller.dto.CustomerDTO;
-import com.sbarrasa.bank.model.customer.Customer;
+import com.sbarrasa.bank.controller.dto.Customer;
 import com.sbarrasa.bank.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,6 +27,11 @@ public class CustomerController {
     return customers.isEmpty()
       ? new ResponseEntity<>(HttpStatus.NO_CONTENT)
       : new ResponseEntity<>(customers, HttpStatus.OK);
+  }
+
+  @GetMapping("/{id}/fulldata")
+  public Customer getFullData(@PathVariable Integer id) {
+    return customerService.findCustomer(id);
   }
 
   @GetMapping("/{id}")

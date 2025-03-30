@@ -1,5 +1,6 @@
 package com.sbarrasa.bank.model.customer;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
@@ -8,6 +9,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Data
 @Accessors(chain = true)
@@ -37,4 +43,18 @@ public class Address {
   @NotNull
   @Column(length = 30)
   private String country;
+
+
+  @JsonIgnore
+  public List<String> asList(){
+    return Arrays.asList(addressLine, location, city, region, "(" + postalCode + ")", country);
+  }
+
+  @JsonIgnore
+  public String getFullAddress() {
+    return
+      asList().stream()
+      .filter(Objects::nonNull)
+      .collect(Collectors.joining(", "));
+  }
 }

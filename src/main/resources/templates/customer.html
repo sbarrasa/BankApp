@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html" lang="ES">
+<head>
+    <meta charset="UTF-8">
+    <title>Cliente Detalles</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0-alpha1/css/bootstrap.min.css">
+    <style>
+        .larger-text {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .smaller-text {
+            font-size: 0.9em;
+        }
+
+        .data-field {
+            font-weight: normal;
+        }
+
+        .table th, .table td {
+            vertical-align: middle;
+        }
+
+        .filter-section input {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-4">
+    <h3>Cliente: <span th:text="${customer.id}"></span></h3>
+
+    <div class="row mt-4">
+        <div class="col">
+            <span >Apellido:</span> <span class="larger-text" th:text="${customer.lastName}"></span>
+            <span>&nbsp;Nombre:</span> <span class="larger-text" th:text="${customer.firstName}"></span>
+            <span>&nbsp;Género:</span> <span class="data-field" th:text="${customer.gender.getDescription()}"></span>
+        </div>
+
+    <div class="row">
+        <div class="col">
+            <span class="smaller-text">Email:</span> <span class="data-field" th:text="${customer.email}"></span>
+            <span class="smaller-text">&nbsp;Teléfono:</span> <span class="data-field" th:text="${customer.phoneNumber}"></span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <p><span class="smaller-text">Dirección:</span> <span class="data-field" th:text="${customer.address.fullAddress}"></span></p>
+        </div>
+    </div>
+
+    <!-- Tabla de Productos -->
+    <h4 class="mt-4">Productos</h4>
+    <span><button id="filterButton" class="btn btn-primary">Filtrar</button></span>
+    <span><button id="showAllButton" class="btn btn-primary">Todos</button></span>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Tipo</th>
+            <th>CBU</th>
+            <th>Branch</th>
+            <th>Tier</th>
+            <th>Crediticio</th>
+            <th>Límite</th>
+            <th>Descripción</th>
+        </tr>
+        </thead>
+        <tbody id="productTableBody">
+     <!--   <tr>
+            <td><input type="text" id="productType" class="form-control" th:value="${filter.productType}" placeholder="Filtrar por Tipo de Producto"></td>
+            <td><input type="text" id="cbu" class="form-control" th:value="${filter.cbu}" placeholder="Filtrar por CBU"></td>
+            <td><input type="text" id="branch" class="form-control" th:value="${filter.branch}" placeholder="Filtrar por Marca"></td>
+            <td></td>
+            <td><select id="creditFilter" class="form-select">
+                <option value="all">Todos</option>
+                <option value="true">Crediticio</option>
+                <option value="false">No Crediticio</option>
+            </select></td>
+        </tr><-->
+        <tr th:each="product : ${products}">
+            <td th:text="${product.productType}"></td>
+            <td th:text="${product.cbu}"></td>
+            <td th:text="${product.branch}"></td>
+            <td th:text="${product.tier}"></td>
+            <td>
+            </td>
+            <td th:text="${product.creditLimit}"></td>
+            <td th:text="${product.description}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script th:inline="javascript">
+    function toggleIsCredit() {
+        const isCredit = document.getElementById('isCredit').checked;
+        const filterData = {
+            productType: document.getElementById('productType').value,
+            cbu: document.getElementById('cbu').value,
+            branch: document.getElementById('branch').value,
+            isCredit: isCredit,
+            creditLimit: document.getElementById('creditLimit').value
+        };
+
+        fetch('/api/customers/{customerId}/products/filter', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(filterData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('productTableBody');
+                tableBody.innerHTML = '';
+                data.forEach(product => {
+                    const row = `<tr>
+                        <td>${product.productType}</td>
+                        <td>${product.cbu}</td>
+                        <td>${product.branch}</td>
+                        <td>${product.tier}</td>
+                        <td><input type="checkbox" class="form-check-input" ${product.isCredit ? 'checked' : ''} disabled></td>
+                        <td>${product.creditLimit}</td>
+                        <td>${product.description}</td>
+                    </tr>`;
+                    tableBody.innerHTML += row;
+                });
+            });
+    }
+
+    document.getElementById('filterButton').addEventListener('click', toggleIsCredit);
+</script>
+</div>
+</body>
+</html>

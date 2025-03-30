@@ -1,7 +1,7 @@
 package com.sbarrasa.bank.service.exceptions;
 
 import com.sbarrasa.bank.controller.dto.ProductDTO;
-import com.sbarrasa.bank.model.customer.Customer;
+import com.sbarrasa.bank.controller.dto.Customer;
 import lombok.Getter;
 
 @Getter
