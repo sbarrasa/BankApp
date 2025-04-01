@@ -3,42 +3,38 @@ package com.sbarrasa.util.matcher;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ObjectMatcher<T> {
 
-  private final Set<GetFuntion<T>> getters;
+  private final Set<GetFunction<T>> getters;
 
   @SafeVarargs
-  public ObjectMatcher(GetFuntion<T>... getters) {
+  public ObjectMatcher(GetFunction<T>... getters) {
     this.getters = new HashSet<>(Arrays.asList(getters));
   }
 
 
   public boolean match(T object, T sampleObject, MatchType matchType) {
-    if (!hasCriteria(sampleObject))
-      return false;
+    var matchableGetters = getMatcheableGetters(sampleObject);
 
-    for (GetFuntion<T> getFuntion : getters) {
+    if(matchableGetters.isEmpty()) return false;
 
-      boolean attributeMatch;
+    for (GetFunction<T> getter : matchableGetters) {
+      var sampleValue = getter.apply(sampleObject);
+      var objectValue = getter.apply(object);
+      boolean valueMatch = sampleValue.equals(objectValue);
 
-      var sampleValue = getFuntion.apply(sampleObject);
-
-      if (sampleValue != null) {
-        var objectValue = getFuntion.apply(object);
-        attributeMatch = sampleValue.equals(objectValue);
-
-        if (attributeMatch && matchType == MatchType.ANY) return true;
-        if (!attributeMatch && matchType == MatchType.ALL) return false;
-      }
+      if (valueMatch && matchType == MatchType.ANY) return true;
+      if (!valueMatch && matchType == MatchType.ALL) return false;
     }
 
     return matchType == MatchType.ALL;
   }
 
-  private boolean hasCriteria(T sampleObject) {
+  public Set<GetFunction<T>> getMatcheableGetters(T sampleObject) {
     return getters.stream()
-      .anyMatch(getFuntion -> getFuntion.apply(sampleObject) != null);
+      .filter(getter -> getter.apply(sampleObject) != null)
+      .collect(Collectors.toSet());
   }
-
 }
