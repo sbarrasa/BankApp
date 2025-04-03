@@ -157,5 +157,7 @@ Content-Type: application/json
 
 {
   "productType": "CA",
-  "currency": 1
+  "currency": "USD",
+  "cbu": "1234567890123456789033"
+
 }

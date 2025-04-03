@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class CustomerProductsService {
@@ -28,17 +29,14 @@ public class CustomerProductsService {
 
 
   public Set<ProductDTO> filter(CustomerEntity customer, ProductDTO newProduct) {
-    var filteredProducts = customer.getProducts().stream()
-      .filter(product -> matcher.match(product, newProduct, MatchType.ALL))
+    var filteredProducts = filterProducts(customer, newProduct)
       .collect(Collectors.toSet());
 
     return adapter.toDTOSet(filteredProducts);
   }
 
   public ProductEntity find(CustomerEntity customer, ProductDTO sampleProduct) {
-
-    return customer.getProducts().stream()
-      .filter(product -> matcher.match(product, sampleProduct, MatchType.ALL))
+    return filterProducts(customer, sampleProduct)
       .findFirst().orElse(null);
   }
 
@@ -57,12 +55,11 @@ public class CustomerProductsService {
   }
 
   @Transactional
-  public Set<ProductDTO> update(CustomerEntity customer, ProductDTO productSample, ProductDTO updateProduct) {
-    if (filter(customer, productSample).isEmpty())
-      throw new CustomerProductException(customer, productSample, CustomerProductException.NOT_FOUND);
+  public Set<ProductDTO> update(CustomerEntity customer, ProductDTO sampleProduct, ProductDTO updateProduct) {
+    if (filter(customer, sampleProduct).isEmpty())
+      throw new CustomerProductException(customer, sampleProduct, CustomerProductException.NOT_FOUND);
 
-    var updatedProducts = customer.getProducts().stream()
-      .filter(currentProduct -> matcher.match(currentProduct, productSample, MatchType.ALL))
+    var updatedProducts = filterProducts(customer, sampleProduct)
       .map(currentProduct -> adapter.map(updateProduct, currentProduct))
       .collect(Collectors.toSet());
 
@@ -99,6 +96,12 @@ public class CustomerProductsService {
 
     return adapter.toDTO(productEntity);
   }
+
+  private Stream<ProductEntity> filterProducts(CustomerEntity customer, ProductDTO productSample){
+    return customer.getProducts().stream()
+      .filter(currentProduct -> matcher.match(currentProduct, productSample, MatchType.ALL));
+  }
+
 
 
 }
